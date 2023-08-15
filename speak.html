@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text-to-Speech Example</title>
+<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+</head>
+<body>
+
+<button id="convert-button">Convert to Speech</button>
+<button id="speak-texts">Speak Texts</button>
+
+<script>
+  const convertButton = document.getElementById('speak-texts');
+
+  convertButton.addEventListener('click', () => {
+    const textToConvert = textInput.value;
+
+    if (textToConvert.trim() === '') {
+      alert('Please enter text to convert.');
+      return;
+    }
+
+    // Convert text to speech
+    responsiveVoice.speak(textToConvert);
+  });
+</script>
+
+</body>
+</html>
