@@ -1,0 +1,187 @@
+a {
+     text-decoration: none;
+     font-family: "Avenir Next";
+}
+
+.menu-section a {
+     text-decoration: none;
+     color: #2184F7;
+     font-family: "Avenir Next";
+     font-size: 20px;
+     font-weight: 500;
+}
+
+.menu-section a:hover, a:hover {
+     color: #004493;
+}
+
+.menu-section * {
+     margin: 10px;
+}
+
+#accessibility-menu{
+     position: absolute;
+}
+
+#accessibility-options {
+     display: grid;
+}
+
+
+
+#home-button-top-span {
+     margin-top: -160px;
+     position: absolute;
+}
+
+.home-span {
+     color: rgb(175, 176, 177);
+     font-size: 20px;
+}
+
+#home-button-bottom-span {
+     margin-top: 200px;
+     position: absolute;
+     display: flex;
+     align-items: center;
+     font-size: 15px;
+}
+
+#home-button-bottom-span-b {
+     margin-top: 150px;
+     position: absolute;
+     display: flex;
+     align-items: center;
+     font-size: 15px;
+     color: #2184F7;
+     font-family: "Avenir Next";
+     font-weight: 500;
+     text-decoration: underline;
+}
+
+#home-button-bottom-span:hover, #home-button-bottom-span-b:hover {
+     filter: brightness(.8);
+}
+
+.home-button {
+     font-size: 40px;
+     border-radius: 5px;
+     padding: 10px 30px;
+     margin: 10px 30px;
+}
+
+ .home-button:hover {
+     filter: brightness(.9);
+ }
+
+ #employee {
+     background-color: color(srgb 0.1277 0.5183 0.9668);
+     color: white;
+     border: none;
+     letter-spacing: 4px;
+ }
+
+ #employer {
+     background-color: white;
+     color: color(srgb 0.1277 0.5183 0.9668);
+     border: 1px solid color(srgb 0.1277 0.5183 0.9668);
+     letter-spacing: 4px;
+ }
+
+ .link-underline {
+     text-decoration: underline !important;
+ }
+
+ .disable-link {
+     pointer-events: none;
+     cursor: default;
+ }
+
+ #q-mark-svg {
+     filter: grayscale(1) opacity(.5);
+ }
+
+ .gray-text {
+     color: #333333 !important;
+ }
+
+ #ph-time {
+     margin: 0px 10px;
+     font-size: 15px;
+     width: 300px;
+ }
+
+ .speakable-text {
+     transition: background-color 0.3s;
+}
+
+.page-indicator {
+     margin: 0px 55px;
+}
+
+.page-indicator-txt.active {
+     cursor: default;
+     pointer-events: none;
+}
+
+.page-indicator-txt.active, .page-indicator-txt:hover {
+     color: #333333 !important;
+}
+
+.page-indicator-txt, .page-indicator-txt.divider:hover {
+     color: #dcdcdc !important;
+     margin: 0px 2px;
+     text-transform: capitalize;
+     font-weight: 650 !important;
+}
+
+.login-section {
+     background-color: white;
+     border: 4px solid color(srgb 0.1277 0.5183 0.9668);
+     border-radius: 10px;
+}
+
+.login-head-txt {
+     background-color: color(srgb 0.1277 0.5183 0.9668);
+     color: white;
+     padding: 10px;
+     font-family: "Avenir Next";
+     text-align: center;
+}
+
+.login-input {
+     margin: 15px 30px;
+     border: none;
+     border-bottom: 3px solid color(srgb 0.1277 0.5183 0.9668);
+     font-family: "Avenir Next";
+     text-align: center;
+}
+
+.login-btn {
+     margin: 20px 40px;
+     border: 2px solid color(srgb 0.1277 0.5183 0.9668);
+     background-color: transparent;
+     border-radius: 5px;
+     font-family: "Avenir Next";
+     letter-spacing: 2px;
+     font-weight: 600;
+     padding-bottom: 0px;
+     margin-bottom: 10px;
+}
+
+.login-btn:hover {
+     filter: brightness(.8);
+     background-color: rgba(32, 131, 246, 0.09);
+}
+
+.login-footer {
+     font-size: 13px;
+     color: #2184F7;
+     text-align: center !important;
+     margin-bottom: 20px;
+     text-decoration: underline;
+}
+
+.login-footer:hover {
+     color: #175dae;
+}

@@ -1,0 +1,82 @@
+.form-section {
+     margin: 10px 5px;
+     
+}
+
+.form-head-txt {
+     font-weight: bold;
+}
+
+#next-button, #submit-button {
+     background-color: color(srgb 0.1277 0.5183 0.9668);
+     border: none;
+     color: white;
+}
+
+#prev-button {
+     background-color: white;
+     border: none;
+     color: color(srgb 0.1277 0.5183 0.9668);
+}
+
+#next-button, #prev-button, #submit-button{
+     text-transform: uppercase;
+     letter-spacing: 1px;
+     font-weight: 500;
+     font-family: "Avenir Next";
+     padding-top: 5px;
+     padding-left: 14px;
+     padding-right: 14px;
+     border-radius: 5px;
+}
+
+#next-button:hover, #prev-button:hover, #submit-button:hover {
+     filter: brightness(.9) !important;
+}
+
+/* image section */
+.preview-image {
+     height: 200px;
+     width: 250px;
+     background-color: white;
+     border: 3px solid color(srgb 0.1277 0.5183 0.9668);
+     margin: 0 auto;
+     position: relative;
+     border-radius: 5px;
+}
+
+.preview-image:hover:before {
+     content: "Click to upload";
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: rgba(57, 57, 57, 0.48);
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     color: #ffffff;
+     font-weight: bold;
+     font-size: 16px;
+}
+
+.load-picture-text {
+     background-color: color(srgb 0.1277 0.5183 0.9668);
+     color: white;
+     text-align: center;
+     font-size: 20px;
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+}
+
+.image-section {
+     margin: 0px 20px;
+}
+
+
+.req-indicator {
+     color: red;
+}
