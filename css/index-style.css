@@ -132,7 +132,8 @@ a {
      color: #dcdcdc !important;
      margin: 0px 2px;
      text-transform: capitalize;
-     font-weight: 650 !important;
+     font-weight: 500 !important;
+     letter-spacing: 1px;
 }
 
 .login-section {
