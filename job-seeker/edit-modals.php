@@ -389,6 +389,125 @@
      </div>
 </div>
 
+<!-- update career history -->
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-career-history" aria-labelledby="offcanvasExampleLabel">
+     <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Update Career History</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+     </div>
+     <div class="offcanvas-body">
+          <div>
+               <form action="<?php echo htmlspecialchars('../function/update-job-seeker-career-history.php'); ?>"  method="post" class="was-validated" novalidate style="max-width: 800px !important;">
+                    <div id="job-seeker-signup-a" class="form-section">
+                         <div class="">
+                              <div>
+                                   <input type="hidden" name="jobseeker_id" value="<?= "$jobseeker_ID" ?>" id="jobseeker-id">
+                                   <input type="hidden" name="career_history_id" id="career-history-id">
+                                   <div class="input-group mb-3 d-grid">
+                                        <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Job title:</span>
+                                        <input list="job-titles" type="text" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" name="job_title" aria-label="job_title" aria-describedby="basic-addon1" required>
+                                        <div class="invalid-feedback">Please add job title.</div>
+                                   </div>
+                                   <div class="input-group mb-3 d-grid">
+                                        <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Company name:</span>
+                                        <input type="text" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="company_name" required>
+                                        <div class="invalid-feedback">Please add company name.</div>
+                                   </div>
+                                   <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Started:</span>
+                                        <select class="form-select" aria-label="start_year" name="start_year" aria-describedby="start-year-label" id="start_year_select_career" required>
+                                             <option value="">Start Year</option>
+                                             <?php
+                                                  $currentYear = date("Y");
+                                                  for ($year = 1950; $year <= 2023; $year++) {
+                                                       echo "<option value='$year'>$year</option>";
+                                                  }
+                                             ?>
+                                        </select>
+                                   </div>
+                                   <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator ended-year" id="ended-year_update">*</span>Ended:</span>
+                                        <select class="form-select end_year_select_career" aria-label="graduation_year" name="end_year" aria-describedby="start-year-label" id="graduation_year_select_career_update" required>
+                                             <option value="">End Year</option>
+                                             <?php
+                                                  $currentYear = date("Y");
+                                                  for ($year = $currentYear; $year >= 1950; $year--) {
+                                                       echo "<option value='$year'>$year</option>";
+                                                  }
+                                             ?>
+                                        </select>
+                                   </div>
+                                   <div class="input-group mb-3">
+                                        <div class="input-group-text">
+                                             <input class="form-check-input mt-0 me-2 still_in_role_checkbox" type="checkbox" name="still_in_role" value="1" aria-label="Checkbox for following text input" id="still_in_role_checkbox_update">
+                                             <label class="form-check-label" for="flexCheckDefault">
+                                                  Still in role
+                                             </label>
+                                        </div>
+                                   </div>
+                                   <div class="input-group mb-3 d-grid">
+                                        <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">Description: <span class="recom-indicator">(recommended)</span></span>
+                                        <textarea class="form-control" placeholder="Summarise your responsibilities, skills and achievements." name="career_history_description" style="height: 250px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"><?= "$course_highlights" ?></textarea>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="mt-0 mb-3 ms-1 me-0 d-flex justify-content-end">
+                         <button id="prev-button" type="button" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+                         <button id="submit-button" class="button m-1" type="submit">Submit</button>
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>
 
-
+<!-- update career history -->
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-login" aria-labelledby="offcanvasExampleLabel">
+     <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Edit Login Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+     </div>
+     <div class="offcanvas-body">
+          <div>
+               <form action="<?php echo htmlspecialchars('../function/update-login-details.php'); ?>"  method="post" class="needs-validation" novalidate style="max-width: 800px !important;">
+                    <div id="job-seeker-signup-a" class="form-section">
+                         <div class="">
+                              <div>
+                                   <input type="hidden" name="jobseeker_id" value="<?= "$jobseeker_ID" ?>" id="jobseeker-id">
+                                   <div class="input-group mb-3 d-grid">
+                                        <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Email:</span>
+                                        <input list="job-titles" type="text" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" name="email" aria-label="job_title" aria-describedby="basic-addon1" value="<?= "$email" ?>" required>
+                                        <div class="invalid-feedback">Please add email.</div>
+                                   </div>
+                                   <div class="input-group mb-3 d-grid d-none">
+                                        <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Old Password:</span>
+                                        <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="" disabled value="<?= "$jobseeker_password" ?>"> 
+                                   </div>
+                                   <div class=" mb-3">
+                                        <input type="checkbox" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
+                                        <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Change Password</label><br>
+                                   </div>
+                                   <div class="d-none" id="password-section">
+                                        <div class="input-group mb-3 d-grid">
+                                             <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Confirm Old Password:</span>
+                                             <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="confirm_current_password" id="confirm_current_password">
+                                             <div class="invalid-feedback">Please enter your old password.</div>
+                                        </div>
+                                        <div class="input-group mb-3 d-grid">
+                                             <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>New Password:</span>
+                                             <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="new_password" id="new_password">
+                                             <div class="invalid-feedback">Please enter your new password.</div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="mt-0 mb-3 ms-1 me-0 d-flex justify-content-end">
+                         <button id="prev-button" type="button" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+                         <button id="submit-button" class="button m-1" type="submit">Submit</button>
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>
 

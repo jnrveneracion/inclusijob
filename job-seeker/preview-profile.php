@@ -129,11 +129,11 @@
                          <div>
                               <div class="fs-2"><?= "$firstname $middlename $lastname" ?></div>
                               <div class="">
-                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve" focusable="false" fill="currentColor" width="16" height="16" class="_1uznlpf0 _1uvwke522 _1m9vd2q56 _1m9vd2q5e _1n6dj3h0 _1n6dj3h2 _1n6dj3h3 _1n6dj3h4" aria-hidden="true"><path d="M12 1C7.6 1 4 4.6 4 9c0 4.1 6.5 12.6 7.2 13.6.2.2.5.4.8.4s.6-.1.8-.4c.7-1 7.2-9.5 7.2-13.6 0-4.4-3.6-8-8-8zm0 19.3c-2.2-3-6-8.8-6-11.3 0-3.3 2.7-6 6-6s6 2.7 6 6c0 2.5-3.8 8.3-6 11.3z"></path><path d="M12 5c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm0 4c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"></path></svg>
+                                   <svg style="fill: white; opacity: 1;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve" focusable="false" fill="currentColor" width="16" height="16" class="_1uznlpf0 _1uvwke522 _1m9vd2q56 _1m9vd2q5e _1n6dj3h0 _1n6dj3h2 _1n6dj3h3 _1n6dj3h4" aria-hidden="true"><path d="M12 1C7.6 1 4 4.6 4 9c0 4.1 6.5 12.6 7.2 13.6.2.2.5.4.8.4s.6-.1.8-.4c.7-1 7.2-9.5 7.2-13.6 0-4.4-3.6-8-8-8zm0 19.3c-2.2-3-6-8.8-6-11.3 0-3.3 2.7-6 6-6s6 2.7 6 6c0 2.5-3.8 8.3-6 11.3z"></path><path d="M12 5c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm0 4c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"></path></svg>
                                    <?= "$jobseeker_address" ?>
                               </div>
                               <div class="">
-                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve" focusable="false" fill="currentColor" width="16" height="16" class="_1uznlpf0 _1uvwke522 _1m9vd2q56 _1m9vd2q5e _1n6dj3h0 _1n6dj3h2 _1n6dj3h3 _1n6dj3h4" aria-hidden="true"><path d="M22 6.8C21.9 5.2 20.6 4 19 4H5C3.4 4 2.1 5.2 2 6.8V17c0 1.7 1.3 3 3 3h14c1.7 0 3-1.3 3-3V6.8zM5 6h14c.4 0 .7.2.9.5L12 11.8 4.1 6.5c.2-.3.5-.5.9-.5zm14 12H5c-.6 0-1-.4-1-1V8.9l7.4 5c.2.1.4.2.6.2s.4-.1.6-.2l7.4-5V17c0 .6-.4 1-1 1z"></path></svg>
+                                   <svg style="fill: white; opacity: 1;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve" focusable="false" fill="currentColor" width="16" height="16" class="_1uznlpf0 _1uvwke522 _1m9vd2q56 _1m9vd2q5e _1n6dj3h0 _1n6dj3h2 _1n6dj3h3 _1n6dj3h4" aria-hidden="true"><path d="M22 6.8C21.9 5.2 20.6 4 19 4H5C3.4 4 2.1 5.2 2 6.8V17c0 1.7 1.3 3 3 3h14c1.7 0 3-1.3 3-3V6.8zM5 6h14c.4 0 .7.2.9.5L12 11.8 4.1 6.5c.2-.3.5-.5.9-.5zm14 12H5c-.6 0-1-.4-1-1V8.9l7.4 5c.2.1.4.2.6.2s.4-.1.6-.2l7.4-5V17c0 .6-.4 1-1 1z"></path></svg>
                                    <a href="mailto:<?= "$email" ?>" class="text-white"><?= "$email" ?></a>
                               </div>
                               <div>
@@ -206,16 +206,18 @@
                          <?php include "../function/retrieve-job-seeker-career-history.php" ?>
                     </div>
                </div>
-               <div>
+               <div id="login-details-section">
                     <p class="fs-5 head-text mt-4">Login Details</p>
                     <div class="info-body row">
-                         <div class="col-12 col-md-6">
-                              <p class="info-section"><span class="info-label">Email: </span><span class="info-data"><?= "$email" ?></span></p>
+                         <div class="col-12 col-md-4 d-flex align-items-center">
+                              <p class="info-section mb-0"><span class="info-label">Email: </span><span class="info-data"><?= "$email" ?></span></p>
                          </div>
-                         <div class="col-12 col-md-6">
-                              <p class="info-section"><span class="info-label">Password: </span><input disabled style="border: none; background-color: transparent;" class="info-data" type="password" value="<?= "$jobseeker_password" ?>"></input></p>
+                         <div class="col-12 col-md-4 d-flex align-items-center">
+                              <p class="info-section mb-0"><span class="info-label">Password: </span><input disabled style="border: none; background-color: transparent;" class="info-data" type="password" value="<?= "$jobseeker_password" ?>"></input></p>      
+                         </div>
+                         <div class="col-12 col-md-4">
                               <div class="d-flex justify-content-end">
-                                   <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#update-login" aria-controls="offcanvasExample">Edit</button>
+                                   <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-login" aria-controls="offcanvasExample">Edit</button>
                               </div>
                          </div>
                     </div>
@@ -237,6 +239,7 @@
           const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
      </script>
 
+     <!-- update education modal -->
      <script>
           function openSpecificModal(button) {
           // Get the specific modal
@@ -282,6 +285,62 @@
           }
      </script>
 
+
+     <!-- update career history modal -->
+     <script>
+          function openSpecificModalForCareerHistory(button) {
+          // Get the specific modal
+          var specificModal = document.getElementById('edit-career-history');
+
+          // Get the data attributes from the button (career history)
+          var careerHistoryId = button.getAttribute('career-history-id');
+          var jobTitle = button.getAttribute('job-title');
+          var companyName = button.getAttribute('company-name');
+          var startYear = button.getAttribute('start-year');
+          var endYear = button.getAttribute('end-year');
+          var stillInRole = button.getAttribute('still-in-role');
+          var careerHistoryDescription = button.getAttribute('career-history-description');
+
+          if (stillInRole === "1") { // Check if the value is "1"
+               var checkbox = specificModal.querySelector('input[name="still_in_role"]');
+               var inputEndYear = specificModal.querySelector('select[name="end_year"]');
+               checkbox.checked = true; // Check the checkbox
+               inputEndYear.removeAttribute("required");
+          } else if (stillInRole === "") { // Check if the value is ""
+               var checkboxB = specificModal.querySelector('input[name="still_in_role"]');
+               checkboxB.checked = false;
+          }
+
+          // Set the values of the input fields within the modal
+          specificModal.querySelector('input[name="career_history_id"]').value = careerHistoryId;
+          specificModal.querySelector('input[name="job_title"]').value = jobTitle;
+          specificModal.querySelector('input[name="company_name"]').value = companyName;
+          specificModal.querySelector('textarea[name="career_history_description"]').value = careerHistoryDescription;
+
+
+          // Set the selected options for start and graduation years
+          var startYearSelect = specificModal.querySelector('#start_year_select_career');
+          var gradYearSelect = specificModal.querySelector('#graduation_year_select_career_update');
+
+          for (var i = 0; i < startYearSelect.options.length; i++) {
+               if (startYearSelect.options[i].value === startYear) {
+                    startYearSelect.selectedIndex = i;
+                    break;
+               }
+          }
+
+          for (var i = 0; i < gradYearSelect.options.length; i++) {
+               if (gradYearSelect.options[i].value === endYear) {
+                    gradYearSelect.selectedIndex = i;
+                    break;
+               }
+          }
+
+          // Open the specific modal
+          var offcanvas = bootstrap.Offcanvas(specificModal);
+               offcanvas.show();
+          }
+     </script>
 
      <!-- automatic year selection modal-->
      <script>
@@ -359,7 +418,9 @@
                }
           });
      </script>
+     <!-- automatic year selection modal-->
 
+     <!-- still in role career -->
      <script>
           // Get references to the checkbox, select, and required indicator elements
           var checkbox = document.getElementById("still_in_role_checkbox");
@@ -374,15 +435,44 @@
                selectYear.setAttribute("disabled", "");
                // Hide the required indicator
                reqIndicator.style.display = "none";
+               selectYear.value = "";
           } else {
                // If the checkbox is unchecked, add the "required" attribute back to the select element
                selectYear.setAttribute("required", "");
                // Show the required indicator
                reqIndicator.style.display = "inline";
                selectYear.removeAttribute("disabled");
+               
           }
           });
      </script>
+
+     <script>
+          // Get references to the checkbox, select, and required indicator elements
+          var checkboxUpdate = document.getElementById("still_in_role_checkbox_update");
+          var selectYearUpdate = document.getElementById("graduation_year_select_career_update");
+          var reqIndicatorUpdate = document.getElementById("ended-year_update");
+
+          // Add an event listener to the checkbox
+          checkboxUpdate.addEventListener("click", function () {
+          if (checkboxUpdate.checked) {
+               // If the checkbox is checked, remove the "required" attribute from the select element
+               selectYearUpdate.removeAttribute("required");
+               selectYearUpdate.setAttribute("disabled", "");
+               selectYearUpdate.value = "";
+               // Hide the required indicator
+               reqIndicatorUpdate.style.display = "none";
+          } else {
+               // If the checkbox is unchecked, add the "required" attribute back to the select element
+               selectYearUpdate.setAttribute("required", "");
+               // Show the required indicator
+               reqIndicatorUpdate.style.display = "inline";
+               selectYearUpdate.removeAttribute("disabled");
+          }
+          });
+     </script>
+     <!-- still in role career -->
+
 
      <script>
           // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -406,6 +496,7 @@
           })()
      </script>
 
+     <!-- automatic age computation -->
      <script>
           // Function to calculate age from the selected birthday
           function calculateAge() {
@@ -430,5 +521,30 @@
           var birthdayInput = document.querySelector('input[name="birthday"]');
           birthdayInput.addEventListener('change', calculateAge);
      </script>
+     <!-- automatic age computation -->
+
+<!-- update password modal -->
+<script>
+    var changePasswordCheckbox = document.getElementById("btn-check-2-outlined");
+    var passwordSection = document.getElementById("password-section");
+
+    var reqCurrentPass = document.querySelector('input[name="confirm_current_password"]');
+    var reqNewPass = document.querySelector('input[name="new_password"]');
+
+    changePasswordCheckbox.addEventListener("change", function () {
+        passwordSection.classList.toggle("d-none", !changePasswordCheckbox.checked);
+        if (!changePasswordCheckbox.checked) {
+            reqCurrentPass.removeAttribute('required');
+            reqNewPass.removeAttribute('required');
+        } else {
+            reqCurrentPass.setAttribute('required', 'required');
+            reqNewPass.setAttribute('required', 'required');
+        }
+    });
+</script>
+<!-- -->
+
 </body>
 </html>
+
+
