@@ -183,7 +183,7 @@
           // Generate a random passcode and set it as the input value and attribute
           const generatedJobSeekerID = generateJobSeekerID();
           JobSeekerIDInput.value = generatedJobSeekerID;
-          JobSeekerIDInput.setAttribute('value', 'JOBSEEKER-' + generatedJobSeekerID);
+          JobSeekerIDInput.setAttribute('value', generatedJobSeekerID);
      </script>
 
      <script>

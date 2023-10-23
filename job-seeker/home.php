@@ -1,7 +1,7 @@
 <?php
      session_start();
      include "../session-check/job-seeker-not-set.php";
-     include "../function/retrieve-job-seeker-signup.php";
+     include "../function/retrieve-job-seeker-signup.php";     
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +54,7 @@
      </style>
 </head>
 <body class="container-xxl">
-     <?php require "../common/head-inside-folder.php"; ?>
+     <?php include "../common/head-inside-folder.php"; ?>
      <div class="breadcrumbs">
           <div class="page-indicator d-flex justify-content-center justify-content-lg-start">
                <a href="../index.php" class="no-decor-link"><h6 class="page-indicator-txt active">Job Seeker</h6></a> 
@@ -84,7 +84,7 @@
                </div>
           </div>
      </div>
-     <?php require "../common/footer-inside-folder.php"; ?>
-     <?php require "../common/message-session.php"; ?>
+     <?php include "../common/footer-inside-folder.php"; ?>
+     <?php include "../common/message-session.php"; ?>
 </body>
 </html>

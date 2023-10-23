@@ -38,7 +38,7 @@ if (isset($_GET['message'])) {
           // Automatically hide the custom toast after 5 seconds (5000 milliseconds)
           setTimeout(function () {
                hideCustomToast();
-          }, 10000);
+          }, 3000);
      }
 
      // Function to hide the custom toast

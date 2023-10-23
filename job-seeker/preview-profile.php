@@ -59,12 +59,21 @@
                margin: 5px 0px;
           }
 
+          #btn-solid {
+               background-color: rgb(122, 122, 122);
+               color: white;
+               border: 2px solid rgb(122, 122, 122);
+               border-radius: 10px;
+               padding: 5px 30px;
+               margin: 5px 10px;
+          }
+
           #btn-outline-b:hover {
                color: black;
                border: 2px solid black;
           }
 
-          #btn-outline-a:hover {
+          #btn-outline-a:hover, #btn-solid:hover {
                filter: brightness(.9);
           }
 
@@ -90,9 +99,14 @@
           }
 
           .info-data {
-               font-weight: 600;
+               font-weight: 450;
                color: rgb(0, 0, 0);
                letter-spacing: 1px;
+          }
+
+          .recom-indicator {
+               color: rgb(193, 193, 193);
+               margin: 0px 5px;
           }
      </style>
 </head>
@@ -134,9 +148,9 @@
           </div>
           
           <div style="margin: 0px 4%;" class="avenir">
-               <div>
+               <div id="personal-info-section">
                     <p class="fs-5 head-text">Personal Information</p>
-                    <div class="info-body row">
+                    <div class="info-body me-lg-0 me-0 ms-lg-0 ms-0 row">
                          <div class="col-12 col-md-6">
                               <p class="info-section"><span class="info-label">First name: </span><span class="info-data"><?= "$firstname" ?></span></p>
                               <p class="info-section"><span class="info-label">Middle name: </span><span class="info-data"><?= "$middlename" ?></span></p>
@@ -149,7 +163,59 @@
                               <p class="info-section"><span class="info-label">Contact no.: </span><span class="info-data"><?= "$contact_no" ?></span></p>
                               <p class="info-section"><span class="info-label">Address: </span><span class="info-data"><?= "$jobseeker_address" ?></span></p>
                               <div class="d-flex justify-content-end">
-                                   <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Edit</button>
+                                   <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-personal-info" aria-controls="offcanvasExample">Edit</button>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <div id="objectives-section">
+                    <p class="fs-5 head-text mt-4">Personal Summary</p>
+                    <div class="info-body me-lg-0 me-0 ms-lg-0 ms-0 row">
+                         <div class="col-12">
+                              <p class="info-section"><span class="info-data"><?= isset($jobseeker_objectives) ? $jobseeker_objectives : 'click edit' ?></span></p>
+                              <div class="d-flex justify-content-end">
+                                   <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-objectives" aria-controls="offcanvasExample">Edit</button>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <div id="education-section">
+                    <div class="d-flex justify-content-start align-items-center">
+                    <p class="fs-5 head-text mt-4">Education</p>
+                         <button id="btn-solid" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#add-education" aria-controls="offcanvasExample">Add</button>
+                    </div>
+                    <div class="row">
+                         <?php include "../function/retrieve-job-seeker-education.php" ?>
+                    </div>
+               </div>
+               <div id="skills-section">
+                    <div class="d-flex justify-content-start align-items-center">
+                    <p class="fs-5 head-text mt-4">Skills</p>
+                         <button id="btn-solid" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#add-skill" aria-controls="offcanvasExample">Add</button>
+                    </div>
+                    <div class="row">
+                         <?php include "../function/retrieve-job-seeker-skill.php" ?>
+                    </div>
+               </div>
+               <div id="career-history-section">
+                    <div class="d-flex justify-content-start align-items-center">
+                    <p class="fs-5 head-text mt-4">Career History</p>
+                         <button id="btn-solid" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#add-career" aria-controls="offcanvasExample">Add</button>
+                    </div>
+                    <div class="row">
+                         <?php include "../function/retrieve-job-seeker-career-history.php" ?>
+                    </div>
+               </div>
+               <div>
+                    <p class="fs-5 head-text mt-4">Login Details</p>
+                    <div class="info-body row">
+                         <div class="col-12 col-md-6">
+                              <p class="info-section"><span class="info-label">Email: </span><span class="info-data"><?= "$email" ?></span></p>
+                         </div>
+                         <div class="col-12 col-md-6">
+                              <p class="info-section"><span class="info-label">Password: </span><input disabled style="border: none; background-color: transparent;" class="info-data" type="password" value="<?= "$jobseeker_password" ?>"></input></p>
+                              <div class="d-flex justify-content-end">
+                                   <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#update-login" aria-controls="offcanvasExample">Edit</button>
                               </div>
                          </div>
                     </div>
@@ -159,112 +225,163 @@
      </div>
 
      <!-- offcanvas forms -->
-
-     <!-- personal Information -->
-     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-          <div class="offcanvas-header">
-               <h5 class="offcanvas-title" id="offcanvasExampleLabel">Edit Personal Information</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-               <div>
-                    <form action="<?php echo htmlspecialchars('../function/update-job-seeker-signup.php'); ?>"  method="post" class="was-validated" novalidate style="max-width: 800px !important;">
-                         <div id="job-seeker-signup-a" class="form-section">
-                              <div class="">
-                                   <div>
-                                        <input type="hidden" name="jobseeker_id" value="<?= "$jobseeker_ID" ?>" id="jobseeker-id">
-                                        <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>First name:</span>
-                                             <input type="text" class="form-control" name="firstname" aria-label="firstname" aria-describedby="basic-addon1" value="<?= "$firstname" ?>" required>
-                                             <div class="invalid-feedback">Please enter your first name.</div>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1">Middle name:</span>
-                                             <input type="text" class="form-control" aria-label="middlename" name="middlename" value="<?= "$middlename" ?>">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Last name:</span>
-                                             <input type="text" class="form-control" aria-label="lastname" name="lastname" aria-describedby="basic-addon1" value="<?= "$lastname" ?>" required>
-                                             <div class="invalid-feedback">Please enter your last name.</div>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                             <span class="input-group-text w-25" id="basic-addon1"><span class="req-indicator">*</span>Sex:</span>
-                                             <div class="input-group-text w-75" style="background-color: transparent;">
-                                             <label class="me-2 d-flex align-items-center">
-                                                  <input class="form-check-input mt-0" type="radio" name="sex" value="Male" aria-label="Male" <?= $sex === "Male" ? 'checked' : '' ?> required>
-                                                  &nbsp;Male
-                                             </label>
-                                             <label class="ms-3 me-2 d-flex align-items-center">
-                                                  <input class="form-check-input mt-0" type="radio" name="sex" value="Female" aria-label="Female" <?= $sex === "Female" ? 'checked' : '' ?> required>
-                                                  &nbsp;Female
-                                             </label>
-                                             </div>
-                                        </div>
-                                        <div class="mb-3">
-                                             <span class="input-group-text" id="basic-addon1">Civil Status:</span>
-                                             <div class="input-group-text" style="background-color: transparent; border: none;">
-                                             <label class="me-1 ms-0 d-flex align-items-center">
-                                                  <input class="form-check-input mt-0" type="radio" name="civil_status" value="Single" aria-label="Single" <?= $civil_status === "Single" ? 'checked' : '' ?>>
-                                                  &nbsp;Single
-                                             </label>
-                                             <label class="ms-1 me-1 d-flex align-items-center">
-                                                  <input class="form-check-input mt-0" type="radio" name="civil_status" value="Married" aria-label="Married" <?= $civil_status === "Married" ? 'checked' : '' ?>>
-                                                  &nbsp;Married
-                                             </label>
-                                             <label class="ms-1 me-1 d-flex align-items-center">
-                                                  <input class="form-check-input mt-0" type="radio" name="civil_status" value="Widowed" aria-label="Widowed" <?= $civil_status === "Widowed" ? 'checked' : '' ?>>
-                                                  &nbsp;Widowed
-                                             </label>
-                                             <label class="ms-1 me-1 d-flex align-items-center">
-                                                  <input class="form-check-input mt-0" type="radio" name="civil_status" value="Divorced" aria-label="Divorced" <?= $civil_status === "Divorced" ? 'checked' : '' ?>>
-                                                  &nbsp;Divorced
-                                             </label>
-                                             </div>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Birthday:</span>
-                                             <input type="date" class="form-control" name="birthday" aria-label="birthday" aria-describedby="basic-addon1" value="<?= "$birthday" ?>" required>
-                                             <div class="invalid-feedback">Please enter your birthday.</div>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Age:</span>
-                                             <input type="number" class="form-control" name="age" aria-label="age" aria-describedby="basic-addon1" value="<?= "$age" ?>" required>
-                                             <div class="invalid-feedback">Please enter your age.</div>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div class="">
-                                   <div class="">
-                                        <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Contact no.:</span>
-                                             <input type="text" class="form-control" aria-label="contact_no" name="contact_no" aria-describedby="basic-addon1" value="<?= "$contact_no" ?>" required>
-                                             <div class="invalid-feedback">Please enter your contact number.</div>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                             <span class="input-group-text d-flex align-items-start"><span class="req-indicator">*</span>Address:</span>
-                                             <textarea class="form-control" aria-label="address" name="address" style="height: 150px;" required><?= "$jobseeker_address" ?></textarea>
-                                             <div class="invalid-feedback">Please enter your address.</div>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-                         <div class="mt-0 mb-3 ms-1 me-0 d-flex justify-content-end">
-                              <button id="prev-button" type="button" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
-                              <button id="submit-button" class="button m-1" type="submit">Update</button>
-                         </div>
-                    </form>
-
-               </div>
-          </div>
-     </div>
-
+     <?php include "edit-modals.php" ?>
      <!--  -->
      
      <?php require "../common/footer-inside-folder.php"; ?>
      <?php require "../common/message-session.php"; ?>
+     <?php require "data-list.php"; ?>
+     <script src="../js/remove-url-session.js"></script>
      <script>
           const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
           const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+     </script>
+
+     <script>
+          function openSpecificModal(button) {
+          // Get the specific modal
+          var specificModal = document.getElementById('edit-education');
+
+          // Get the data attributes from the button
+          var educationId = button.getAttribute('education-id');
+          var institutionName = button.getAttribute('institution-name');
+          var schoolDegree = button.getAttribute('school-degree');
+          var fieldOfStudy = button.getAttribute('field-of-study');
+          var startYear = button.getAttribute('start-year');
+          var gradYear = button.getAttribute('grad-year');
+          var highlights = button.getAttribute('highlights');
+
+          // Set the values of the input fields within the modal
+          specificModal.querySelector('input[name="education_id"]').value = educationId;
+          specificModal.querySelector('input[name="institution_name"]').value = institutionName;
+          specificModal.querySelector('input[name="school_degree"]').value = schoolDegree;
+          specificModal.querySelector('input[name="field_of_study"]').value = fieldOfStudy;
+          specificModal.querySelector('textarea[name="course_highlights"]').value = highlights;
+
+          // Set the selected options for start and graduation years
+          var startYearSelect = specificModal.querySelector('#start_year_select');
+          var gradYearSelect = specificModal.querySelector('#graduation_year_select');
+
+          for (var i = 0; i < startYearSelect.options.length; i++) {
+               if (startYearSelect.options[i].value === startYear) {
+                    startYearSelect.selectedIndex = i;
+                    break;
+               }
+          }
+
+          for (var i = 0; i < gradYearSelect.options.length; i++) {
+               if (gradYearSelect.options[i].value === gradYear) {
+                    gradYearSelect.selectedIndex = i;
+                    break;
+               }
+          }
+
+          // Open the specific modal
+          var offcanvas = bootstrap.Offcanvas(specificModal);
+               offcanvas.show();
+          }
+     </script>
+
+
+     <!-- automatic year selection modal-->
+     <script>
+          // Add an event listener to the "Start Year" select element
+          document.getElementById("start_year_select").addEventListener("change", function() {
+               // Get the selected start year
+               var startYear = parseInt(this.value);
+
+               // Update the "Graduation Year" select element
+               var graduationYearSelect = document.getElementById("graduation_year_select");
+               graduationYearSelect.innerHTML = ""; // Clear the current options
+
+               // Add the initial "Graduation Year" option
+               var option = document.createElement("option");
+               option.value = "";
+               option.textContent = "Graduation Year";
+               graduationYearSelect.appendChild(option);
+
+               // Generate options for the "Graduation Year" select based on the selected start year
+               for (var year = startYear; year <= <?php echo date("Y"); ?>; year++) {
+                    var option = document.createElement("option");
+                    option.value = year;
+                    option.textContent = year;
+                    graduationYearSelect.appendChild(option);
+               }
+          });
+     </script>
+     <script>
+          // Add an event listener to the "Start Year" select element
+          document.getElementById("start_year_select_update").addEventListener("change", function() {
+               // Get the selected start year
+               var startYear = parseInt(this.value);
+
+               // Update the "Graduation Year" select element
+               var graduationYearSelect = document.getElementById("graduation_year_select_update");
+               graduationYearSelect.innerHTML = ""; // Clear the current options
+
+               // Add the initial "Graduation Year" option
+               var option = document.createElement("option");
+               option.value = "";
+               option.textContent = "Graduation Year";
+               graduationYearSelect.appendChild(option);
+
+               // Generate options for the "Graduation Year" select based on the selected start year
+               for (var year = startYear; year <= <?php echo date("Y"); ?>; year++) {
+                    var option = document.createElement("option");
+                    option.value = year;
+                    option.textContent = year;
+                    graduationYearSelect.appendChild(option);
+               }
+          });
+     </script>
+     <script>
+          // Add an event listener to the "Start Year" select element
+          document.getElementById("start_year_select_career").addEventListener("change", function() {
+               // Get the selected start year
+               var startYear = parseInt(this.value);
+
+               // Update the "Graduation Year" select element
+               var graduationYearSelect = document.getElementById("graduation_year_select_career");
+               graduationYearSelect.innerHTML = ""; // Clear the current options
+
+               // Add the initial "Graduation Year" option
+               var option = document.createElement("option");
+               option.value = "";
+               option.textContent = "End Year";
+               graduationYearSelect.appendChild(option);
+
+               // Generate options for the "Graduation Year" select based on the selected start year
+               for (var year = startYear; year <= <?php echo date("Y"); ?>; year++) {
+                    var option = document.createElement("option");
+                    option.value = year;
+                    option.textContent = year;
+                    graduationYearSelect.appendChild(option);
+               }
+          });
+     </script>
+
+     <script>
+          // Get references to the checkbox, select, and required indicator elements
+          var checkbox = document.getElementById("still_in_role_checkbox");
+          var selectYear = document.getElementById("graduation_year_select_career");
+          var reqIndicator = document.getElementById("ended-year");
+
+          // Add an event listener to the checkbox
+          checkbox.addEventListener("click", function () {
+          if (checkbox.checked) {
+               // If the checkbox is checked, remove the "required" attribute from the select element
+               selectYear.removeAttribute("required");
+               selectYear.setAttribute("disabled", "");
+               // Hide the required indicator
+               reqIndicator.style.display = "none";
+          } else {
+               // If the checkbox is unchecked, add the "required" attribute back to the select element
+               selectYear.setAttribute("required", "");
+               // Show the required indicator
+               reqIndicator.style.display = "inline";
+               selectYear.removeAttribute("disabled");
+          }
+          });
      </script>
 
      <script>

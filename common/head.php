@@ -1,3 +1,10 @@
+<?php
+     if (isset($_SESSION['jobseeker_ID'])) {
+          session_unset();
+          session_destroy();
+     }
+?>
+
 <div class="top-menu row">
      <div class="logo-section col-12 col-lg-6 text-center text-lg-start">
           <a href="#"><img src="images/inclusijob-head-logo.png" width="500" alt="" srcset="" id="head-logo"></a>

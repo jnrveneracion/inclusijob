@@ -34,6 +34,8 @@
                     $jobseeker_address = $row['jobseeker_address'];
                     $email = $row['email'];
                     $jobseeker_password = $row['jobseeker_password'];
+                    $jobseeker_objectives = $row['jobseeker_objectives'];
+                    
                }
           } else {
                echo "Error: " . mysqli_error($conn);

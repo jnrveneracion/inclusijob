@@ -1,15 +1,14 @@
 <?php 
-     // ganito pag nasa labas ng folder yung main session
-     // Check if the user is already logged in; if so, redirect to home.php
+     session_start();
      if (isset($_SESSION['jobseeker_ID'])) {
           header("Location: job-seeker/home.php");
           exit();
      }
 
-     if (!isset($_SESSION['jobseeker_ID'])) {
-          header("Location: job-seeker/job-seeker-login.php");
-          exit();
-     }
+     // if (!isset($_SESSION['jobseeker_ID'])) {
+     //      header("Location: job-seeker/job-seeker-login.php");
+     //      exit();
+     // }
 ?>
 
 <!DOCTYPE html>
@@ -30,12 +29,12 @@
           </div>
      </div>
      <div class="ms-5 me-5 mt-3 p-2 p-lg-3">
-          <div> 
+          <div class="mt-5"> 
                <p class="changeable-font-size speakable-text">Welcome to <b>InclusiJob</b> — Where Opportunities Embrace All Abilities!</p>
                <p class="changeable-font-size speakable-text">At InclusiJob, we're dedicated to empowering Filipino seniors and persons with disabilities (PWDs) on their unique journey towards meaningful employment. We understand the distinct challenges these remarkable individuals face in the job market, often stemming from a lack of familiarity with modern technologies and evolving work dynamics.</p>
           </div>
      </div>
-     <div class="body d-flex justify-content-center align-items-center mb-5 pb-5 pt-4" id="home-body">
+     <div class="body d-flex justify-content-center align-items-center mb-5 pb-5 pt-3" id="home-body">
           <!-- <span id="home-button-top-span" class="home-span">Are you</span> -->
           <button class="home-button speakable-text" id="employee" title="Naghahanap ng trabaho" onclick="window.location = 'job-seeker/job-seeker-login.php'">Job seeker</button>
           <span class="home-span">or</span>

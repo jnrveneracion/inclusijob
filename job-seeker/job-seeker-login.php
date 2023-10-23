@@ -1,43 +1,56 @@
 <?php
-     session_start();
-     include "../session-check/job-seeker-set.php";
+session_start();
 
-     // Check if the login form is submitted
-     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          // Get form inputs
-          $email = $_POST['email'];
-          $password = $_POST['password'];
+if (isset($_SESSION['jobseeker_ID'])) {
+    header("Location: home.php");
+    exit();
+}
 
-          include "../database/conn.php";
+// Check if the login form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get form inputs
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-          if ($conn->connect_error) {
-               die("Connection failed: " . $conn->connect_error);
-          }
+    // Database connection
+    include "../database/conn.php";
 
-          // Prepare and execute the SQL statement with a parameterized query
-          $stmt = $conn->prepare("SELECT jobseeker_ID, jobseeker_password FROM JOB_SEEKER_SIGNUP_INFO WHERE email = ?");
-          $stmt->bind_param("s", $email);
-          $stmt->execute();
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-          // Bind the result to variables
-          $stmt->bind_result($jobseeker_ID, $hashed_password);
+    // Prepare and execute the SQL statement
+    $stmt = $conn->prepare("SELECT jobseeker_ID, jobseeker_password FROM JOB_SEEKER_SIGNUP_INFO WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
 
-          // Check if a matching row is found
-          if ($stmt->fetch() && password_verify($password, $hashed_password)) {
-               // Login successful, create session variables
-               $_SESSION['jobseeker_ID'] = $jobseeker_ID;
+    // Get the result and fetch the row data
+    $result = $stmt->get_result();
 
-               // Redirect to home.php
-               header("Location: home.php");
-               exit();
-          } else {
-               $error = "<span class='error-indicator'>Invalid email or password</span>";
-          }
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $hashed_password = $row['jobseeker_password'];
 
-          $stmt->close();
-          $conn->close();                         
-     }
+        // Check if the password is correct
+        if (password_verify($password, $hashed_password)) {
+            $_SESSION['jobseeker_ID'] = $row['jobseeker_ID'];
+
+            // Redirect to home.php
+            header("Location: home.php");
+            exit();
+        } else {
+            $error = "<span class='error-indicator'>Invalid email or password</span>";
+        }
+    } else {
+        $error = "<span class='error-indicator'>Invalid email or password</span>";
+    }
+
+    $stmt->close();
+    $conn->close();
+}
 ?>
+
+
 
 
 
@@ -62,7 +75,7 @@
      </style>
 </head>
 <body class="container-xxl">
-     <?php require "../common/head-inside-folder.php"; ?>
+     <?php include "../common/head-inside-folder.php"; ?>
      <div class="breadcrumbs">
           <div class="page-indicator d-flex justify-content-center justify-content-lg-start">
                <a href="../index.php" class="no-decor-link"><h6 class="page-indicator-txt">Home</h6></a> 
@@ -85,14 +98,24 @@
                               </p>
                               <input placeholder="email" class="login-input" type="email" name="email" id="username" required>
                               <input placeholder="password" class="login-input" type="password" name="password" id="password" required>
+                              <!-- <span onclick="log()">log</span> -->
                               <button type="submit" class="login-btn">LOGIN</button>
+
                          </form>
                          <a href="job-seeker-signup.php" class="text-center login-footer"><span class="">Or sign up</span></a>
                     </div>
                </div>
           </div>
      </div>
-     <?php require "../common/footer-inside-folder.php"; ?>
-     <?php require "../common/message-session.php"; ?>
+     <?php include "../common/footer-inside-folder.php"; ?>
+     <?php include "../common/message-session.php"; ?>
+     <script>
+          var input1 = document.getElementById('username');
+          var input2 = document.getElementById('password');
+
+          function log(){
+               alert(input1.value + input2.value);
+          }
+     </script>
 </body>
 </html>
