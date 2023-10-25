@@ -134,7 +134,7 @@ a {
      letter-spacing: 1px;
 }
 
-.login-section {
+.login-section, .form-border-section {
      background-color: white;
      border: 4px solid color(srgb 0.1277 0.5183 0.9668);
      border-radius: 10px;

@@ -13,16 +13,16 @@
                               <div>
                                    <input type="hidden" name="jobseeker_id" value="<?= "$jobseeker_ID" ?>" id="jobseeker-id">
                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>First name:</span>
-                                        <input type="text" class="form-control" name="firstname" aria-label="firstname" aria-describedby="basic-addon1" value="<?= "$firstname" ?>" required>
-                                        <div class="invalid-feedback">Please enter your first name.</div>
+                                        <span class="input-group-text changeable-font-size speakable-text" id="basic-addon1"><span class="req-indicator">*</span>First name:</span>
+                                        <input type="text" class="form-control changeable-font-size speakable-text" name="firstname" aria-label="firstname" aria-describedby="basic-addon1" value="<?= "$firstname" ?>" required>
+                                        <div class="invalid-feedback changeable-font-size speakable-text">Please enter your first name.</div>
                                    </div>
                                    <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">Middle name:</span>
                                         <input type="text" class="form-control" aria-label="middlename" name="middlename" value="<?= "$middlename" ?>">
                                    </div>
                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Last name:</span>
+                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Surname:</span>
                                         <input type="text" class="form-control" aria-label="lastname" name="lastname" aria-describedby="basic-addon1" value="<?= "$lastname" ?>" required>
                                         <div class="invalid-feedback">Please enter your last name.</div>
                                    </div>
@@ -62,10 +62,10 @@
                                    </div>
                                    <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Birthday:</span>
-                                        <input type="date" class="form-control" name="birthday" aria-label="birthday" aria-describedby="basic-addon1" value="<?= "$birthday" ?>" required>
+                                        <input type="date" class="form-control" name="birthday" id="birthday" aria-label="birthday" aria-describedby="basic-addon1" value="<?= "$birthday" ?>" required onkeydown="return false">
                                         <div class="invalid-feedback">Please enter your birthday.</div>
                                    </div>
-                                   <div class="input-group mb-3">
+                                   <div class="input-group mb-3 d-none">
                                         <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Age:</span>
                                         <input type="number" class="form-control" name="age" aria-label="age" aria-describedby="basic-addon1" value="<?= "$age" ?>" required>
                                         <div class="invalid-feedback">Please enter your age.</div>
@@ -76,7 +76,8 @@
                               <div class="">
                                    <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Contact no.:</span>
-                                        <input type="text" class="form-control" aria-label="contact_no" name="contact_no" aria-describedby="basic-addon1" value="<?= "$contact_no" ?>" required>
+                                        <span class="input-group-text">+63</span>
+                                        <input type="text" class="form-control" aria-label="contact_no" id="contact_no" name="contact_no" aria-describedby="basic-addon1" value="<?= "$contact_no" ?>" required oninput="if(this.value.length === 1 && this.value[0] === '0') this.value = ''; this.value = this.value.replace(/\D/g, '').substring(0, 10)">
                                         <div class="invalid-feedback">Please enter your contact number.</div>
                                    </div>
                                    <div class="input-group mb-3">
@@ -332,9 +333,9 @@
                               <div>
                                    <input type="hidden" name="jobseeker_id" value="<?= "$jobseeker_ID" ?>" id="jobseeker-id">
                                    <div class="input-group mb-3 d-grid">
-                                        <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Job title:</span>
-                                        <input list="job-titles" type="text" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" name="job_title" aria-label="job_title" aria-describedby="basic-addon1" required>
-                                        <div class="invalid-feedback">Please add job title.</div>
+                                        <span class="input-group-text changeable-font-size speakable-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Job title:</span>
+                                        <input list="job-titles" type="text" class="form-control changeable-font-size speakable-text" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" name="job_title" aria-label="job_title" aria-describedby="basic-addon1" required>
+                                        <div class="invalid-feedback changeable-font-size speakable-text">Please add job title.</div>
                                    </div>
                                    <div class="input-group mb-3 d-grid">
                                         <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Company name:</span>
@@ -355,7 +356,7 @@
                                    </div>
                                    <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1"><span class="req-indicator" id="ended-year">*</span>Ended:</span>
-                                        <select class="form-select" aria-label="graduation_year" name="end_year" aria-describedby="start-year-label" id="graduation_year_select_career" required>
+                                        <select class="form-select" aria-label="end_year" name="end_year" aria-describedby="start-year-label" id="graduation_year_select_career" required>
                                              <option value="">End Year</option>
                                              <?php
                                                   $currentYear = date("Y");

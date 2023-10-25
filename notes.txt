@@ -1,0 +1,23 @@
+SYSTEM NOTES
+•Range ng date ng birthday 2005 lang max
+•Wag na lagyan ng age
+•Lagyan indicator (nakalimutan ko kung saan to basta need to fr ngl legit no cap)
+•Contact number lagyan ng +63
+•Working na dapat next checking ung profile preview, job search, company profile, save jobs, 4 admins okay na din dapat, company profile, notifications 
+•Admin ung mag popost ng company profile
+•Tanggalin company profile 
+•Gawing companies (papalitan ung company profile ng companies???)
+•Pagka job search nalabas na dapat details ng company and ung mismong details ng specific job
+
+
+
+Range for age- 2005 above 
+Login details- make it required
+Contact number- +63 req
+Next week working
+Profile preview
+Job search
+Company profiles - connected to admin (example Accenture) optional - connected company can be added in job search 
+Saved jobs
+For admins
+First name- Surname (name format)

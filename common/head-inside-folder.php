@@ -9,6 +9,15 @@
           header("Location: job-seeker-login.php");
           exit();
      }
+     if (isset($_POST['logout-company'])) {
+          // Unset and destroy session variables
+          session_unset();
+          session_destroy();
+
+          // Redirect to login.php
+          header("Location: employer-login.php");
+          exit();
+     }
 ?>
 <style>
      .logout-btn {
@@ -34,7 +43,18 @@
      </div>
      <div class="menu-section col-12 col-lg-6 d-flex justify-content-center align-items-center justify-content-lg-end">
           <div>
-               <div class="changeable-font-size text-primary fs-5 d-flex align-items-center mb-0" style="margin-bottom: -5px !important;">Good day<?php if (isset($_SESSION['jobseeker_ID'])) { echo ", "; echo $firstname; echo "!"; echo"<form method='POST' action=''><button class='logout-btn' type='submit' name='logout' id='log-out-btn' value='Logout'>Logout</button></form>";} else {echo "!";}?></div>
+               <div class="changeable-font-size text-primary fs-5 d-flex align-items-center mb-0" style="margin-bottom: -5px !important;">Good day<?php
+                    if (isset($_SESSION['jobseeker_ID'])) {
+                         echo ", $firstname!";
+                         echo "<form method='POST' action=''><button class='logout-btn' type='submit' name='logout' id='log-out-btn' value='Logout'>Logout</button></form>";
+                    } elseif (isset($_SESSION['company_ID'])) {
+                         echo ", $company_name!";
+                         echo "<form method='POST' action=''><button class='logout-btn' type='submit' name='logout-company' id='log-out-btn' value='Logout-Company'>Logout</button></form>";
+                    } else {
+                         echo "!";
+                    }
+                    ?>
+               </div>
                <div style="margin: 0px 10px;">Philippine Standard Time:</div>
                <div id="ph-time" class="gray-text changeable-font-size"></div>
           </div>

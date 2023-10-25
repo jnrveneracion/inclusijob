@@ -47,7 +47,7 @@
                                              <input type="text" class="form-control" aria-label="middlename" name="middlename">
                                         </div>
                                         <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Last name:</span>
+                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Surname:</span>
                                              <input type="text" class="form-control" aria-label="lastname" name="lastname" aria-describedby="basic-addon1" required>
                                              <div class="invalid-feedback">Please enter your last name.</div>
                                         </div>
@@ -87,10 +87,11 @@
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Birthday:</span>
-                                             <input type="date" class="form-control" name="birthday" aria-label="birthday" aria-describedby="basic-addon1" required>
+                                                 
+                                             <input type="date" name="birthday" id="birthday" value="" aria-label="birthday" aria-describedby="basic-addon1" required onkeydown="return false">
                                              <div class="invalid-feedback">Please enter your birthday.</div>
                                         </div>
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3 d-none">
                                              <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Age:</span>
                                              <input type="number" class="form-control" name="age" aria-label="age" aria-describedby="basic-addon1" required>
                                              <div class="invalid-feedback">Please enter your age.</div>
@@ -101,7 +102,8 @@
                                    <div class="">
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Contact no.:</span>
-                                             <input type="text" class="form-control" aria-label="contact_no" name="contact_no" aria-describedby="basic-addon1" required>
+                                             <span class="input-group-text">+63</span>
+                                             <input type="text" class="form-control" aria-label="contact_no" id="contact_no" name="contact_no" aria-describedby="basic-addon1" required oninput="if(this.value.length === 1 && this.value[0] === '0') this.value = ''; this.value = this.value.replace(/\D/g, '').substring(0, 10)" minlength="10">
                                              <div class="invalid-feedback">Please enter your contact number.</div>
                                         </div>
                                         <div class="input-group mb-3">
@@ -113,12 +115,12 @@
                                    <p class="form-head-txt">Login details</p>
                                    <div>
                                         <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1">Email:</span>
+                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Email:</span>
                                              <input type="email" class="form-control" aria-label="email" name="email" aria-describedby="basic-addon1" required>
                                              <div class="invalid-feedback">Please enter a valid email address.</div>
                                         </div>
                                         <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1">Password:</span>
+                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Password:</span>
                                              <input type="password" class="form-control" aria-label="password" name="password" aria-describedby="basic-addon1" required>
                                              <div class="invalid-feedback">Please enter a password.</div>
                                         </div>
@@ -136,6 +138,23 @@
           </div>
      </div>
      <?php require "../common/footer-inside-folder.php"; ?>
+     <script>
+          $(function(){
+               var dtToday = new Date();
+          
+               var month = dtToday.getMonth() + 1;// jan=0; feb=1 .......
+               var day = dtToday.getDate();
+               var year = dtToday.getFullYear() - 18;
+               if(month < 10)
+                    month = '0' + month.toString();
+               if(day < 10)
+                    day = '0' + day.toString();
+               var minDate = year + '-' + month + '-' + day;
+               var maxDate = year + '-' + month + '-' + day;
+               $('#birthday').attr('max', maxDate);
+          });
+     </script>
+
      <script>
           // Example starter JavaScript for disabling form submissions if there are invalid fields
           (() => {
@@ -183,7 +202,8 @@
           // Generate a random passcode and set it as the input value and attribute
           const generatedJobSeekerID = generateJobSeekerID();
           JobSeekerIDInput.value = generatedJobSeekerID;
-          JobSeekerIDInput.setAttribute('value', generatedJobSeekerID);
+          const currentYear = new Date().getFullYear();
+          JobSeekerIDInput.setAttribute('value', currentYear+"-EMPLOYEE-"+generatedJobSeekerID);
      </script>
 
      <script>

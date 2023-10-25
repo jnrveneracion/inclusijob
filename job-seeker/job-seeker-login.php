@@ -52,8 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active">Job Seeker Login</h6></a>
           </div>
      </div>
-     <div class="body d-flex justify-content-center align-items-center m-5 p-4" id="login-body">
+     <div class="body d-flex justify-content-center align-items-center m-5 p-5" id="login-body">
           <div>
                <div class="login-section">
                     <div>
@@ -109,13 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      </div>
      <?php include "../common/footer-inside-folder.php"; ?>
      <?php include "../common/message-session.php"; ?>
-     <script>
-          var input1 = document.getElementById('username');
-          var input2 = document.getElementById('password');
-
-          function log(){
-               alert(input1.value + input2.value);
-          }
-     </script>
+     <script src="../js/remove-url-session.js"></script>
 </body>
 </html>
+

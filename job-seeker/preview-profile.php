@@ -108,6 +108,10 @@
                color: rgb(193, 193, 193);
                margin: 0px 5px;
           }
+
+          .info-body:hover {
+               box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), -1px 2px 21px rgba(0, 0, 0, 0.05);
+          }
      </style>
 </head>
 <body class="container-xxl">
@@ -154,13 +158,14 @@
                          <div class="col-12 col-md-6">
                               <p class="info-section"><span class="info-label">First name: </span><span class="info-data"><?= "$firstname" ?></span></p>
                               <p class="info-section"><span class="info-label">Middle name: </span><span class="info-data"><?= "$middlename" ?></span></p>
-                              <p class="info-section"><span class="info-label">Last name: </span><span class="info-data"><?= "$lastname" ?></span></p>
+                              <p class="info-section"><span class="info-label">Surname: </span><span class="info-data"><?= "$lastname" ?></span></p>
                               <p class="info-section"><span class="info-label">Sex: </span><span class="info-data"><?= "$sex" ?></span></p>
                               <p class="info-section"><span class="info-label">Civil status: </span><span class="info-data"><?= "$civil_status" ?></span></p>
                          </div>
                          <div class="col-12 col-md-6">
+                              <p class="info-section"><span class="info-label">Age: </span><span class="info-data"><?= "$age" ?></span></p>
                               <p class="info-section"><span class="info-label">Birthday: </span><span class="info-data"><?= "$birthday" ?></span></p>
-                              <p class="info-section"><span class="info-label">Contact no.: </span><span class="info-data"><?= "$contact_no" ?></span></p>
+                              <p class="info-section"><span class="info-label">Contact no.: </span><span class="info-data">+63 <?= "$contact_no" ?></span></p>
                               <p class="info-section"><span class="info-label">Address: </span><span class="info-data"><?= "$jobseeker_address" ?></span></p>
                               <div class="d-flex justify-content-end">
                                    <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-personal-info" aria-controls="offcanvasExample">Edit</button>
@@ -234,6 +239,22 @@
      <?php require "../common/message-session.php"; ?>
      <?php require "data-list.php"; ?>
      <script src="../js/remove-url-session.js"></script>
+     <script>
+          $(function(){
+               var dtToday = new Date();
+          
+               var month = dtToday.getMonth() + 1;// jan=0; feb=1 .......
+               var day = dtToday.getDate();
+               var year = dtToday.getFullYear() - 18;
+               if(month < 10)
+                    month = '0' + month.toString();
+               if(day < 10)
+                    day = '0' + day.toString();
+               var minDate = year + '-' + month + '-' + day;
+               var maxDate = year + '-' + month + '-' + day;
+               $('#birthday').attr('max', maxDate);
+          });
+     </script>
      <script>
           const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
           const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
