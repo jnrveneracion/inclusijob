@@ -21,3 +21,16 @@ Company profiles - connected to admin (example Accenture) optional - connected c
 Saved jobs
 For admins
 First name- Surname (name format)
+
+
+
+     cd: Change directory.
+     pwd: Print working directory.
+     ls: List files and directories.
+     ls -l: List in long format (detailed information).
+     ls -a: List all files, including hidden ones.
+     cd ..: Move up one directory.
+     cd ~: Go to the home directory.
+     cd -: Return to the previous directory.
+     Tab Completion: Press the Tab key to autocomplete file and directory names.
+     history: View a list of recently executed commands.

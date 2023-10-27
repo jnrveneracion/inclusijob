@@ -66,20 +66,38 @@
                                              <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Employment type:</span>
                                              <select class="form-control" aria-label="founded_year" id="employment_type" name="employment_type" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-describedby="basic-addon1" required> 
                                                   <option value="">Select an employment type</option>
-                                                  <option value="full_time">Full-Time</option>
-                                                  <option value="part_time">Part-Time</option>
-                                                  <option value="contract">Contract</option>
-                                                  <option value="temporary">Temporary</option>
-                                                  <option value="internship">Internship</option>
-                                                  <option value="freelance">Freelance</option>
-                                                  <option value="volunteer">Volunteer</option>
+                                                  <option value="Full-Time">Full-Time</option>
+                                                  <option value="Part-Time">Part-Time</option>
+                                                  <option value="Contract">Contract</option>
+                                                  <option value="Temporary">Temporary</option>
+                                                  <option value="Internship">Internship</option>
+                                                  <option value="Freelance">Freelance</option>
+                                                  <option value="Volunteer">Volunteer</option>
                                              </select>
                                         </div>
                                         <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Compensation:</span>
+                                             <span class="input-group-text" id="basic-addon1">Compensation:</span>
                                              <span class="input-group-text">Php</span>
                                              <input type="text" class="form-control number-format" name="compensation" oninput="formatCurrency(this)" aria-label="compensation" >
-                                             <div class="invalid-feedback">Please enter job compensation.</div>
+                                        </div>
+                                        <div class="input-group mb-3 d-grid">
+                                             <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">
+                                                 Compensation Frequency:
+                                             </span>
+                                             <select class="form-control" aria-label="compensation_frequency" id="compensation_frequency" name="compensation_frequency" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-describedby="basic-addon1">
+                                                  <option value="">Select Compensation Frequency</option>
+                                                  <option value="Monthly">Monthly</option>
+                                                  <option value="Biweekly (Fortnightly)">Biweekly (Fortnightly)</option>
+                                                  <option value="Weekly">Weekly</option>
+                                                  <option value="Semimonthly">Semimonthly</option>
+                                                  <option value="Bimonthly (Twice a Month)">Bimonthly (Twice a Month)</option>
+                                                  <option value="Annually">Annually</option>
+                                                  <option value="Piece Rate">Piece Rate</option>
+                                                  <option value="Commission">Commission</option>
+                                                  <option value="Daily">Daily</option>
+                                                  <option value="Project-Based">Project-Based</option>
+                                                  <option value="Hourly">Hourly</option>
+                                             </select>
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1" style="width: 100%;border-radius: 5px 5px 0px 0px;">Compensation range:</span>

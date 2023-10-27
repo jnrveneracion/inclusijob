@@ -11,7 +11,8 @@
           $job_location = $_POST['location'];
           $employment_type = $_POST['employment_type'];
           $compensation = $_POST['compensation'];
-          $start_compensation = $_POST['start_compensation'];
+          $compensation_frequency = $_POST['compensation_frequency'];
+          $start_compensation = $_POST['start_compensation']; 
           $end_compensation = $_POST['end_compensation'];
           $application_deadline = $_POST['application_deadline'];
           $benefits = $_POST['benefits'];
@@ -25,13 +26,13 @@
           }
       
           // Create a prepared statement with placeholders
-          $query = "INSERT INTO JOB_LISTING (employer_id, job_title, job_description, qualifications, job_location, employment_type, compensation, start_compensation, end_compensation, application_deadline, benefits, work_environment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+          $query = "INSERT INTO JOB_LISTING (employer_id, job_title, job_description, qualifications, job_location, employment_type, compensation, compensation_frequency,start_compensation, end_compensation, application_deadline, benefits, work_environment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       
           // Prepare the statement
           $stmt = mysqli_prepare($conn, $query);
       
           // Bind parameters to the prepared statement
-          mysqli_stmt_bind_param($stmt, "ssssssssssss", $employer_id, $job_title, $job_description, $qualifications, $job_location, $employment_type, $compensation, $start_compensation, $end_compensation, $application_deadline, $benefits, $work_environment);
+          mysqli_stmt_bind_param($stmt, "sssssssssssss", $employer_id, $job_title, $job_description, $qualifications, $job_location, $employment_type, $compensation, $compensation_frequency, $start_compensation, $end_compensation, $application_deadline, $benefits, $work_environment);
       
           // Execute the prepared statement
           if (mysqli_stmt_execute($stmt)) {
