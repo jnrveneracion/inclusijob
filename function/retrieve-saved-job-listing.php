@@ -13,6 +13,8 @@
                DATE_FORMAT(JL.application_deadline, '%M %d, %Y') AS application_deadline_word  
                FROM JOB_LISTING AS JL
                LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI ON JL.employer_id = ESI.company_ID 
+               LEFT JOIN SAVED_JOB_LISTING AS SJL ON JL.job_id = SJL.job_listing_id
+               WHERE SJL.jobseeker_ID = '$jobseeker_ID'
                ORDER BY JL.date_added ASC;"; 
 
      $stmt = mysqli_prepare($conn, $query);
@@ -47,8 +49,7 @@
                                    </div>
                                    <div class="col-2 d-flex justify-content-center align-items-start mt-1">
                                         <div class="svg-container">
-                                             <svg class="save-job first-svg d-block" onclick="toggleSave('. $itemCount .')" id="save-job-'. $itemCount .'" id="job-'. $itemCount .'" job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['employer_id'] .'" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"/></svg>
-                                             <svg class="unsave-job second-svg d-none" onclick="toggleUnSave('. $itemCount .')" id="unsave-job-'. $itemCount .'" job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['employer_id'] .'" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg>
+                                             <svg class="unsave-job second-svg d-block" onclick="toggleUnSave('. $itemCount .')" id="unsave-job-'. $itemCount .'" job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['employer_id'] .'" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg>
                                         </div>
                                    </div>
                               </div>
@@ -123,7 +124,7 @@
                                              <button type="button" class="fw-bold" id="apply-btn">Apply now</button>
                                         </div>
                                         <div class="col-1 d-flex justify-content-start align-items-center">
-                                             <svg xmlns="http://www.w3.org/2000/svg" height="2.5em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"/></svg>
+                                             <svg class="unsave-job second-svg d-block" onclick="toggleUnSave('. $itemCount .')" id="unsave-job-'. $itemCount .'" job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['employer_id'] .'" xmlns="http://www.w3.org/2000/svg" height="2.5em" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg>
                                         </div>
                                    </div>
                                    <div>

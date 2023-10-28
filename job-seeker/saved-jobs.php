@@ -144,7 +144,7 @@
           <div class="page-indicator d-flex justify-content-center justify-content-lg-start">
                <a href="home.php" class="no-decor-link"><h6 class="page-indicator-txt">Job Seeker</h6></a> 
                <a href="#" class="no-decor-link"><h6 class="page-indicator-txt divider">></h6></a>
-               <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active">Job Search</h6></a> 
+               <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active">Saved Jobs</h6></a> 
           </div>
      </div>
      <div class="body m-2 p-4 mt-0 pt-2" id="login-body">
@@ -195,12 +195,12 @@
                        
                     </div>
                </div>
-               <div class="lower-section">
+               <div class="lower-section" style="min-height: 600px;">
                     <div class="row d-flex flex-column-reverse flex-lg-row" id="job-list-bar">
                          <!-- First Column (List) -->
                          <div class="col-lg-4 ps-1 pe-1" style="padding-top: 10px;" id="first-column">
                               <div class="list-group fadeInUp" id="item-list" role="tablist">
-                                   <?php include "../function/retrieve-job-listing.php" ?>
+                                   <?php include "../function/retrieve-saved-job-listing.php" ?>
                               <!-- </div> -->
                          <!-- </div> -->
 
@@ -234,41 +234,6 @@
           });
      </script>
 
-     <!-- save job -->
-     <script>
-          $(document).ready(function() {
-          // Add a click event handler to the SVG with the id "save-job"
-          $('.save-job').on('click', function() {
-               // Retrieve attribute values
-               var jobListingId = $(this).attr('job-listing-id');
-               var jobSeekerId = $(this).attr('job-seeker-id');
-               var employerId = $(this).attr('employer-id');
-               
-               // Prepare data to send to the server
-               var data = {
-                    jobListingId: jobListingId,
-                    jobSeekerId: jobSeekerId,
-                    employerId: employerId
-               };
-               
-               // Send an Ajax request to save the data
-               $.ajax({
-                    type: 'POST',
-                    url: '../function/save-job-listing.php', // Replace with the URL to your server-side script
-                    data: data,
-                    success: function(response) {
-                         // Handle the server's response (e.g., show a success message)
-                         console.log(response);
-                    },
-                    error: function() {
-                         // Handle errors if the request fails
-                         console.error('Ajax request failed');
-                    }
-               });
-          });
-          });
-     </script>
-
      <!-- unsave job -->
      <script>
           $(document).ready(function() {
@@ -293,6 +258,7 @@
                     data: data,
                     success: function(response) {
                          // Handle the server's response (e.g., show a success message)
+                         window.location.href = 'saved-jobs.php?message=Saved%20job%20successfully%20removed';
                          console.log(response);
                     },
                     error: function() {
@@ -482,9 +448,9 @@
                console.log('Number of Displayed Item Content:', displayedItemContent);
 
                if (displayedJobListingItems === 0 || displayedJobListingItems === 1){
-                    document.getElementById('number-of-jobs-results').innerText = displayedJobListingItems + " job";
+                    document.getElementById('number-of-jobs-results').innerText = displayedJobListingItems + " saved job";
                } else {
-                    document.getElementById('number-of-jobs-results').innerText = displayedJobListingItems + " jobs";
+                    document.getElementById('number-of-jobs-results').innerText = displayedJobListingItems + " saved jobs";
                }
 
                

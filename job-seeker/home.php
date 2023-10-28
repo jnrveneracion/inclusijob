@@ -71,6 +71,7 @@
                          <div style="width: 500px;" class="home-btn">
                               <a href="preview-profile.php"><div class="home-btn-style">Profile Preview</div></a>
                               <a href="notifications.php"><div class="home-btn-style">Notifications</div></a>
+                              <a href="saved-jobs.php"><div class="home-btn-style">Saved Jobs</div></a>
                          </div>
                     </div>
                     <div class="col-lg-6 col-12 d-flex justify-content-center">
