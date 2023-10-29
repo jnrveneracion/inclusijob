@@ -222,17 +222,6 @@
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-     <script>
-          $(document).ready(function() {
-               $('#search-input').on('input', function() {
-                    if ($(this).val().trim() !== '') {
-                         $(this).addClass('gray-background');
-                    } else {
-                         $(this).removeClass('gray-background');
-                    }
-               });
-          });
-     </script>
 
      <!-- unsave job -->
      <script>
@@ -267,6 +256,18 @@
                     }
                });
           });
+          });
+     </script>
+
+     <script>
+          $(document).ready(function() {
+               $('#search-input').on('input', function() {
+                    if ($(this).val().trim() !== '') {
+                         $(this).addClass('gray-background');
+                    } else {
+                         $(this).removeClass('gray-background');
+                    }
+               });
           });
      </script>
 
@@ -448,9 +449,9 @@
                console.log('Number of Displayed Item Content:', displayedItemContent);
 
                if (displayedJobListingItems === 0 || displayedJobListingItems === 1){
-                    document.getElementById('number-of-jobs-results').innerText = displayedJobListingItems + " saved job";
+                    document.getElementById('number-of-jobs-results').innerText = displayedJobListingItems + " job";
                } else {
-                    document.getElementById('number-of-jobs-results').innerText = displayedJobListingItems + " saved jobs";
+                    document.getElementById('number-of-jobs-results').innerText = displayedJobListingItems + " jobs";
                }
 
                

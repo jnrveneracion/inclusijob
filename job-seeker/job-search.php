@@ -308,24 +308,34 @@
      <script>
           function toggleSave(svgNo) {
                var svgSaveNo = svgNo;
-               var saveSvg = document.querySelector('#save-job-' + svgSaveNo);
-               var unsaveSvg = document.querySelector('#unsave-job-' + svgSaveNo);
+               var saveSvgs = document.querySelectorAll('#save-job-' + svgSaveNo);
+               var unsaveSvgs = document.querySelectorAll('#unsave-job-' + svgSaveNo);
 
-               saveSvg.classList.add('d-none');
-               saveSvg.classList.remove('d-block');
-               unsaveSvg.classList.add('d-block')
-               unsaveSvg.classList.remove('d-none')
+               saveSvgs.forEach(function (svg) {
+                    svg.classList.add('d-none');
+                    svg.classList.remove('d-block');
+               });
+
+               unsaveSvgs.forEach(function (svg) {
+                    svg.classList.remove('d-none');
+                    svg.classList.add('d-block');
+               });
           }
 
           function toggleUnSave(svgNo) {
                var svgSaveNo = svgNo;
-               var saveSvg = document.querySelector('#save-job-' + svgSaveNo);
-               var unsaveSvg = document.querySelector('#unsave-job-' + svgSaveNo);
+               var saveSvgs = document.querySelectorAll('#save-job-' + svgSaveNo);
+               var unsaveSvgs = document.querySelectorAll('#unsave-job-' + svgSaveNo);
 
-               saveSvg.classList.add('d-block');
-               saveSvg.classList.remove('d-none');
-               unsaveSvg.classList.add('d-none')
-               unsaveSvg.classList.remove('d-block')
+               saveSvgs.forEach(function (svg) {
+                    svg.classList.remove('d-none');
+                    svg.classList.add('d-block');
+               });
+
+               unsaveSvgs.forEach(function (svg) {
+                    svg.classList.add('d-none');
+                    svg.classList.remove('d-block');
+               });
           }
      </script>
 
