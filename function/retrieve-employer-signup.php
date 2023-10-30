@@ -20,6 +20,7 @@
 
                // Fetch and store each column's value in PHP variables
                while ($row = mysqli_fetch_assoc($result)) {
+                    $company_ID = $row['company_ID'];
                     $company_name = $row['company_name'];
                     $industry_sector = $row['industry_sector'];
                     $company_size = $row['company_size'];
@@ -35,7 +36,7 @@
                     $company_linkedin = $row['company_linkedin'];
                     $company_twitter = $row['company_twitter'];
                     $email = $row['email'];
-                    $password = $row['password'];
+                    $password = $row['employer_password'];
                }
           } else {
                echo "Error: " . mysqli_error($conn);

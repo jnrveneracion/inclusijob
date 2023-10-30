@@ -141,9 +141,8 @@
                                    <a href="mailto:<?= "$email" ?>" class="text-white"><?= "$email" ?></a>
                               </div>
                               <div>
-                                   
                                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="please complete your details to use this feature">
-                                             <button id="btn-outline-a" type="button" disabled>View Resume</button>
+                                        <button id="btn-outline-a" type="button" disabled>View Resume</button>
                                    </span>
                               </div>
                          </div>
