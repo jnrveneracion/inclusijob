@@ -1,3 +1,37 @@
+<!-- image -->
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-image" aria-labelledby="offcanvasExampleLabel">
+     <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Upload Image</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+     </div>
+     <div class="offcanvas-body">
+          <div>
+               <form action="<?php echo htmlspecialchars('../function/save-job-seeker-image.php'); ?>" enctype="multipart/form-data"  method="post" style="max-width: 800px !important;">
+                    <div id="job-seeker-signup-a" class="form-section">
+                         <div class="">
+                              <div>
+                                   <input type="hidden" name="jobseeker_id" value="<?= "$jobseeker_ID" ?>" id="jobseeker-id">
+                                   <div class="" id="view-uploaded-image">
+                                        <input type="file" id="image-upload" name="image" accept=".png, .jpg" style="display: none;" required>
+                                        <div class="circle-section d-flex justify-content-center">
+                                             <label for="image-upload" class="circle-image" style="width: 250px !important; height: 250px !important; border: 5px solid color(srgb 0.1277 0.5183 0.9668);">
+                                                  <img id="selected-image">
+                                             </label>
+                                        </div>
+                                   </div>
+                              </div>     
+                         </div>
+                    </div>
+                    <div class="mt-3 m-0 d-flex justify-content-center">
+                         <button id="prev-button" type="button" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+                         <button id="upload-another" type="button">Choose</button>
+                         <button id="submit-button" class="button m-1 submit-image-btn" type="submit" disabled>Upload</button>
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>
+
 
 <!-- personal Information -->
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-personal-info" aria-labelledby="offcanvasExampleLabel">

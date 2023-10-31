@@ -13,13 +13,13 @@
      color: white;
 }
 
-#prev-button, #del-button {
+#prev-button, #del-button, #upload-another {
      background-color: white;
      border: none;
      color: color(srgb 0.1277 0.5183 0.9668);
 }
 
-#next-button, #prev-button, #submit-button, #del-button{
+#next-button, #prev-button, #submit-button, #del-button, #upload-another{
      text-transform: uppercase;
      letter-spacing: 1px;
      font-weight: 500;
@@ -30,7 +30,7 @@
      border-radius: 5px;
 }
 
-#next-button:hover, #prev-button:hover, #submit-button:hover {
+#next-button:hover, #prev-button:hover, #submit-button:hover, #upload-another:hover {
      filter: brightness(.9) !important;
 }
 

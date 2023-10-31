@@ -2,6 +2,7 @@
      session_start();
      include "../session-check/job-seeker-not-set.php";
      include "../function/retrieve-job-seeker-signup.php";
+     include "../function/retrieve-job-seeker-image.php";
      include "../function/update-job-seeker-infos.php";
 ?>
 
@@ -33,12 +34,54 @@
           }
 
           .circle-image {
+               position: relative;
+               border-radius: 50%; /* Create a circular frame */
+               border: 5px solid white;
+               overflow: hidden; /* Crop the image */
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               cursor: pointer;
                width: 150px; /* Set the width and height to your desired circle size */
                height: 150px;
-               border-radius: 50%; /* Create a circular frame */
-               background: url("../images/square-logo.png") center center no-repeat; /* Set the image as background */
-               background-size: cover; /* Ensure the image covers the circular frame */
-               border: 5px solid white;
+               
+          }
+
+          .circle-image img {
+               width: auto; /* Make sure the image covers the circular frame */
+               height: 100%;
+               display: block;
+          }
+
+          .upload-text {
+               display: none;
+               position: absolute;
+               top: 50%;
+               left: 50%;
+               transform: translate(-50%, -50%);
+               font-size: 14px;
+               color: #000;
+          }
+
+          .dark-overlay {
+               position: absolute;
+               width: 100%;
+               height: 100%;
+               background: rgba(0, 0, 0, 0.46);
+               border-radius: 50%;
+               display: none;
+               justify-content: center;
+               align-items: center;
+               color: white;
+               font-size: 23px;
+          }
+
+          .circle-image:hover .dark-overlay {
+               display: flex;
+          }
+
+          .circle-image:hover .upload-text {
+               display: flex;
           }
 
           #btn-outline-a {
@@ -127,7 +170,12 @@
           <div>
                <div class="upper-section row avenir">
                     <div class="col-5 col-lg-3 d-flex justify-content-end">
-                         <div class="circle-section d-flex justify-content-center align-items-center"><div class="circle-image"></div></div>
+                    <div class="circle-section d-flex justify-content-center align-items-center">
+                         <label for="image-upload" class="circle-image">
+                              <img id="profile-img" src="<?= isset($ProfileImageData) ? 'data:image/png;base64,' . $ProfileImageData : '../images/blank-profile.png' ?>" alt="Job Seeker Image">
+                              <span class="upload-text dark-overlay" id="upload-button">Upload</span>
+                         </label>
+                         </div>
                     </div>
                     <div class="col-7 col-lg-9 d-flex align-items-center">
                          <div>
@@ -238,6 +286,38 @@
      <?php require "../common/message-session.php"; ?>
      <?php require "data-list.php"; ?>
      <script src="../js/remove-url-session.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script>
+          document.getElementById('image-upload').addEventListener('change', function() {
+               var selectedImage = document.getElementById('selected-image');
+               var submitImageBtn = document.querySelector('.submit-image-btn');
+               var fileInput = this;
+
+               if (fileInput.files && fileInput.files[0]) {
+               var reader = new FileReader();
+
+               reader.onload = function(e) {
+                    selectedImage.src = e.target.result;
+                    selectedImage.style.display = 'block';
+                    submitImageBtn.disabled = false;
+               };
+
+               reader.readAsDataURL(fileInput.files[0]);
+               }
+          });
+
+          document.getElementById('upload-button').addEventListener('click', function() {
+               var offcanvas = new bootstrap.Offcanvas(document.getElementById('edit-image'));
+               offcanvas.show();
+          });
+
+          document.getElementById('upload-another').addEventListener('click', function() {
+          // Trigger the file input by clicking on it
+          document.getElementById('image-upload').click();
+          });
+     </script>
+
+
      <script>
           $(function(){
                var dtToday = new Date();
