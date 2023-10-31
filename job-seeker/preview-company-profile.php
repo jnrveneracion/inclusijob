@@ -3,6 +3,7 @@
      include "../session-check/job-seeker-not-set.php";
      include "../function/retrieve-employer-signup.php"; 
      include "../function/retrieve-job-seeker-signup.php"; 
+     include "../function/retrieve-employer-image-preview.php";
 ?>
 
 <!DOCTYPE html>
@@ -33,12 +34,21 @@
           }
 
           .circle-image {
+               position: relative;
+               border-radius: 50%; /* Create a circular frame */
+               border: 5px solid white;
+               overflow: hidden; /* Crop the image */
+               display: flex;
+               justify-content: center;
+               align-items: center;
                width: 150px; /* Set the width and height to your desired circle size */
                height: 150px;
-               border-radius: 50%; /* Create a circular frame */
-               background: url("../images/square-logo.png") center center no-repeat; /* Set the image as background */
-               background-size: cover; /* Ensure the image covers the circular frame */
-               border: 5px solid white;
+          }
+
+          .circle-image img {
+               width: auto; /* Make sure the image covers the circular frame */
+               height: 100%;
+               display: block;
           }
 
           #btn-outline-a {
@@ -129,7 +139,11 @@
           <div>
                <div class="upper-section row avenir">
                     <div class="col-5 col-lg-3 d-flex justify-content-end">
-                         <div class="circle-section d-flex justify-content-center align-items-center"><div class="circle-image"></div></div>
+                         <div class="circle-section d-flex justify-content-center align-items-center">
+                              <label for="image-upload" class="circle-image">
+                                   <img id="profile-img" src="<?= isset($ProfileImageData) ? 'data:image/png;base64,' . $ProfileImageData : '' ?>" alt="Employer profile image">
+                              </label>
+                         </div>
                     </div>
                     <div class="col-7 col-lg-9 d-flex align-items-center">
                          <div>

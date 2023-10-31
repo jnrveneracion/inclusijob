@@ -2,9 +2,7 @@
      session_start();
 
      include "../database/conn.php";
-
-     $company_ID = $_SESSION['company_ID'];
-     
+     $company_ID = $_GET['c'];
 
      // Create a prepared statement to select data
      $query = "SELECT * FROM COMPANY_IMAGES WHERE company_ID = ?";
