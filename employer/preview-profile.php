@@ -144,7 +144,7 @@
                </div>
           </div>
           
-          <div style="margin: 0px 4%;" class="avenir">
+          <div style="margin: 0px 4%;" class="avenir" id="profile-section">
                <div id="personal-info-section">
                     <p class="fs-5 head-text">Company Information</p>
                     <div class="info-body row">
@@ -220,23 +220,23 @@
           </div>
           <div class="offcanvas-body">
                <div>
-                    <form action="<?php echo htmlspecialchars('../function/update-job-seeker-signup.php'); ?>"  method="post" class="was-validated" novalidate style="max-width: 800px !important;">
+                    <form action="<?php echo htmlspecialchars('../function/update-company-signup.php'); ?>"  method="post" class="was-validated" novalidate >
                          <div id="job-seeker-signup-a" class="form-section">
                               <div class="">
                                    <div>
                                         <input type="hidden" name="company_id" value="<?= "$company_ID" ?>" id="company-id">
                                         <div class="input-group mb-3 d-grid">
                                              <span class="input-group-text changeable-font-size speakable-text" style="border-radius: 5px 5px 0px 0px;" id="basic-addon1"><span class="req-indicator">*</span>Company name:</span>
-                                             <input style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" type="text" class="form-control" name="company_name" aria-label="company_name" aria-describedby="basic-addon1" required>
+                                             <input style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" type="text" class="form-control" name="company_name" aria-label="company_name" aria-describedby="basic-addon1" value="<?= "$company_name" ?>" required>
                                              <div class="invalid-feedback">Please enter your company name.</div>
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Industry or Sector:</span>
-                                             <input type="text" class="form-control" aria-label="industry_sector" name="industry_sector" list="company-sector" required>
+                                             <input type="text" class="form-control" aria-label="industry_sector" name="industry_sector" list="company-sector" value="<?= "$industry_sector" ?>" required>
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Company size:</span>
-                                             <input type="text" oninput="if(this.value.length === 1 && this.value[0] === '0') this.value = ''; this.value = this.value.replace(/\D/g, '').substring(0, 10)" class="form-control" aria-label="company_size" name="company_size" aria-describedby="basic-addon1" required>
+                                             <input type="text" oninput="if(this.value.length === 1 && this.value[0] === '0') this.value = ''; this.value = this.value.replace(/\D/g, '').substring(0, 10)" class="form-control" aria-label="company_size" name="company_size" aria-describedby="basic-addon1" value="<?= "$company_size" ?>" required>
                                              <div class="invalid-feedback">Please enter your company size.</div>
                                         </div>
                                         <div class="input-group mb-3">
@@ -245,6 +245,7 @@
                                                   <option value="">Select a Year</option>
                                                   <?php
                                                   $currentYear = date("Y");
+                                                  echo '<option value="' . $founded_year . '" selected>' . $founded_year . '</option>';
                                                   for ($year = $currentYear; $year >= 1800; $year--) {
                                                        echo '<option value="' . $year . '">' . $year . '</option>';
                                                   }
@@ -254,17 +255,17 @@
                                         </div>
                                         <div class="input-group mb-3 d-grid">
                                              <span class="input-group-text d-flex align-items-start" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Company address:</span>
-                                             <textarea class="form-control" aria-label="company_address" name="company_address" style="height: 100px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" required></textarea>
+                                             <textarea class="form-control" aria-label="company_address" name="company_address" style="height: 70px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" required><?= "$company_address" ?></textarea>
                                              <div class="invalid-feedback">Please enter your company address.</div>
                                         </div>
                                         <div class="input-group mb-3 d-grid">
                                              <span class="input-group-text d-flex align-items-start" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Company description:</span>
-                                             <textarea style="height: 150px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" class="form-control" aria-label="company_description" name="company_description" required></textarea>
+                                             <textarea style="height: 150px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" class="form-control" aria-label="company_description" name="company_description" required><?= "$company_description" ?></textarea>
                                              <div class="invalid-feedback">Please enter your company description.</div>
                                         </div>
                                         <div class="input-group mb-3 d-grid">
                                              <span class="input-group-text d-flex align-items-start" style="border-radius: 5px 5px 0px 0px;">Work environment:</span>
-                                             <textarea style="height: 70px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" class="form-control" aria-label="company_culture" name="company_culture"></textarea>
+                                             <textarea style="height: 100px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" class="form-control" aria-label="company_culture" name="company_culture"><?= "$company_culture" ?></textarea>
                                              <div class="invalid-feedback">Please enter your company work environment.</div>
                                         </div>
                                    </div>
@@ -274,39 +275,39 @@
                                         <p class="form-head-txt">Contact Information</p>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Contact person's name:</span>
-                                             <input type="text" class="form-control" name="contact_persons_name" aria-label="contact_persons_name" aria-describedby="basic-addon1" required>
+                                             <input type="text" class="form-control" name="contact_persons_name" aria-label="contact_persons_name" aria-describedby="basic-addon1" value="<?= "$contact_persons_name" ?>" required>
                                              <div class="invalid-feedback">Please enter contact person's name.</div>
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Contact person's position:</span>
-                                             <input type="text" class="form-control" name="contact_persons_position" aria-label="contact_persons_position" aria-describedby="basic-addon1" list="contact-position" required>
+                                             <input type="text" class="form-control" name="contact_persons_position" aria-label="contact_persons_position" aria-describedby="basic-addon1" list="contact-position" value="<?= "$contact_persons_position" ?>" required>
                                              <div class="invalid-feedback">Please enter contact person's position.</div>
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Contact no.:</span>
                                              <span class="input-group-text">+63</span>
-                                             <input type="text" class="form-control" aria-label="contact_persons_contact_no" id="contact_persons_contact_no" name="contact_persons_contact_no" aria-describedby="basic-addon1" required oninput="if(this.value.length === 1 && this.value[0] === '0') this.value = ''; this.value = this.value.replace(/\D/g, '').substring(0, 10)">
+                                             <input type="text" class="form-control" aria-label="contact_persons_contact_no" id="contact_persons_contact_no" name="contact_persons_contact_no" aria-describedby="basic-addon1" value="<?= "$contact_persons_contact_no" ?>" required oninput="if(this.value.length === 1 && this.value[0] === '0') this.value = ''; this.value = this.value.replace(/\D/g, '').substring(0, 10)">
                                              <div class="invalid-feedback">Please enter contact person's number.</div>
                                         </div>
                                         <p class="form-head-txt">Links</p>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1">Company website:</span>
-                                             <input type="text" class="form-control" name="company_website" aria-label="company_website" aria-describedby="basic-addon1">
+                                             <input type="text" class="form-control" name="company_website" aria-label="company_website" aria-describedby="basic-addon1" value="<?= "$company_website" ?>">
                                              <div class="invalid-feedback">Please enter your company website.</div>
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1">Facebook:</span>
-                                             <input type="text" class="form-control" name="company_facebook" aria-label="company_facebook" aria-describedby="basic-addon1">
+                                             <input type="text" class="form-control" name="company_facebook" aria-label="company_facebook" aria-describedby="basic-addon1" value="<?= "$company_facebook" ?>">
                                              <div class="invalid-feedback">Please enter your company facebook.</div>
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1">Linkedin:</span>
-                                             <input type="text" class="form-control" name="company_linkedin" aria-label="company_linkedin" aria-describedby="basic-addon1">
+                                             <input type="text" class="form-control" name="company_linkedin" aria-label="company_linkedin" aria-describedby="basic-addon1" value="<?= "$company_linkedin" ?>">
                                              <div class="invalid-feedback">Please enter your company Linkedin.</div>
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1">Twitter:</span>
-                                             <input type="text" class="form-control" name="company_twitter" aria-label="company_twitter" aria-describedby="basic-addon1">
+                                             <input type="text" class="form-control" name="company_twitter" aria-label="company_twitter" aria-describedby="basic-addon1" value="<?= "$company_twitter" ?>">
                                              <div class="invalid-feedback">Please enter your company Twitter.</div>
                                         </div>
                                    </div>

@@ -136,6 +136,15 @@
                fill: #2184f7;
           }
 
+          .preview-profile-link {
+               color: #6b6b6b;
+          }
+
+          .preview-profile-link:hover {
+               color: color(srgb 0.1277 0.5183 0.9668);
+               text-decoration: underline;
+          }
+
      </style>
 </head>
 <body class="container-xxl">

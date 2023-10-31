@@ -137,7 +137,7 @@
                                         <div class="col-7 d-flex align-items-center">
                                              <div>
                                                   <h1 class="m-0">' . $row['job_title'] . '</h1>
-                                                  <h3 class="m-0">' . $row['company_name'] . '</h3>
+                                                  <a class="preview-profile-link" href="preview-company-profile.php?c=' . $row['company_ID'] . '"><h3 class="m-0">' . $row['company_name'] . '</h3></a>
                                              </div>
                                         </div>
                                         <div class="col-4 d-flex justify-content-end align-items-center">

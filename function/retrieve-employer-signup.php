@@ -1,9 +1,21 @@
 <?php
-     session_start();
+session_start();
 
+function getCompanyID()
+{
+     if (isset($_GET['c'])) {
+          return $_GET['c'];
+     } elseif (isset($_SESSION['company_ID'])) {
+          return $_SESSION['company_ID'];
+     } else {
+          return null; // or handle the case when 'c' and 'company_ID' are not available
+     }
+}
+
+$company_ID = getCompanyID();
+
+if ($company_ID !== null) {
      include "../database/conn.php";
-
-     $company_ID = $_SESSION['company_ID'];
 
      // Create a prepared statement to select data
      $query = "SELECT * FROM EMPLOYER_SIGNUP_INFO WHERE company_ID = ?";
@@ -47,4 +59,9 @@
      }
 
      mysqli_close($conn);
+} else {
+     // Handle the case when 'c' and 'company_ID' are not available
+     echo "Company ID is missing.";
+}
+
 ?>
