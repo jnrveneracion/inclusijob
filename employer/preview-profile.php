@@ -1,7 +1,8 @@
 <?php
      session_start();
      include "../session-check/employer-not-set.php";
-     include "../function/retrieve-employer-signup.php";     
+     include "../function/retrieve-employer-signup.php";   
+     include "../function/retrieve-employer-image.php";  
 ?>
 
 <!DOCTYPE html>
@@ -32,12 +33,54 @@
           }
 
           .circle-image {
+               position: relative;
+               border-radius: 50%; /* Create a circular frame */
+               border: 5px solid white;
+               overflow: hidden; /* Crop the image */
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               cursor: pointer;
                width: 150px; /* Set the width and height to your desired circle size */
                height: 150px;
-               border-radius: 50%; /* Create a circular frame */
-               background: url("../images/square-logo.png") center center no-repeat; /* Set the image as background */
-               background-size: cover; /* Ensure the image covers the circular frame */
-               border: 5px solid white;
+               
+          }
+
+          .circle-image img {
+               width: auto; /* Make sure the image covers the circular frame */
+               height: 100%;
+               display: block;
+          }
+
+          .upload-text {
+               display: none;
+               position: absolute;
+               top: 50%;
+               left: 50%;
+               transform: translate(-50%, -50%);
+               font-size: 14px;
+               color: #000;
+          }
+
+          .dark-overlay {
+               position: absolute;
+               width: 100%;
+               height: 100%;
+               background: rgba(0, 0, 0, 0.46);
+               border-radius: 50%;
+               display: none;
+               justify-content: center;
+               align-items: center;
+               color: white;
+               font-size: 23px;
+          }
+
+          .circle-image:hover .dark-overlay {
+               display: flex;
+          }
+
+          .circle-image:hover .upload-text {
+               display: flex;
           }
 
           #btn-outline-a {
@@ -126,7 +169,12 @@
           <div>
                <div class="upper-section row avenir">
                     <div class="col-5 col-lg-3 d-flex justify-content-end">
-                         <div class="circle-section d-flex justify-content-center align-items-center"><div class="circle-image"></div></div>
+                         <div class="circle-section d-flex justify-content-center align-items-center">
+                              <label for="image-upload" class="circle-image">
+                                   <img id="profile-img" src="<?= isset($ProfileImageData) ? 'data:image/png;base64,' . $ProfileImageData : '../images/blank-company-profile.png' ?>" alt="Employer profile image">
+                                   <span class="upload-text dark-overlay" id="upload-button">Upload</span>
+                              </label>
+                         </div>
                     </div>
                     <div class="col-7 col-lg-9 d-flex align-items-center">
                          <div>
@@ -323,11 +371,69 @@
      </div>
 
 
+     <!-- image -->
+     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-image" aria-labelledby="offcanvasExampleLabel">
+          <div class="offcanvas-header">
+               <h5 class="offcanvas-title" id="offcanvasExampleLabel">Upload Image</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+               <div>
+                    <form action="<?php echo htmlspecialchars('../function/save-employer-image.php'); ?>" enctype="multipart/form-data"  method="post" style="max-width: 800px !important;">
+                         <div id="job-seeker-signup-a" class="form-section">
+                              <div class="">
+                                   <div>
+                                        <input type="hidden" name="company_id" value="<?= "$company_ID" ?>" id="company-id">
+                                        <div class="" id="view-uploaded-image">
+                                             <input type="file" id="image-upload" name="image" accept=".png, .jpg" style="display: none;" required>
+                                             <div class="circle-section d-flex justify-content-center">
+                                                  <label for="image-upload" class="circle-image" style="width: 250px !important; height: 250px !important; border: 5px solid color(srgb 0.1277 0.5183 0.9668);">
+                                                       <img id="selected-image">
+                                                  </label>
+                                             </div>
+                                        </div>
+                                   </div>     
+                              </div>
+                         </div>
+                         <div class="mt-3 m-0 d-flex justify-content-center">
+                              <button id="prev-button" type="button" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+                              <button id="upload-another" type="button">Choose</button>
+                              <button id="submit-button" class="button m-1 submit-image-btn" type="submit" disabled>Upload</button>
+                         </div>
+                    </form>
+               </div>
+          </div>
+     </div>
 
      <?php include "../common/footer-inside-folder.php"; ?>
      <?php include "../common/message-session.php"; ?>
      <?php include "../job-seeker/data-list.php"; ?>
      <script src="../js/remove-url-session.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script>
+          document.getElementById('image-upload').addEventListener('change', function() {
+               var selectedImage = document.getElementById('selected-image');
+               var submitImageBtn = document.querySelector('.submit-image-btn');
+               var fileInput = this;
+               if (fileInput.files && fileInput.files[0]) {
+               var reader = new FileReader();
+               reader.onload = function(e) {
+                    selectedImage.src = e.target.result;
+                    selectedImage.style.display = 'block';
+                    submitImageBtn.disabled = false;
+               };
+               reader.readAsDataURL(fileInput.files[0]);
+               }
+          });
+          document.getElementById('upload-button').addEventListener('click', function() {
+               var offcanvas = new bootstrap.Offcanvas(document.getElementById('edit-image'));
+               offcanvas.show();
+          });
+          document.getElementById('upload-another').addEventListener('click', function() {
+          // Trigger the file input by clicking on it
+          document.getElementById('image-upload').click();
+          });
+     </script>
 
      <script>
           // Example starter JavaScript for disabling form submissions if there are invalid fields
