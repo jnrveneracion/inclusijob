@@ -63,16 +63,33 @@
                margin: 20px !important;
           }
 
-          .hover-img:hover {
+          .hover-img:hover, .add-on-nav:hover {
                filter: brightness(.9);
+          }
+
+          .add-on-nav {
+               background-color: #2184f7;
+               padding: 7px 20px;
+               border-radius: 7px;
           }
      </style>
 </head>
 <body class="container-xxl">
      <?php include "../common/head-inside-folder.php"; ?>
-     <div class="breadcrumbs">
-          <div class="page-indicator d-flex justify-content-center justify-content-lg-start">
+     <div class="breadcrumbs" style="display: flex; justify-content: space-between; align-items:center;">
+          <div class="page-indicator d-flex justify-content-center justify-content-lg-start align-items-center">
                <a href="../index.php" class="no-decor-link"><h6 class="page-indicator-txt active">Job Seeker</h6></a> 
+          </div>
+          <div class="page-indicator add-on-nav position-relative">
+               <a href="notifications.php" class="d-flex justify-content-center justify-content-lg-start align-items-center" style="z-index: 1;">
+                    <svg style="fill:white" xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 448 512">
+                         <path d="M224 0c-17.7 0-32 14.3-32 32V49.9C119.5 61.4 64 124.2 64 200v33.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V200c0-75.8-55.5-138.6-128-150.1V32c0-17.7-14.3-32-32-32zm0 96h8c57.4 0 104 46.6 104 104v33.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V200c0-57.4 46.6-104 104-104h8zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"/>
+                    </svg>
+                    <h6 class="ms-1 mb-0 text-white">Notifications</h6>
+               </a>
+               <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                    <span class="visually-hidden">New alerts</span>
+               </span>
           </div>
      </div>
      <div class="body d-flex justify-content-center align-items-center m-2 p-4" id="login-body">
@@ -89,7 +106,6 @@
                     <div class="col-lg-6 col-12 d-flex justify-content-center">
                          <div style="width: 500px;" class="home-btn">
                               <a href="preview-profile.php"><div class="home-btn-style">Profile Preview</div></a>
-                              <a href="notifications.php"><div class="home-btn-style">Notifications</div></a>
                               <a href="saved-jobs.php"><div class="home-btn-style">Saved Jobs</div></a>
                          </div>
                     </div>

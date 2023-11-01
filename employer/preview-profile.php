@@ -261,7 +261,7 @@
      </div>
 
      <!-- company Information -->
-     <div class="offcanvas offcanvas-end w-auto" data-bs-scroll="true" tabindex="-1" id="edit-company-info" aria-labelledby="offcanvasExampleLabel">
+     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-company-info" aria-labelledby="offcanvasExampleLabel">
           <div class="offcanvas-header">
                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Edit Company Information</h5>
                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

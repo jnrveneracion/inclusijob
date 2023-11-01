@@ -63,7 +63,7 @@
                     aria-controls="collapseExample">
                     <img src="../images/accessibility-svgrepo-com.png" width="50" alt="">
                </a>
-               <div class="collapse" id="accessibility-menu">
+               <div class="collapse" id="accessibility-menu" style="z-index: 100;">
                     <div class="card card-body">
                          <div id="accessibility-options">
                               <button id="smaller-font" title="smaller font">A -</button>
