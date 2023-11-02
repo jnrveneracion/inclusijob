@@ -14,7 +14,11 @@
                FROM JOB_LISTING AS JL
                LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI ON JL.employer_id = ESI.company_ID 
                LEFT JOIN SAVED_JOB_LISTING AS SJL ON JL.job_id = SJL.job_listing_id
-               WHERE SJL.jobseeker_ID = '$jobseeker_ID'
+               WHERE SJL.jobseeker_ID = '$jobseeker_ID' AND JL.job_id NOT IN (
+                    SELECT job_ID
+                    FROM JOB_APPLICATION_STATUS
+                    WHERE jobseeker_ID = '$jobseeker_ID'
+               )
                ORDER BY JL.date_added ASC;"; 
 
      $stmt = mysqli_prepare($conn, $query);

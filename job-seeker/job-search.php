@@ -2,8 +2,6 @@
      session_start();
      include "../session-check/job-seeker-not-set.php";
      include "../function/retrieve-job-seeker-signup.php";
-     
-     
 ?>
 
 <!DOCTYPE html>
@@ -240,6 +238,41 @@
                          $(this).removeClass('gray-background');
                     }
                });
+          });
+     </script>
+
+     <!-- apply job -->
+     <script>
+          $(document).ready(function() {
+          // Add a click event handler to the SVG with the id "save-job"
+          $('.apply-now').on('click', function() {
+               // Retrieve attribute values
+               var jobListingId = $(this).attr('job-listing-id');
+               var jobSeekerId = $(this).attr('job-seeker-id');
+               var employerId = $(this).attr('employer-id');
+               
+               // Prepare data to send to the server
+               var data = {
+                    jobListingId: jobListingId,
+                    jobSeekerId: jobSeekerId,
+                    employerId: employerId
+               };
+               
+               // Send an Ajax request to save the data
+               $.ajax({
+                    type: 'POST',
+                    url: '../function/apply-job-listing.php', // Replace with the URL to your server-side script
+                    data: data,
+                    success: function(response) {
+                         window.location.href = 'job-application-status.php?message=You%20have%20successfully%20applied';
+                         console.log(response);
+                    },
+                    error: function() {
+                         // Handle errors if the request fails
+                         console.error('Ajax request failed');
+                    }
+               });
+          });
           });
      </script>
 

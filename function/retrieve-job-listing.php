@@ -16,17 +16,37 @@
      //           LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI ON JL.employer_id = ESI.company_ID 
      //           ORDER BY JL.date_added ASC;"; 
 
-     $query = "SELECT *, 
-                    DATE_FORMAT(JL.date_added, '%Y-%m-%d') AS joblisting_date_added, 
+     // this query is not affected when job seeker applied for a job
+     // $query = "SELECT *, 
+     //                DATE_FORMAT(JL.date_added, '%Y-%m-%d') AS joblisting_date_added, 
+     //                DATE_FORMAT(JL.date_added, '%M %d, %Y') AS joblisting_date_added_word,
+     //                DATE_FORMAT(JL.application_deadline, '%M %d, %Y') AS application_deadline_word,
+     //                CASE 
+     //                WHEN SJL.jobseeker_ID = '$jobseeker_ID' THEN 1
+     //                ELSE 0
+     //                END AS saved_status
+     //           FROM JOB_LISTING AS JL
+     //           LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI ON JL.employer_id = ESI.company_ID 
+     //           LEFT JOIN SAVED_JOB_LISTING AS SJL ON JL.job_id = SJL.job_listing_id AND SJL.jobseeker_ID = '$jobseeker_ID'
+     //           ORDER BY JL.date_added ASC;";
+
+     // this query have the condition to hide the jobs applied by the job seeker
+     $query = "SELECT *,
+                    DATE_FORMAT(JL.date_added, '%Y-%m-%d') AS joblisting_date_added,
                     DATE_FORMAT(JL.date_added, '%M %d, %Y') AS joblisting_date_added_word,
                     DATE_FORMAT(JL.application_deadline, '%M %d, %Y') AS application_deadline_word,
-                    CASE 
+                    CASE
                     WHEN SJL.jobseeker_ID = '$jobseeker_ID' THEN 1
                     ELSE 0
                     END AS saved_status
                FROM JOB_LISTING AS JL
-               LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI ON JL.employer_id = ESI.company_ID 
+               LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI ON JL.employer_id = ESI.company_ID
                LEFT JOIN SAVED_JOB_LISTING AS SJL ON JL.job_id = SJL.job_listing_id AND SJL.jobseeker_ID = '$jobseeker_ID'
+               WHERE JL.job_id NOT IN (
+                    SELECT job_ID
+                    FROM JOB_APPLICATION_STATUS
+                    WHERE jobseeker_ID = '$jobseeker_ID'
+               )
                ORDER BY JL.date_added ASC;";
 
      $stmt = mysqli_prepare($conn, $query);
@@ -141,7 +161,7 @@
                                              </div>
                                         </div>
                                         <div class="col-4 d-flex justify-content-end align-items-center">
-                                             <button type="button" class="fw-bold" id="apply-btn">Apply now</button>
+                                             <button job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['company_ID'] .'" type="button" class="fw-bold apply-now" id="apply-btn">Apply now</button>
                                         </div>
                                         <div class="col-1 d-flex justify-content-start align-items-center">
                                              <svg class="save-job first-svg '. $unsaved_status .'" onclick="toggleSave('. $itemCount2 .')" id="save-job-'. $itemCount2 .'" job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['company_ID'] .'" xmlns="http://www.w3.org/2000/svg" height="2.5em" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"/></svg>

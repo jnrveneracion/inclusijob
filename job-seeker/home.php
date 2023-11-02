@@ -76,7 +76,7 @@
 </head>
 <body class="container-xxl">
      <?php include "../common/head-inside-folder.php"; ?>
-     <div class="breadcrumbs" style="display: flex; justify-content: space-between; align-items:center;">
+     <div class="breadcrumbs" style="display: flex; justify-content: space-between; align-items:start;">
           <div class="page-indicator d-flex justify-content-center justify-content-lg-start align-items-center">
                <a href="../index.php" class="no-decor-link"><h6 class="page-indicator-txt active">Job Seeker</h6></a> 
           </div>

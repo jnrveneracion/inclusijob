@@ -2,8 +2,6 @@
      session_start();
      include "../session-check/job-seeker-not-set.php";
      include "../function/retrieve-job-seeker-signup.php";
-     
-     
 ?>
 
 <!DOCTYPE html>
