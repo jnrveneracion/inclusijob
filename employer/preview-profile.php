@@ -213,7 +213,7 @@
                               <p class="info-section"><span class="info-label">Description: </span><br><span class="info-data"><?= "$company_description" ?></span></p>
                          </div>
                          <div class="col-12">
-                              <p class="info-section"><span class="info-label">Company culture: </span><br><span class="info-data"><?= "$company_culture" ?></span></p>
+                              <p class="info-section"><span class="info-label">Work environment: </span><br><span class="info-data"><?= "$company_culture" ?></span></p>
                          </div>
                          <div class="col-12">
                               <p class="info-section mb-0"><span class="info-label">Links: </span></p>
@@ -369,7 +369,6 @@
                </div>
           </div>
      </div>
-
 
      <!-- image -->
      <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-image" aria-labelledby="offcanvasExampleLabel">

@@ -126,7 +126,7 @@
                                         </div>
                                         <div class="input-group mb-3 d-grid" id="work-envi-input">
                                              <span class="input-group-text" id="basic-addon1"  style="border-radius: 5px 5px 0px 0px;">Work environment:</span>
-                                             <textarea class="form-control" aria-label="work_environment" id="work_environment" style="height: 100px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;"><?= $company_culture ?></textarea>
+                                             <textarea class="form-control" aria-label="work_environment" id="work_environment" style="height: 100px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" disabled><?= $company_culture ?></textarea>
                                         </div>
                                    </div>
                               </div>

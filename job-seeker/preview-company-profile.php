@@ -130,8 +130,6 @@
           <div class="page-indicator d-flex justify-content-center justify-content-lg-start">
                <a href="home.php" class="no-decor-link"><h6 class="page-indicator-txt">Job Seeker</h6></a> 
                <a href="#" class="no-decor-link"><h6 class="page-indicator-txt divider">></h6></a>
-               <a href="job-search.php" class="no-decor-link"><h6 class="page-indicator-txt">Job Search</h6></a> 
-               <a href="#" class="no-decor-link"><h6 class="page-indicator-txt divider">></h6></a>
                <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active">Company Profile</h6></a> 
           </div>
      </div>

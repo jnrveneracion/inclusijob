@@ -147,7 +147,7 @@
      </div>
      <div class="body m-2 p-4 mt-0 pt-2" id="login-body">
           <div>
-               <div class="upper-section mt-1">
+               <div class="upper-section mt-1 d-none">
                     <div class="d-flex justify-content-center align-items-center row">
                          <div class="col-9 p-0 d-flex justify-content-end">
                               <div class="ms-5 input-group search-input search-grp d-flex justify-content-center justify-content-lg-end w-auto " style="min-width: 80%;">
@@ -190,7 +190,6 @@
                                    </div>
                               </div>
                          </div>
-                       
                     </div>
                </div>
                <div class="lower-section" style="min-height: 600px;">

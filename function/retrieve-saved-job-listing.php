@@ -174,7 +174,7 @@
                                              </div>
                                              <h6 class="mb-0 mt-2 fs-5 '. $workEnvironment .'">Work environment:</h6>
                                              <div>
-                                                  <p>' . $row['company_culture'] . '</p>
+                                                  <p class="'. $workEnvironment .'">' . $row['company_culture'] . '</p>
                                              </div>
                                              <h6 class="mb-0 mt-2 fs-5">Additional information:</h6>
                                              <div class="row">

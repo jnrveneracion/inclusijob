@@ -21,3 +21,8 @@ Company profiles - connected to admin (example Accenture) optional - connected c
 Saved jobs
 For admins
 First name- Surname (name format)
+
+
+
+- company review
+- community discussion

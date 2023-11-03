@@ -8,16 +8,17 @@ $jobseeker_ID = $_SESSION['jobseeker_ID'];
 
 // Create a prepared statement to select data
 $query = "SELECT *,
-               DATE_FORMAT(JL.date_added, '%Y-%m-%d') AS joblisting_date_added,
-               DATE_FORMAT(JL.date_added, '%M %d, %Y') AS joblisting_date_added_word,
-               DATE_FORMAT(JL.application_deadline, '%M %d, %Y') AS application_deadline_word
+          DATE_FORMAT(JL.date_added, '%Y-%m-%d') AS joblisting_date_added,
+          DATE_FORMAT(JL.date_added, '%M %d, %Y') AS joblisting_date_added_word,
+          DATE_FORMAT(JL.application_deadline, '%M %d, %Y') AS application_deadline_word
           FROM JOB_APPLICATION_STATUS AS JAS 
           LEFT JOIN JOB_LISTING AS JL 
           ON JAS.job_ID = JL.job_id 
           LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI 
           ON JAS.company_ID = ESI.company_ID
-          WHERE jobseeker_ID = ?
-          ORDER BY JAS.date_added DESC;";
+          WHERE jobseeker_ID = ? AND JL.job_id IS NOT NULL
+          ORDER BY JAS.date_added DESC;
+          ";
 
 $stmt = mysqli_prepare($conn, $query);
 
@@ -184,7 +185,7 @@ if ($stmt === false) {
                                                             <div class="col-7 d-flex align-items-center">
                                                                  <div>
                                                                       <h1 class="m-0">' . $row['job_title'] . '</h1>
-                                                                      <a class="preview-profile-link" href="preview-company-profile.php?c=' . $row['company_ID'] . '"><h3 class="m-0">' . $row['company_name'] . '</h3></a>
+                                                                      <a class="preview-profile-link" target="_blank" href="preview-company-profile.php?c=' . $row['company_ID'] . '"><h3 class="m-0">' . $row['company_name'] . '</h3></a>
                                                                  </div>
                                                             </div>
                                                        </div>
@@ -231,7 +232,7 @@ if ($stmt === false) {
                                                                  </div>
                                                                  <h6 class="mb-0 mt-2 fs-5 '. $workEnvironment .'">Work environment:</h6>
                                                                  <div>
-                                                                      <p>' . $row['company_culture'] . '</p>
+                                                                      <p class="'. $workEnvironment .'">' . $row['company_culture'] . '</p>
                                                                  </div>
                                                                  <h6 class="mb-0 mt-2 fs-5">Additional information:</h6>
                                                                  <div class="row">
@@ -281,13 +282,13 @@ if ($stmt === false) {
                                                                  </div>
                                                                  <div class="mt-1 mb-1 application-info">
                                                                       <div class="d-flex">
-                                                                           <div class="'. $dateAppliedModal .' align-items-center"><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateAppliedRow .'" class="col-auto m-1 status-indicator mb-0 align-items-center applied " style="width: fit-content;">Applied '. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateUnderReviewModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateUnderReviewRow .'" class="col-auto m-1 status-indicator mb-0 align-items-center under-review " style="width: fit-content;">Under Review'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateShortlistedModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateShortlistedRow .'" class="col-auto m-1 status-indicator mb-0 align-items-center shortlisted " style="width: fit-content;">Shortlisted'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateInterviewModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateInterviewRow .'" class="col-auto m-1 status-indicator mb-0 align-items-center interview-scheduled " style="width: fit-content;">Interview Scheduled'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateRejectedModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateRejectedRow .'" class="col-auto m-1 status-indicator mb-0 align-items-center rejected " style="width: fit-content;">Rejected'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateHiredModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateHiredRow .'" class="col-auto m-1 status-indicator mb-0 align-items-center hired" style="width: fit-content;">Hired'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateWithdrawJobModal .' align-items-center"><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateWithdrawJobRow .'" class="col-auto m-1 status-indicator mb-0 align-items-center withdrawn " style="width: fit-content;">Withdrawn'. $clockSVG .'</div>
+                                                                           <div class="'. $dateAppliedModal .' align-items-center"><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateAppliedRow .'" class="col-auto m-1 status-indicator mb-0 d-flex align-items-center applied " style="width: fit-content;">Applied '. $clockSVG .'</p></div>
+                                                                           <div class="'. $dateUnderReviewModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateUnderReviewRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center under-review " style="width: fit-content;">Under Review'. $clockSVG .'</p></div>
+                                                                           <div class="'. $dateShortlistedModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateShortlistedRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center shortlisted " style="width: fit-content;">Shortlisted'. $clockSVG .'</p></div>
+                                                                           <div class="'. $dateInterviewModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateInterviewRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center interview-scheduled " style="width: fit-content;">Interview Scheduled'. $clockSVG .'</p></div>
+                                                                           <div class="'. $dateRejectedModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateRejectedRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center rejected " style="width: fit-content;">Rejected'. $clockSVG .'</p></div>
+                                                                           <div class="'. $dateHiredModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateHiredRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center hired" style="width: fit-content;">Hired'. $clockSVG .'</p></div>
+                                                                           <div class="'. $dateWithdrawJobModal .' align-items-center"><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateWithdrawJobRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center withdrawn " style="width: fit-content;">Withdrawn'. $clockSVG .'</div>
                                                                       </div>
                                                                  </div>
                                                             </div>

@@ -174,7 +174,7 @@
                               <div class="col-2 col-lg-1 me-5 d-flex align-items-center">
                                    <label class="select-no-style" for="filter-job-type"><span id="number-of-jobs-results"></label>
                               </div>
-                              <div class="col-10 col-lg-8 ms-3 d-flex align-items-center">
+                              <div class="col-10 col-lg-8 ms-3 d-flex align-items-center d-none">
                                    <div class="">
                                         <label class="select-no-style-head " for="filter-job-type">Job type:</label>
                                         <select class="select-no-style" id="filter-job-type"> 
@@ -202,7 +202,7 @@
                        
                     </div>
                </div>
-               <div class="lower-section">
+               <div class="lower-section" style="min-height: 500px;">
                     <div class="row d-flex flex-column-reverse flex-lg-row" id="job-list-bar">
                          <!-- First Column (List) -->
                          <div class="col-lg-4 ps-1 pe-1" style="padding-top: 10px;" id="first-column">
