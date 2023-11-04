@@ -69,9 +69,26 @@
                border: 2px solid #07461c;
           }
 
+          .status-indicator.job-trashed {
+               background-color: rgb(231, 50, 50);
+               border: 2px solid #cd1717;
+          }
+
           .status-info {
                font-size: 13px;
           }
+
+          .notification-section.job-trashed {
+               border: 3px solid color(srgb 0.995 0.8308 0.8308);
+               background-color: rgb(255, 242, 242);
+          }
+
+
+          .notification-section.job-trashed:hover {
+               border: 3px solid color(srgb 0.79 0.0553 0.0553);
+          }
+
+
      </style>
 </head>
 <body class="container-xxl">
@@ -98,6 +115,7 @@
           const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
           const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
      </script>
+
      <!-- <script>
           $('#view-application-status').on('show.bs.modal', function (event) {
                var button = $(event.relatedTarget); // The button that triggered the modal

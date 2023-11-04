@@ -10,7 +10,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>InclusiJob | View Job Listing</title>
+     <title>InclusiJob | <?= $job_title ?></title>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
      <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -123,9 +123,9 @@
           <div class="page-indicator d-flex justify-content-center justify-content-lg-start">
                <a href="home.php" class="no-decor-link"><h6 class="page-indicator-txt">Employer</h6></a> 
                <a href="#" class="no-decor-link"><h6 class="page-indicator-txt">></h6></a> 
-               <a href="javascript:void(0);" onclick="window.close();" class="no-decor-link"><h6 class="page-indicator-txt">Manage Job Listing</h6></a> 
+               <a href="manage-job-listing.php" class="no-decor-link"><h6 class="page-indicator-txt">Manage Job Listing</h6></a> 
                <a href="#" class="no-decor-link"><h6 class="page-indicator-txt">></h6></a> 
-               <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active">View Job Listing</h6></a> 
+               <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active">Manage <?= $job_title ?> Job Listing</h6></a> 
           </div>
      </div>
      <div class="row justify-content-center mt-3">
@@ -142,7 +142,7 @@
                               </div>
                               <div class="col-4 d-flex justify-content-end align-items-center">
                                    <a href="" class="btn-job-listing update d-flex align-items-center" class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Edit<svg class="ms-2" style="fill: white;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg></a>
-                                   <a href="" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" class="btn-job-listing delete delete-btn d-flex align-items-center" job-id="'. $job_ID .'">Delete<svg class="ms-2" style="fill: white;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></a>
+                                   <a href="" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" class="btn-job-listing delete delete-btn d-flex align-items-center" job-id="'. $job_ID .'">Trash<svg class="ms-2" style="fill: white;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></a>
                               </div>
                          </div>
                          <div>
@@ -362,15 +362,15 @@
      <div class="modal-dialog modal-dialog-centered">
      <div class="modal-content">
           <div class="modal-header">
-          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Trashing</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-          Are you sure you want to delete this job? This action cannot be undone, and all job seeker applications associated with this job will be permanently removed.
+          Are you sure you want to move this job into the trash? All job seeker applications associated with this job will be removed and they will be notified. You can restore it again in the 'Trash' section at the 'Manage Job Postings'.
           </div>
           <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger d-flex align-items-center" id="confirmDeleteBtn">Delete<svg class="ms-2" style="fill: white;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></button>
+          <button type="button" class="btn btn-danger d-flex align-items-center" id="confirmDeleteBtn">Trash<svg class="ms-2" style="fill: white;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></button>
           </div>
      </div>
      </div>
@@ -378,6 +378,9 @@
 
      <?php include "../common/footer-inside-folder.php"; ?>
      <?php include "../common/message-session.php"; ?>
+     <?php include "../job-seeker/data-list.php"; ?>
+     <script src="../js/money-format-decimal.js"></script>
+     <script src="../js/check-input.js"></script>
      <script>
           const checkbox = document.getElementById('flexSwitchCheckChecked');
           const workEnvi = document.getElementById('work-envi-input');
@@ -410,10 +413,10 @@
           // Send an Ajax request to delete the job
           $.ajax({
                type: 'POST',
-               url: '../function/delete-job-listing.php', // Replace with your server-side script URL
+               url: '../function/trash-job-listing.php', // Replace with your server-side script URL
                data: data,
                success: function(response) {
-               window.location.href = 'manage-job-listing.php?message=You%20have%20successfully%20deleted%20job%20listing';
+               window.location.href = 'manage-job-listing.php?message=You%20have%20successfully%20trashed%20job%20listing';
                console.log(response);
                },
                error: function() {

@@ -9,7 +9,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>InclusiJob | Manage Job Listing</title>
+     <title>InclusiJob | Trashed Jobs</title>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
      <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -103,9 +103,9 @@
                border: 2px solid rgb(10, 141, 255);
           }
 
-          .btn-job-listing.review {
-               background-color: #fd7e14;
-               border: 2px solid rgb(213, 101, 15);
+          .btn-job-listing.restore {
+               background-color: color(srgb 0 0.79 0.3615);
+               border: 2px solid rgb(45, 175, 0);
           }
 
           .fadeInUp {
@@ -127,60 +127,102 @@
           <div class="page-indicator d-flex justify-content-center justify-content-lg-start">
                <a href="home.php" class="no-decor-link"><h6 class="page-indicator-txt">Employer</h6></a> 
                <a href="#" class="no-decor-link"><h6 class="page-indicator-txt">></h6></a> 
-               <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active">Manage Job Listing</h6></a> 
-          </div>
-          <div class="page-indicator add-on-nav">
-               <a href="trashed-jobs.php" class="d-flex justify-content-center justify-content-lg-start align-items-center text-white" style="z-index: 1; font-weight: 600;">Trash
-                    <svg class="ms-1" style="fill: white;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
-                    
-               </a>
+               <a href="manage-job-listing.php" class="no-decor-link"><h6 class="page-indicator-txt">Manage Job Listing</h6></a> 
+               <a href="#" class="no-decor-link"><h6 class="page-indicator-txt">></h6></a> 
+               <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active">Trash</h6></a> 
           </div>
      </div>
-     <div class="upper-section m-2 p-4 pt-1 pb-1">
-          <div class=" mt-1">
-               <div class=" d-flex justify-content-center">
-                    <div class="p-0 w-75">
-                         <div class="input-group search-input search-grp">
-                              <span class="input-group-text search-input fw-bold" style="border-right: none;">Search</span>
-                              <input placeholder="Enter job title, keywords, or location" type="text" class="form-control search-input" id="search-input" aria-label="" style="border-right: none; border-left: none;">
-                              <span class="input-group-text search-input" style="border-left: none;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#929292}</style><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></span>
-                         </div>
-                    </div>
-               </div>
-          </div>
-     </div>
-     <div class="lower-section m-0 row d-flex justify-content-center align-items-start" style="min-height: 500px;">
+     <div class="lower-section m-0 row d-flex justify-content-center align-items-start mt-3" style="min-height: 580px;">
           <div class="row d-flex justify-content-center">
-               <?php include "../function/retrieve-job-listing-employer.php"; ?>
+               <?php include "../function/retrieve-trashed-job-listing-employer.php"; ?>
           </div>
+     </div>
+
+     <!-- Bootstrap Modal -->
+     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+               Are you sure you want to delete this job? This action cannot be undone, and all job seeker applications associated with this job will be permanently removed.
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger d-flex align-items-center" id="confirmDeleteBtn">Delete permanently<svg class="ms-2" style="fill: white;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></button>
+          </div>
+     </div>
+     </div>
      </div>
 
      <?php include "../common/footer-inside-folder.php"; ?>
      <?php include "../common/message-session.php"; ?>
      <script src="../js/remove-url-session.js"></script>
 
+     <!-- restore job -->
      <script>
-          const listingItems = document.querySelectorAll('.listing-item');
-          const searchInput = document.getElementById('search-input');
-
-          // Add an event listener for the "Enter" key
-          searchInput.addEventListener('keypress', function(event) {
-               if (event.key === 'Enter') {
-                    const inputValue = searchInput.value.toLowerCase();
-
-                    listingItems.forEach(item => {
-                         const itemText = item.textContent.toLowerCase();
-                         if (inputValue === "" || itemText.includes(inputValue)) {
-                              item.style.display = "flex";
-                              item.classList.add('fadeInUp');
-                         } else {
-                              item.style.display = "none";
-                         }
-                    });
-               }
+          $(document).ready(function() {
+          // Add a click event handler to the SVG with the id "save-job"
+          $('.restore-btn').on('click', function() {
+               // Retrieve attribute values
+               var jobListingId = $(this).attr('job-listing-id');
+               
+               // Prepare data to send to the server
+               var data = {
+                    jobListingId: jobListingId
+               };
+               
+               // Send an Ajax request to save the data
+               $.ajax({
+                    type: 'POST',
+                    url: '../function/restore-job-listing.php', // Replace with the URL to your server-side script
+                    data: data,
+                    success: function(response) {
+                         window.location.href = 'manage-job-listing.php?message=You%20have%20successfully%20restore%20job%20listing';
+                         console.log(response);
+                    },
+                    error: function() {
+                         // Handle errors if the request fails
+                         console.error('Ajax request failed');
+                    }
+               });
+          });
           });
      </script>
 
+     
+     <!-- permanently delete job -->
+     <script>
+     $(document).ready(function() {
+     $('.delete-btn').on('click', function() {
+          var jobId = $(this).attr('job-listing-id');
+
+          // Handle confirmation when the "Delete" button in the modal is clicked
+          $('#confirmDeleteBtn').on('click', function() {
+          // Prepare data to send to the server
+          var data = {
+               jobListingId: jobId
+          };
+
+          // Send an Ajax request to delete the job
+          $.ajax({
+               type: 'POST',
+               url: '../function/delete-job-listing.php', // Replace with your server-side script URL
+               data: data,
+               success: function(response) {
+               window.location.href = 'manage-job-listing.php?message=You%20have%20successfully%20deleted%20job%20listing';
+               console.log(response);
+               },
+               error: function() {
+               console.error('Ajax request failed');
+               }
+          });
+          });
+     });
+     });
+     </script>
 </body>
 </html>
 

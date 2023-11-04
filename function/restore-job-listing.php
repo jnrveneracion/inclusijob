@@ -6,20 +6,25 @@
      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      // Retrieve the data from the Ajax request
      $jobListingId = $_POST['jobListingId'];
+     $unTrash = 0;
 
-     // Insert the data into your database (replace with your database structure)
-     $sql = "DELETE FROM JOB_LISTING WHERE job_id = ?";
+     // Update the data in your database
+     $sql = "UPDATE JOB_LISTING 
+               SET 
+               trash = ?,
+               date_untrash = NOW()
+               WHERE job_id = ?";
 
      $stmt = $conn->prepare($sql);
 
      // Bind the parameters and execute the query
-     $stmt->bind_param("i", $jobListingId);
+     $stmt->bind_param("ii", $unTrash, $jobListingId);
 
      if ($stmt->execute()) {
-          // Data inserted successfully
-          echo "Job listing deleted successfully!";
+          // Data updated successfully
+          echo "Job listing restored successfully!";
      } else {
-          // Handle the database insertion error
+          // Handle the database update error
           echo "Error: " . $stmt->error;
      }
 

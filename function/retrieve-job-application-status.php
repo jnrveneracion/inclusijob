@@ -10,7 +10,8 @@ $jobseeker_ID = $_SESSION['jobseeker_ID'];
 $query = "SELECT *,
           DATE_FORMAT(JL.date_added, '%Y-%m-%d') AS joblisting_date_added,
           DATE_FORMAT(JL.date_added, '%M %d, %Y') AS joblisting_date_added_word,
-          DATE_FORMAT(JL.application_deadline, '%M %d, %Y') AS application_deadline_word
+          DATE_FORMAT(JL.application_deadline, '%M %d, %Y') AS application_deadline_word,
+          JL.trash AS trashed
           FROM JOB_APPLICATION_STATUS AS JAS 
           LEFT JOIN JOB_LISTING AS JL 
           ON JAS.job_ID = JL.job_id 
@@ -42,6 +43,7 @@ if ($stmt === false) {
           // Check if there are records
           if (mysqli_num_rows($result) > 0) {
                while ($row = mysqli_fetch_assoc($result)) {
+
                     $dateAppliedRow = $row['applied_date'] ? date("M d, Y h:i A", strtotime($row['applied_date'])) : "";
                     $dateUnderReviewRow = $row['under_review_date'] ? date("M d, Y h:i A", strtotime($row['under_review_date'])) : "";
                     $dateShortlistedRow = $row['shortlisted_date'] ? date("M d, Y h:i A", strtotime($row['shortlisted_date'])) : "";
@@ -131,13 +133,23 @@ if ($stmt === false) {
                     $label = $statusInfo[$mostRecentStatus]['label'];
                     $dateLabel = lcfirst($label);
 
+                    $trashStatus = ($row['trashed'] === 1) ? 'job-trashed' : '';
+
                     // Output or display the HTML content for the most recent status
                     if ($class !== "") {
-                         $classHTML = '<div class="col-12 notification-section row d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#'. $countModal .'">
-
-                                             <div class="status-indicator ' . $class . ' mb-md-0 mb-2 col-5 col-md-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">
-                                                  ' . $title . '
-                                             </div>
+                         $classHTML = ($row['trashed'] === 1) ? 
+                                             '<div class="col-12 notification-section row d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#'. $countModal .'">
+                                                       <div class="status-indicator ' . $trashStatus . ' mb-md-0 mb-2 col-5 col-md-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Sorry, this job listing has been removed by the employer. It is no longer accepting job applications.">Job Removed</div>
+                                                       <div class="status-text col-12 col-md-10">
+                                                            <span class="fw-bold">' . $row['job_title'] . '</span>
+                                                            <div class="d-flex">
+                                                                 <p class="status-info mb-0"><span class="fw-semibold">Company name: </span><span>' . $row['company_name'] . '</span></p>
+                                                                 <p class="status-info mb-0 ms-3"><span class="fw-semibold">Employment type: </span><span>' . $row['employment_type'] . '</span></p>
+                                                                 <p class="status-info mb-0 ms-3"><span class="fw-semibold">Date applied: </span><span>' . $dateAppliedRow . '</span></p>
+                                                            </div>
+                                                       </div>
+                                                  </div>' : '<div class="col-12 notification-section row d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#'. $countModal .'">
+                                             <div class="status-indicator mb-md-0 mb-2 col-5 col-md-2 d-flex justify-content-center ' . $class . '" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="' . $dateLabel . '">' . $title . '</div>
                                              <div class="status-text col-12 col-md-10">
                                                   <span class="fw-bold">' . $row['job_title'] . '</span>
                                                   <div class="d-flex">
@@ -167,14 +179,14 @@ if ($stmt === false) {
                     $jobBenefits = (!empty($jobBenefitsRow)) ? 'd-block' : 'd-none';
                     $workEnvironment = (($workEnvironmentRow === 1)) ? 'd-block' : 'd-none';
 
+                    $modalHeadStatus = ($row['trashed'] === 1) ? '<div class="w-100 status-indicator '. $trashStatus .' mb-md-0 mb-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">Sorry, this job listing has been removed by the employer. It is no longer accepting job applications.</div>' : '<div class="w-100 status-indicator ' . $class . ' mb-md-0 mb-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">' . $title . ' - '. $dateLabel .'</div>';
+
                     echo '<!-- Modal -->
                     <div class="modal fade" id="'. $countModal .'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                          <div class="modal-dialog modal-dialog-centered modal-xl">
                               <div class="modal-content">
                                    <div class="modal-header">
-                                        <div class="w-100 status-indicator ' . $class . ' mb-md-0 mb-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">
-                                             ' . $title . ' - '. $dateLabel .'
-                                        </div>
+                                        '. $modalHeadStatus .'
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                    </div>
                                    <div class="modal-body">
@@ -281,14 +293,14 @@ if ($stmt === false) {
                                                                       <h6 class="mb-0 mt-3">Application Status History</h6>
                                                                  </div>
                                                                  <div class="mt-1 mb-1 application-info">
-                                                                      <div class="d-flex">
-                                                                           <div class="'. $dateAppliedModal .' align-items-center"><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateAppliedRow .'" class="col-auto m-1 status-indicator mb-0 d-flex align-items-center applied " style="width: fit-content;">Applied '. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateUnderReviewModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateUnderReviewRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center under-review " style="width: fit-content;">Under Review'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateShortlistedModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateShortlistedRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center shortlisted " style="width: fit-content;">Shortlisted'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateInterviewModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateInterviewRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center interview-scheduled " style="width: fit-content;">Interview Scheduled'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateRejectedModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateRejectedRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center rejected " style="width: fit-content;">Rejected'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateHiredModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateHiredRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center hired" style="width: fit-content;">Hired'. $clockSVG .'</p></div>
-                                                                           <div class="'. $dateWithdrawJobModal .' align-items-center"><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateWithdrawJobRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center withdrawn " style="width: fit-content;">Withdrawn'. $clockSVG .'</div>
+                                                                      <div class="d-flex" id="application-statuses">
+                                                                           <div date-updated="'. $row['applied_date'] .'" class="'. $dateAppliedModal .' align-items-center"><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateAppliedRow .'" class="col-auto m-1 status-indicator mb-0 d-flex align-items-center applied " style="width: fit-content;">Applied '. $clockSVG .'</p></div>
+                                                                           <div date-updated="'. $row['under_review_date'] .'" class="'. $dateUnderReviewModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateUnderReviewRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center under-review " style="width: fit-content;">Under Review'. $clockSVG .'</p></div>
+                                                                           <div date-updated="'. $row['shortlisted_date'] .'" class="'. $dateShortlistedModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateShortlistedRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center shortlisted " style="width: fit-content;">Shortlisted'. $clockSVG .'</p></div>
+                                                                           <div date-updated="'. $row['interview_date'] .'" class="'. $dateInterviewModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateInterviewRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center interview-scheduled " style="width: fit-content;">Interview Scheduled'. $clockSVG .'</p></div>
+                                                                           <div date-updated="'. $row['rejected_date'] .'" class="'. $dateRejectedModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateRejectedRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center rejected " style="width: fit-content;">Rejected'. $clockSVG .'</p></div>
+                                                                           <div date-updated="'. $row['hired_date'] .'" class="'. $dateHiredModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateHiredRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center hired" style="width: fit-content;">Hired'. $clockSVG .'</p></div>
+                                                                           <div date-updated="'. $row['withdraw_date'] .'" class="'. $dateWithdrawJobModal .' align-items-center"><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateWithdrawJobRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center withdrawn " style="width: fit-content;">Withdrawn'. $clockSVG .'</div>
                                                                       </div>
                                                                  </div>
                                                             </div>

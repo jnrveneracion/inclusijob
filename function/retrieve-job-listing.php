@@ -46,7 +46,7 @@
                     SELECT job_ID
                     FROM JOB_APPLICATION_STATUS
                     WHERE jobseeker_ID = '$jobseeker_ID'
-               )
+               ) AND JL.trash = 0
                ORDER BY JL.date_added ASC;";
 
      $stmt = mysqli_prepare($conn, $query);
