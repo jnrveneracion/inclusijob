@@ -396,7 +396,9 @@
           var careerHistoryId = button.getAttribute('career-history-id');
           var jobTitle = button.getAttribute('job-title');
           var companyName = button.getAttribute('company-name');
+          var startMonth = button.getAttribute('start-month');
           var startYear = button.getAttribute('start-year');
+          var endMonth = button.getAttribute('end-month');
           var endYear = button.getAttribute('end-year');
           var stillInRole = button.getAttribute('still-in-role');
           var careerHistoryDescription = button.getAttribute('career-history-description');
@@ -416,6 +418,9 @@
           specificModal.querySelector('input[name="job_title"]').value = jobTitle;
           specificModal.querySelector('input[name="company_name"]').value = companyName;
           specificModal.querySelector('textarea[name="career_history_description"]').value = careerHistoryDescription;
+
+          specificModal.querySelector('select[name="start_month"]').value = startMonth;
+          specificModal.querySelector('select[name="end_month"]').value = endMonth;
 
 
           // Set the selected options for start and graduation years

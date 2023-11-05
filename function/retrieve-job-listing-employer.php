@@ -43,7 +43,7 @@
                                    <div class="listing-item job-listing row" institution-name="' . $row['joblisting_date_added'] . '" this-is="'. $trashStatus .'">
                                         <div class="col-2 col-xl-1 mb-lg-0 mb-3 p-0 d-flex align-items-center justify-content-center">
                                              <div class="d-block">
-                                                  <h4 class="mb-0 text-center">'. $row['application_count'] .'</h4>
+                                                  <h4 class="animate-count mb-0 text-center">'. $row['application_count'] .'</h4>
                                                   <p class="ms-0 mb-0 text-center" style="font-size: 10px;"><span class="fw-bold">Applicant' . ($row['application_count'] === 1 ? "" : "s") . '</span></p>
                                              </div>
                                         </div>

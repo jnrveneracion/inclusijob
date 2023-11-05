@@ -378,8 +378,21 @@
                                    </div>
                                    <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Started:</span>
+                                        <select class="form-select" aria-label="start_month" name="start_month" aria-describedby="start-month-label" id="start_month_select_career">
+                                             <option value="">Month</option>
+                                             <?php
+                                                  $months = array(
+                                                       "January", "February", "March", "April", "May", "June",
+                                                       "July", "August", "September", "October", "November", "December"
+                                                  );
+
+                                                  foreach ($months as $index => $month) {
+                                                       echo "<option value='" . ($index + 1) . "'>$month</option>";
+                                                  }
+                                             ?>
+                                        </select>
                                         <select class="form-select" aria-label="start_year" name="start_year" aria-describedby="start-year-label" id="start_year_select_career" required>
-                                             <option value="">Start Year</option>
+                                             <option value="">Year</option>
                                              <?php
                                                   $currentYear = date("Y");
                                                   for ($year = 1950; $year <= 2023; $year++) {
@@ -390,8 +403,21 @@
                                    </div>
                                    <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1"><span class="req-indicator" id="ended-year">*</span>Ended:</span>
+                                        <select class="form-select" aria-label="end_month" name="end_month" aria-describedby="end-month-label" id="end_month_select_career">
+                                             <option value="">Month</option>
+                                             <?php
+                                                  $months = array(
+                                                       "January", "February", "March", "April", "May", "June",
+                                                       "July", "August", "September", "October", "November", "December"
+                                                  );
+
+                                                  foreach ($months as $index => $month) {
+                                                       echo "<option value='" . ($index + 1) . "'>$month</option>";
+                                                  }
+                                             ?>
+                                        </select>
                                         <select class="form-select" aria-label="end_year" name="end_year" aria-describedby="start-year-label" id="graduation_year_select_career" required>
-                                             <option value="">End Year</option>
+                                             <option value="">Year</option>
                                              <?php
                                                   $currentYear = date("Y");
                                                   for ($year = $currentYear; $year >= 1950; $year--) {
@@ -450,8 +476,21 @@
                                    </div>
                                    <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Started:</span>
+                                        <select class="form-select" aria-label="start_month" name="start_month" aria-describedby="start-month-label" id="start_month_select_career">
+                                             <option value="">Month</option>
+                                             <?php
+                                                  $months = array(
+                                                       "January", "February", "March", "April", "May", "June",
+                                                       "July", "August", "September", "October", "November", "December"
+                                                  );
+
+                                                  foreach ($months as $index => $month) {
+                                                       echo "<option value='" . $month . "'>$month</option>";
+                                                  }
+                                             ?>
+                                        </select>
                                         <select class="form-select" aria-label="start_year" name="start_year" aria-describedby="start-year-label" id="start_year_select_career" required>
-                                             <option value="">Start Year</option>
+                                             <option value="">Year</option>
                                              <?php
                                                   $currentYear = date("Y");
                                                   for ($year = 1950; $year <= 2023; $year++) {
@@ -462,8 +501,21 @@
                                    </div>
                                    <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1"><span class="req-indicator ended-year" id="ended-year_update">*</span>Ended:</span>
-                                        <select class="form-select end_year_select_career" aria-label="graduation_year" name="end_year" aria-describedby="start-year-label" id="graduation_year_select_career_update" required>
-                                             <option value="">End Year</option>
+                                        <select class="form-select" aria-label="end_month" name="end_month" aria-describedby="end-month-label" id="end_month_select_career">
+                                             <option value="">Month</option>
+                                             <?php
+                                                  $months = array(
+                                                       "January", "February", "March", "April", "May", "June",
+                                                       "July", "August", "September", "October", "November", "December"
+                                                  );
+
+                                                  foreach ($months as $index => $month) {
+                                                       echo "<option value='" . $month . "'>$month</option>";
+                                                  }
+                                             ?>
+                                        </select>
+                                        <select class="form-select" aria-label="end_year" name="end_year" aria-describedby="start-year-label" id="graduation_year_select_career_update" required>
+                                             <option value="">Year</option>
                                              <?php
                                                   $currentYear = date("Y");
                                                   for ($year = $currentYear; $year >= 1950; $year--) {

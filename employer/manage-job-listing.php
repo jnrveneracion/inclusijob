@@ -71,6 +71,7 @@
                color: black;
           }
 
+
           .listing-item {
                margin: 10px 5px;
           }
@@ -86,6 +87,7 @@
           .btn-job-listing:hover, .add-on-nav:hover {
                filter: brightness(.9);
                color: white;
+               text-decoration: none;
           }
 
           .btn-job-listing.update {
@@ -154,10 +156,11 @@
                <?php include "../function/retrieve-job-listing-employer.php"; ?>
           </div>
      </div>
-
+     
      <?php include "../common/footer-inside-folder.php"; ?>
      <?php include "../common/message-session.php"; ?>
      <script src="../js/remove-url-session.js"></script>
+     <script src="../js/animate-count.js"></script>
 
      <script>
           const listingItems = document.querySelectorAll('.listing-item');

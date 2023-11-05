@@ -8,7 +8,9 @@ if (isset($_POST['jobseeker_id'])) {
     $jobseeker_id = $_POST['jobseeker_id'];
     $job_title = $_POST['job_title'];
     $company_name = $_POST['company_name'];
+    $start_month = $_POST['start_month'];
     $start_year = $_POST['start_year'];
+    $end_month = $_POST['end_month'];
     $end_year = $_POST['end_year'];
     $still_in_role = $_POST['still_in_role'];
     $career_history_description = $_POST['career_history_description'];
@@ -25,7 +27,9 @@ if (isset($_POST['jobseeker_id'])) {
               SET 
               job_title = ?, 
               company_name = ?, 
+              start_month = ?, 
               start_year = ?, 
+              end_month = ?, 
               end_year = ?, 
               still_in_role = ?, 
               career_history_description = ? 
@@ -35,7 +39,7 @@ if (isset($_POST['jobseeker_id'])) {
     $stmt = mysqli_prepare($conn, $query);
 
     // Bind parameters to the prepared statement
-    mysqli_stmt_bind_param($stmt, "sssssssi", $job_title, $company_name, $start_year, $end_year, $still_in_role, $career_history_description, $jobseeker_id, $career_history_id);
+    mysqli_stmt_bind_param($stmt, "sssssssssi", $job_title, $company_name, $start_month, $start_year, $end_month, $end_year, $still_in_role, $career_history_description, $jobseeker_id, $career_history_id);
 
     // Execute the prepared statement
     if (mysqli_stmt_execute($stmt)) {
