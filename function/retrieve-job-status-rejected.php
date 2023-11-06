@@ -28,13 +28,13 @@ $query = "SELECT
           FROM JOB_LISTING AS JL
           LEFT JOIN JOB_APPLICATION_STATUS AS JAS
           ON JL.job_id = JAS.job_ID
-          AND JAS.applied = 1
-          AND JAS.under_review IS NULL
-          AND JAS.shortlisted IS NULL
-          AND JAS.interview IS NULL
-          AND JAS.rejected IS NULL
-          AND JAS.hired IS NULL
-          AND JAS.withdraw_job IS NULL
+          AND JAS.applied = 1 
+          AND JAS.under_review = 1 
+          AND (JAS.shortlisted = 1 OR JAS.shortlisted IS NULL) 
+          AND (JAS.interview = 1 OR JAS.interview IS NULL)
+          AND JAS.rejected = 1 
+          AND JAS.hired IS NULL 
+          AND JAS.withdraw_job IS NULL 
           LEFT JOIN JOB_SEEKER_SIGNUP_INFO AS JSSI
           ON JAS.jobseeker_ID = JSSI.jobseeker_ID
           LEFT JOIN JOB_SEEKER_EDUCATION_INFO AS JSEI
@@ -61,33 +61,31 @@ if ($stmt === false) {
           if (mysqli_num_rows($result) > 0) {
                while ($row = mysqli_fetch_assoc($result)) {
                     $showList = !empty($row['fName']) ? 'd-flex' : 'd-none';
-                    $showNoData = !empty($row['fName']) ? '' : '<div class="d-flex justify-content-center mt-2"><div>0 Under review candidates</div></div>';
+                    $showNoData = !empty($row['fName']) ? '' : '<div class="d-flex justify-content-center mt-2"><div>0 interview candidates</div></div>';
                     $showPrevCareer = !empty($row['company']) ? '' . $row['company'] . ' (' . $row['longest_career_duration'] . ' yrs)' : '-';
 
                     echo $showNoData;
                     echo '<div class="' . $showList . ' justify-content-between align-items-center bg-light candidate-section">
-                              <div class="">
+                              <div>
                                    <h4 class="mb-0">' . $row['fName'] . ' ' . $row['lName'] . '</h4>
                                    <div>
                                         <span class="head-txt">' . $row['prevJob'] . '</span>
                                         <span class="sub-txt">' . $showPrevCareer . '</span>
                                    </div>
-
                                    <div>
                                         <span class="head-txt">' . $row['field'] . '</span>
                                         <span class="sub-txt">' . $row['institution'] . ' - ' . $row['degree'] . '</span>
                                    </div>
                               </div>
-                              <div class="d-flex justify-content-end align-items-center">
-                                   <div class="btn-group">
-                                        <form id="move-under-review-form" action="../function/move-to-under-review.php" method="POST">
-                                             <input type="hidden" name="jobSeekerName" value="' . $row['fName'] . '">
-                                             <input type="hidden" name="employerId" value="' . $row['compID'] . '">
-                                             <input type="hidden" name="jobSeekerId" value="' . $row['JSI'] . '">
-                                             <input type="hidden" name="jobListingId" value="' . $job_listing_ID . '">
-                                             <button type="submit" class="btn-job-listing view d-flex align-items-center">Move to Under Review</button>
-                                        </form>
-                                   </div>
+                              <div class="d-none justify-content-end align-items-center">
+                                   <form id="move-under-review-form" action="../function/save-note.php" method="POST">
+                                        <input type="hidden" name="jobSeekerName" value="' . $row['fName'] . '">
+                                        <input type="hidden" name="employerId" value="' . $row['compID'] . '">
+                                        <input type="hidden" name="jobSeekerId" value="' . $row['JSI'] . '">
+                                        <input type="hidden" name="jobListingId" value="' . $job_listing_ID . '">
+                                        <button type="submit" class="btn-job-listing view d-flex align-items-center">Send Note</button>
+                                   </form>
+                                   <a href="" class="btn-job-listing view-jobseeker d-flex align-items-center">View Profile<svg class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill:#ffffff"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg></a>
                               </div>
                          </div>';
                }

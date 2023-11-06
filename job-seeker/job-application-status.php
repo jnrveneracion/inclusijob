@@ -115,52 +115,6 @@
           const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
           const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
      </script>
-
-     <!-- <script>
-          $('#view-application-status').on('show.bs.modal', function (event) {
-               var button = $(event.relatedTarget); // The button that triggered the modal
-               var modal = $(this);
-               
-               // Set the modal content based on the attribute data
-               modal.find('#job-title').text(button.attr('job-title'));
-               modal.find('#job-description').text(button.attr('job-description'));
-               modal.find('#qualifications').text(button.attr('qualifications'));
-               modal.find('#job-location').text(button.attr('job-location'));
-               modal.find('#employment-type').text(button.attr('employment-type'));
-               modal.find('#compensation').text(button.attr('compensation'));
-               modal.find('#compensation-frequency').text(button.attr('compensation-frequency'));
-               modal.find('#start-compensation').text(button.attr('start-compensation'));
-               modal.find('#end-compensation').text(button.attr('end-compensation'));
-               modal.find('#application-deadline').text(button.attr('application-deadline'));
-               modal.find('#benefits').text(button.attr('benefits'));
-               modal.find('#company-name').text(button.attr('company-name'));
-               modal.find('#industry-sector').text(button.attr('industry-sector'));
-               modal.find('#company-size').text(button.attr('company-size'));
-               modal.find('#founded-year').text(button.attr('founded-year'));
-               modal.find('#company-address').text(button.attr('company-address'));
-               modal.find('#company-description').text(button.attr('company-description'));
-               modal.find('#company-culture').text(button.attr('company-culture'));
-               modal.find('#contact-persons-name').text(button.attr('contact-persons-name'));
-               modal.find('#contact-persons-position').text(button.attr('contact-persons-position'));
-               modal.find('#contact-persons-contact-no').text(button.attr('contact-persons-contact-no'));
-               modal.find('#company-website').text(button.attr('company-website'));
-               modal.find('#company-facebook').text(button.attr('company-facebook'));
-               modal.find('#company-linkedin').text(button.attr('company-linkedin'));
-               modal.find('#company-twitter').text(button.attr('company-twitter'));
-               modal.find('#email').text(button.attr('email'));
-
-               // Set the text values for each date field
-               modal.find('#applied-date').text(button.attr('applied-date'));
-               modal.find('#under-review-date').text(button.attr('under-review-date'));
-               modal.find('#shortlisted-date').text(button.attr('shortlisted-date'));
-               modal.find('#interview-date').text(button.attr('interview-date'));
-               modal.find('#rejected-date').text(button.attr('rejected-date'));
-               modal.find('#hired-date').text(button.attr('hired-date'));
-               modal.find('#withdraw-job-date').text(button.attr('withdraw-job-date'));
-               
-          });
-     </script> -->
-
 </body>
 </html>
 

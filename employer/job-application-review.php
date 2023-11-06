@@ -157,6 +157,7 @@
                padding: 10px 21px;
                border: 2px solid color(srgb 0.895 0.895 0.895);
                border-radius: 10px;
+               min-height: 100px;
           }
 
           .head-txt {
@@ -171,8 +172,6 @@
                font-size: 13px;
                color: gray;
           }
-
-          
      </style>
 </head>
 <body class="container-xxl">
@@ -194,7 +193,8 @@
                               <div class="col-2 col-xl-1 mb-lg-0 mb-3 p-0 d-flex align-items-center justify-content-center">
                                    <div class="ms-2 d-flex">
                                         <div>
-                                             <h1 class="animate-count mb-0 text-center"><?= $row['application_count'] ?></h1>
+                                             <input type="hidden" id="job-id" name="job_id" value="<?= $job_listing_ID ?>">
+                                             <h1 class="mb-0 text-center"><?= $row['application_count'] ?></h1>
                                              <p class="ms-0 mb-0 text-center" style="font-size: 16px;"><span class="fw-bold" style="font-size: 15px;">Applicant<?= ($row['application_count'] === 1 ? "" : "s")?></span></p>
                                         </div>
                                    </div>
@@ -202,8 +202,9 @@
                               <div class="row col-10 col-xl-11 mb-lg-0 mb-3 p-0 ps-2" style="border-left: 2px solid rgb(196, 196, 196); display: flex; justify-content: space-between;">
                                    <div class="col-12 d-flex align-items-center">
                                         <div>
-                                             <h1 class="m-0"><?= $row['job_title'] ?></h1>
+                                             <h1 class="m-0"><?= $row['job_title'] ?><span class="ms-2" style="color: rgb(172, 172, 172); font-weight: 300; font-size: 20px;">(₱ <?= $salaryStatement ?>)</span></h1>
                                              <span class="fw-bold">Date posted: </span><span class="fs-6 m-0 fw-light"><?= $row['joblisting_date_added_word'] ?></span>
+                                             <span class="ms-2 fw-bold">Deadline: </span><span class="fs-6 m-0 fw-light"><?= !empty($row['application_deadline_word']) ? '' . $row['application_deadline_word'] . '' : 'no deadline set' ?></span>
                                         </div>
                                    </div>
                                    <div class="col-4 d-flex justify-content-end align-items-center">
@@ -242,113 +243,19 @@
                                              <?php include "../function/retrieve-job-status-unprocessed.php"; ?>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="under-review" role="tabpanel" aria-labelledby="under-review-tab">
-                                             <div class="d-flex justify-content-between align-items-center bg-light candidate-section">
-                                                  <div>
-                                                       <h4 class="mb-0">Janrie veneracion</h4>
-                                                       <div>
-                                                            <span class="head-txt">Most recent job</span>
-                                                            <span class="sub-txt">4 years</span>
-                                                       </div>
-                                                       <div>
-                                                            <span class="head-txt">Most recent Education</span>
-                                                            <span class="sub-txt">Field of study</span>
-                                                       </div>
-                                                  </div>
-                                                  <div class="d-flex justify-content-end align-items-center">
-                                                       <div class="btn-group">
-                                                            <button type="button" class="btn-job-listing view d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Move to <svg style="fill: white;" class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                 <li><a class="dropdown-item" href="#">Shortlisted</a></li>
-                                                                 <li><a class="dropdown-item" href="#">Interview</a></li>
-                                                                 <li><a class="dropdown-item" href="#">Not Suitable</a></li>
-                                                            </ul>
-                                                       </div>
-                                                       <a href="" class="btn-job-listing view-jobseeker d-flex align-items-center">View Profile<svg class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill:#ffffff"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg></a>
-                                                  </div>
-                                             </div>
+                                             <?php include "../function/retrieve-job-status-under-review.php"; ?>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="shortlisted" role="tabpanel" aria-labelledby="shortlisted-tab">
-                                             <div class="d-flex justify-content-between align-items-center bg-light candidate-section">
-                                                  <div>
-                                                       <h4 class="mb-0">Janrie veneracion</h4>
-                                                       <div>
-                                                            <span class="head-txt">Most recent job</span>
-                                                            <span class="sub-txt">4 years</span>
-                                                       </div>
-                                                       <div>
-                                                            <span class="head-txt">Most recent Education</span>
-                                                            <span class="sub-txt">Field of study</span>
-                                                       </div>
-                                                  </div>
-                                                  <div class="d-flex justify-content-end align-items-center">
-                                                       <div class="btn-group">
-                                                            <button type="button" class="btn-job-listing view d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Move to <svg style="fill: white;" class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                 <li><a class="dropdown-item" href="#">Interview</a></li>
-                                                                 <li><a class="dropdown-item" href="#">Hired</a></li>
-                                                            </ul>
-                                                       </div>
-                                                       <a href="" class="btn-job-listing view-jobseeker d-flex align-items-center">View Profile<svg class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill:#ffffff"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg></a>
-                                                  </div>
-                                             </div>
+                                             <?php include "../function/retrieve-job-status-shortlisted.php"; ?>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="interview" role="tabpanel" aria-labelledby="interview-tab">
-                                             <div class="d-flex justify-content-between align-items-center bg-light candidate-section">
-                                                  <div>
-                                                       <h4 class="mb-0">Janrie veneracion</h4>
-                                                       <div>
-                                                            <span class="head-txt">Most recent job</span>
-                                                            <span class="sub-txt">4 years</span>
-                                                       </div>
-                                                       <div>
-                                                            <span class="head-txt">Most recent Education</span>
-                                                            <span class="sub-txt">Field of study</span>
-                                                       </div>
-                                                  </div>
-                                                  <div class="d-flex justify-content-end align-items-center">
-                                                       <button type="button" class="btn-job-listing view d-flex align-items-center">
-                                                       Move to Hired
-                                                       </button>
-                                                       <a href="" class="btn-job-listing view-jobseeker d-flex align-items-center">View Profile<svg class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill:#ffffff"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg></a>
-                                                  </div>
-                                             </div>
+                                             <?php include "../function/retrieve-job-status-interview.php"; ?>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="hired" role="tabpanel" aria-labelledby="hired-tab">
-                                             <div class="d-flex justify-content-between align-items-center bg-light candidate-section">
-                                                  <div>
-                                                       <h4 class="mb-0">Janrie veneracion</h4>
-                                                       <div>
-                                                            <span class="head-txt">Most recent job</span>
-                                                            <span class="sub-txt">4 years</span>
-                                                       </div>
-                                                       <div>
-                                                            <span class="head-txt">Most recent Education</span>
-                                                            <span class="sub-txt">Field of study</span>
-                                                       </div>
-                                                  </div>
-                                                  <div class="d-flex justify-content-end align-items-center">
-                                                       <a href="" class="btn-job-listing view-jobseeker d-flex align-items-center">View Profile<svg class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill:#ffffff"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg></a>
-                                                  </div>
-                                             </div>
+                                             <?php include "../function/retrieve-job-status-hired.php"; ?>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="not-suitable" role="tabpanel" aria-labelledby="not-suitable-tab">
-                                             <div class="d-flex justify-content-between align-items-center bg-light candidate-section">
-                                                  <div>
-                                                       <h4 class="mb-0">Janrie veneracion</h4>
-                                                       <div>
-                                                            <span class="head-txt">Most recent job</span>
-                                                            <span class="sub-txt">4 years</span>
-                                                       </div>
-                                                       <div>
-                                                            <span class="head-txt">Most recent Education</span>
-                                                            <span class="sub-txt">Field of study</span>
-                                                       </div>
-                                                  </div>
-                                             </div>
+                                             <?php include "../function/retrieve-job-status-rejected.php"; ?>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="withdrawn" role="tabpanel" aria-labelledby="withdrawn-tab">
                                              <div class="d-flex justify-content-between align-items-center bg-light candidate-section">
@@ -373,6 +280,73 @@
           </div>
      </div>
 
+
+     <div class="modal fade" id="add-note" tabindex="-1" aria-labelledby="add-note-label" aria-hidden="true">
+          <div class="modal-dialog modal-md modal-dialog-centered">
+               <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" id="add-note-label">Interview Note</h5>
+                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                         <form action="../function/save-interview-note.php" method="post" class="needs-validation" novalidate style="max-width: 800px !important;">
+                              <input type="hidden" name="job_listing_id">
+                              <input type="hidden" name="job_seeker_id">
+                              <input type="hidden" name="company_id">
+                              <input type="hidden" name="name">
+                              <div class="input-group mb-3">
+                                   <span class="input-group-text" id="basic-addon1"><span class="req-indicator"></span>To:</span>
+                                   <span id="job-seeker-name" class="form-control job-seeker-name" aria-describedby="basic-addon1"></span>
+                              </div>
+                              <div class="input-group mb-3 d-grid">
+                                   <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">Interview note:</span>
+                                   <textarea class="form-control" name="interview_note" style="height: 200px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"><?= "$jobseeker_objectives" ?></textarea>
+                                   <div class="invalid-feedback">Please enter your job objectives.</div>
+                              </div>
+                              <div class="mt-0 mb-1 ms-1 me-0 d-flex justify-content-end">
+                                   <button id="prev-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                   <button id="submit-button" class="btn btn-primary" type="submit">Submit</button>
+                              </div>
+                         </form>
+                    </div>
+               </div>
+          </div>
+     </div>
+
+     <div class="modal fade" id="add-hired-note" tabindex="-1" aria-labelledby="add-note-label" aria-hidden="true">
+          <div class="modal-dialog modal-md modal-dialog-centered">
+               <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" id="add-note-label">Hired Note</h5>
+                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                         <form action="../function/save-hired-note.php" method="post" class="needs-validation" novalidate style="max-width: 800px !important;">
+                              <input type="hidden" name="job_listing_id">
+                              <input type="hidden" name="job_seeker_id">
+                              <input type="hidden" name="company_id">
+                              <input type="hidden" name="name">
+                              <div class="input-group mb-3">
+                                   <span class="input-group-text" id="basic-addon1"><span class="req-indicator"></span>To:</span>
+                                   <span id="job-seeker-name" class="form-control" aria-describedby="basic-addon1"></span>
+                              </div>
+                              <div class="input-group mb-3 d-grid">
+                                   <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">Interview note:</span>
+                                   <textarea class="form-control" name="hired_note" style="height: 200px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"><?= "$jobseeker_objectives" ?></textarea>
+                                   <div class="invalid-feedback">Please enter your job objectives.</div>
+                              </div>
+                              <div class="mt-0 mb-1 ms-1 me-0 d-flex justify-content-end">
+                                   <button id="prev-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                   <button id="submit-button" class="btn btn-primary" type="submit">Submit</button>
+                              </div>
+                         </form>
+                    </div>
+               </div>
+          </div>
+     </div>
+
+
+
       <!-- Add Bootstrap JS and jQuery (required for tabs) -->
      <script src="../js/animate-count.js"></script>
      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -380,99 +354,131 @@
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
      <?php include "../common/footer-inside-folder.php"; ?>
      <?php include "../common/message-session.php"; ?>
+     <?php //include "../common/remove-url-session.php"; ?>
 
      <script>
           document.addEventListener("DOMContentLoaded", function () {
-          const navTabs = document.querySelectorAll(".nav-link");
-          const tabContents = document.querySelectorAll(".tab-pane");
+               const navTabs = document.querySelectorAll(".nav-link");
+               const tabContents = document.querySelectorAll(".tab-pane");
+               let getmessage = ''; // Declare getmessage variable in a higher scope
 
-          // Function to activate the correct tab based on the URL parameter
-          function activateTabFromUrl() {
-               const urlParams = new URLSearchParams(window.location.search);
-               const tabParam = urlParams.get("tab");
-
-               if (tabParam) {
-               // Remove the "active" class from all tabs and content
-               navTabs.forEach((tab) => {
-                    tab.classList.remove("active");
-               });
-               tabContents.forEach((content) => {
-                    content.classList.remove("show", "active");
-               });
-
-               // Activate the tab specified in the URL
-               const activeTab = document.getElementById(tabParam + '-tab');
-               const activeContent = document.getElementById(tabParam);
+               // Function to update the URL with the active tab
+               function updateUrl(tabId) {
+                    const newUrl = window.location.href.split('?')[0] + `?tab=${tabId}${getmessage}`;
+                    history.pushState({ tab: tabId }, "", newUrl);
+               }
                
-               if (activeTab && activeContent) {
-                    activeTab.classList.add("active");
-                    activeContent.classList.add("show", "active");
+               // Function to activate the correct tab based on the URL parameter
+               function activateTabFromUrl() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const tabParam = urlParams.get("tab");
+
+                    if (tabParam) {
+                    // Remove the "active" class from all tabs and content
+                    navTabs.forEach((tab) => {
+                         tab.classList.remove("active");
+                    });
+                    tabContents.forEach((content) => {
+                         content.classList.remove("show", "active");
+                    });
+
+                    // Activate the tab specified in the URL
+                    const activeTab = document.getElementById(tabParam + '-tab');
+                    const activeContent = document.getElementById(tabParam);
+                    
+                    if (activeTab && activeContent) {
+                         activeTab.classList.add("active");
+                         activeContent.classList.add("show", "active");
+                    }
+                    }
                }
-               }
+
+               // Initial activation from URL
+               activateTabFromUrl();
+
+               // Add click event listeners to the tabs
+               navTabs.forEach((tab) => {
+                    tab.addEventListener("click", function (event) {
+                    event.preventDefault();
+
+                    const tabId = tab.getAttribute("href").substring(1);
+                    const jobId = document.getElementById('job-id').value;
+
+                    updateUrl(tabId+"&j="+jobId+getmessage);
+
+                    // Activate the clicked tab and deactivate others
+                    navTabs.forEach((t) => {
+                         t.classList.remove("active");
+                    });
+                    tabContents.forEach((content) => {
+                         content.classList.remove("show", "active");
+                    });
+
+                    tab.classList.add("active");
+                    const content = document.getElementById(tabId);
+                    if (content) {
+                         content.classList.add("show", "active");
+                    }
+                    });
+               });
+
+               // Handle browser back/forward navigation
+               window.addEventListener("popstate", function (event) {
+                    activateTabFromUrl();
+               });
+          });
+     </script>
+
+     <!-- update career history modal -->
+     <script>
+          function openAddInterviewNote(button) {
+               // Get the specific modal
+               var specificModal = document.getElementById('add-note');
+
+               // Get the data attributes from the button (career history)
+               var jobseekerfullname = button.getAttribute('job-seeker-fullname');
+               var joblistingid = button.getAttribute('job-listing-id');
+               var jobseekerid = button.getAttribute('job-seeker-id');
+               var companyid = button.getAttribute('company-id');
+               var notes = button.getAttribute('interview-notes');
+
+               specificModal.querySelector('#job-seeker-name').innerHTML = jobseekerfullname;
+               specificModal.querySelector('input[name="name"]').value = jobseekerfullname;
+               specificModal.querySelector('input[name="job_listing_id"]').value = joblistingid;
+               specificModal.querySelector('input[name="job_seeker_id"]').value = jobseekerid;
+               specificModal.querySelector('input[name="company_id"]').value = companyid;
+               specificModal.querySelector('textarea[name="interview_note"]').value = notes;
+
+               // Open the specific modal
+               var offcanvas = bootstrap.Offcanvas(specificModal);
+               offcanvas.show();
           }
 
-          // Initial activation from URL
-          activateTabFromUrl();
+          function openAddHiredNote(button) {
+               // Get the specific modal
+               var specificModal = document.getElementById('add-hired-note');
 
-          // Add click event listeners to the tabs
-          navTabs.forEach((tab) => {
-               tab.addEventListener("click", function (event) {
-               event.preventDefault();
+               // Get the data attributes from the button (career history)
+               var jobseekerfullname = button.getAttribute('job-seeker-fullname');
+               var joblistingid = button.getAttribute('job-listing-id');
+               var jobseekerid = button.getAttribute('job-seeker-id');
+               var companyid = button.getAttribute('company-id');
+               var notes = button.getAttribute('hired-notes');
 
-               const tabId = tab.getAttribute("href").substring(1);
+               specificModal.querySelector('#job-seeker-name').innerHTML = jobseekerfullname;
+               specificModal.querySelector('input[name="name"]').value = jobseekerfullname;
+               specificModal.querySelector('input[name="job_listing_id"]').value = joblistingid;
+               specificModal.querySelector('input[name="job_seeker_id"]').value = jobseekerid;
+               specificModal.querySelector('input[name="company_id"]').value = companyid;
+               specificModal.querySelector('textarea[name="hired_note"]').value = notes;
 
-               // Activate the clicked tab and deactivate others
-               navTabs.forEach((t) => {
-                    t.classList.remove("active");
-               });
-               tabContents.forEach((content) => {
-                    content.classList.remove("show", "active");
-               });
-
-               tab.classList.add("active");
-               const content = document.getElementById(tabId);
-               if (content) {
-                    content.classList.add("show", "active");
-               }
-               });
-          });
-
-          // Handle browser back/forward navigation
-          window.addEventListener("popstate", function (event) {
-               activateTabFromUrl();
-          });
-          });
+               // Open the specific modal
+               var offcanvas = bootstrap.Offcanvas(specificModal);
+               offcanvas.show();
+          }
      </script>
 
-     <script>
-     $(document).ready(function() {
-     $('.delete-btn').on('click', function() {
-          var jobId = $(this).attr('job-id');
 
-          // Handle confirmation when the "Delete" button in the modal is clicked
-          $('#confirmDeleteBtn').on('click', function() {
-          // Prepare data to send to the server
-          var data = {
-               jobListingId: jobId
-          };
-
-          // Send an Ajax request to delete the job
-          $.ajax({
-               type: 'POST',
-               url: '../function/trash-job-listing.php', // Replace with your server-side script URL
-               data: data,
-               success: function(response) {
-               window.location.href = 'manage-job-listing.php?message=You%20have%20successfully%20trashed%20job%20listing';
-               console.log(response);
-               },
-               error: function() {
-               console.error('Ajax request failed');
-               }
-          });
-          });
-     });
-     });
-     </script>
 
 </body>
 </html>
