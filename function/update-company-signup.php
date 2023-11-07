@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $company_size = $_POST['company_size'];
      $founded_year = $_POST['founded_year'];
      $company_address = $_POST['company_address'];
+     $company_email = $_POST['email'];
      $company_description = $_POST['company_description'];
      $company_culture = $_POST['company_culture'];
      $contact_persons_name = $_POST['contact_persons_name'];
@@ -27,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                          company_size = ?, 
                          founded_year = ?, 
                          company_address = ?, 
+                         email = ?,
                          company_description = ?, 
                          company_culture = ?, 
                          contact_persons_name = ?, 
@@ -47,12 +49,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           // Bind parameters to the prepared statement
           mysqli_stmt_bind_param(
                $stmt,
-               "sssssssssssssss",
+               "ssssssssssssssss",
                $company_name,
                $industry_sector,
                $company_size,
                $founded_year,
                $company_address,
+               $company_email,
                $company_description,
                $company_culture,
                $contact_persons_name,

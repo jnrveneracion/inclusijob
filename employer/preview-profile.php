@@ -136,13 +136,13 @@
           }
 
           .info-label {
-               font-weight: 400;
-               color: rgb(96, 96, 96);
+               font-weight: 450;
+               color: rgb(0, 0, 0);  
           }
 
           .info-data {
-               font-weight: 450;
-               color: rgb(0, 0, 0);
+               font-weight: 400;
+               color: rgb(96, 96, 96);
                letter-spacing: 1px;
           }
 
@@ -242,17 +242,12 @@
                     </div>
                </div>
                <div id="login-details-section">
-                    <p class="fs-5 head-text mt-4">Login Details</p>
+                    <p class="fs-5 head-text mt-4">Login</p>
                     <div class="info-body row">
-                         <div class="col-12 col-md-4 d-flex align-items-center">
-                              <p class="info-section mb-0"><span class="info-label">Email: </span><span class="info-data"><?= "$email" ?></span></p>
-                         </div>
-                         <div class="col-12 col-md-4 d-flex align-items-center">
-                              <p class="info-section mb-0"><span class="info-label">Password: </span><input disabled style="border: none; background-color: transparent;" class="info-data" type="password" value="<?= "$password" ?>"></input></p>      
-                         </div>
-                         <div class="col-12 col-md-4">
+                         <div class="col-12 d-flex align-items-center justify-content-between">
+                              <p class="info-section mb-0"><span class="info-label">Password: </span><input disabled style="border: none; background-color: transparent;" class="info-data" type="password" value="this is just a sample"></input></p>      
                               <div class="d-flex justify-content-end">
-                                   <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-login" aria-controls="offcanvasExample">Edit</button>
+                                   <button id="btn-outline-b" class="open-password-modal btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-login" aria-controls="offcanvasExample">Edit</button>
                               </div>
                          </div>
                     </div>
@@ -261,7 +256,7 @@
      </div>
 
      <!-- company Information -->
-     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-company-info" aria-labelledby="offcanvasExampleLabel">
+     <div class="offcanvas offcanvas-end w-auto" data-bs-scroll="true" tabindex="-1" id="edit-company-info" aria-labelledby="offcanvasExampleLabel">
           <div class="offcanvas-header">
                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Edit Company Information</h5>
                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -337,6 +332,11 @@
                                              <input type="text" class="form-control" aria-label="contact_persons_contact_no" id="contact_persons_contact_no" name="contact_persons_contact_no" aria-describedby="basic-addon1" value="<?= "$contact_persons_contact_no" ?>" required oninput="if(this.value.length === 1 && this.value[0] === '0') this.value = ''; this.value = this.value.replace(/\D/g, '').substring(0, 10)">
                                              <div class="invalid-feedback">Please enter contact person's number.</div>
                                         </div>
+                                        <div class="input-group mb-3">
+                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Email:</span>
+                                             <input type="text" class="form-control" aria-label="contact_persons_contact_no" id="contact_persons_contact_no" name="email" aria-describedby="basic-addon1" value="<?= "$email" ?>">
+                                             <div class="invalid-feedback">Please enter company email.</div>
+                                        </div>
                                         <p class="form-head-txt">Links</p>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1">Company website:</span>
@@ -357,6 +357,48 @@
                                              <span class="input-group-text" id="basic-addon1">Twitter:</span>
                                              <input type="text" class="form-control" name="company_twitter" aria-label="company_twitter" aria-describedby="basic-addon1" value="<?= "$company_twitter" ?>">
                                              <div class="invalid-feedback">Please enter your company Twitter.</div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="mt-0 mb-3 ms-1 me-0 d-flex justify-content-end">
+                              <button id="prev-button" type="button" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+                              <button id="submit-button" class="button m-1" type="submit">Submit</button>
+                         </div>
+                    </form>
+               </div>
+          </div>
+     </div>
+
+     <!-- update login -->
+     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-login" aria-labelledby="offcanvasExampleLabel">
+          <div class="offcanvas-header">
+               <h5 class="offcanvas-title" id="offcanvasExampleLabel">Update Password</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body pt-0">
+               <div>
+                    <form action="<?php echo htmlspecialchars('../function/change-password-company.php'); ?>"  method="post" class="needs-validation" novalidate style="max-width: 800px !important;">
+                         <div id="job-seeker-signup-a" class="form-section">
+                              <div class="">
+                                   <div>
+                                        <?php if (isset($_SESSION['show_login_modal']) && $_SESSION['show_login_modal'] === true) { ?>
+                                             <p class="alert alert-danger" role="alert" style="font-size: 13px;"><?= $_SESSION['pass_message'] ?></p>
+                                        <?php } ?>
+                                        <div class="input-group mb-3 d-grid">
+                                             <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Old Password:</span>
+                                             <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="old_password" id="old_password" required> 
+                                             <div class="invalid-feedback">Please enter your old password.</div>
+                                        </div>
+                                        <div class="input-group mb-3 d-grid">
+                                             <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>New Password:</span>
+                                             <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="new_password" id="new_password" required>
+                                             <div class="invalid-feedback">Please enter your new password.</div>
+                                        </div>
+                                        <div class="input-group mb-3 d-grid">
+                                             <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Confirm New Password:</span>
+                                             <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="confirm_password" id="confirm_password" required>
+                                             <div class="invalid-feedback">Please confirm your new password.</div>
                                         </div>
                                    </div>
                               </div>
@@ -409,6 +451,21 @@
      <?php include "../job-seeker/data-list.php"; ?>
      <script src="../js/remove-url-session.js"></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     
+     <!-- show update password modal -->
+     <script>
+          $(document).ready(function() {
+               // Check if the session variable 'show_login_modal' is set to true
+               <?php if (isset($_SESSION['show_login_modal']) && $_SESSION['show_login_modal'] === true) { ?>
+                    setTimeout(function() {
+                         $('.open-password-modal').click();
+                    }, 900); // 1000 milliseconds = 1 second
+               <?php } ?>
+          });
+          <?php unset($_SESSION['show_login_modal']); ?>
+          <?php unset($_SESSION['pass_message']); ?>
+     </script>
+
      <script>
           document.getElementById('image-upload').addEventListener('change', function() {
                var selectedImage = document.getElementById('selected-image');

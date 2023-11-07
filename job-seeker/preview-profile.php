@@ -137,13 +137,14 @@
           }
 
           .info-label {
-               font-weight: 400;
-               color: rgb(96, 96, 96);
+               font-weight: 450;
+               color: rgb(0, 0, 0);
+               
           }
 
           .info-data {
-               font-weight: 450;
-               color: rgb(0, 0, 0);
+               font-weight: 400;
+               color: rgb(96, 96, 96);
                letter-spacing: 1px;
           }
 
@@ -344,6 +345,7 @@
                $('#birthday').attr('max', maxDate);
           });
      </script>
+
      <script>
           const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
           const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
@@ -482,6 +484,7 @@
                }
           });
      </script>
+
      <script>
           // Add an event listener to the "Start Year" select element
           document.getElementById("start_year_select_update").addEventListener("change", function() {
@@ -507,6 +510,7 @@
                }
           });
      </script>
+     
      <script>
           // Add an event listener to the "Start Year" select element
           document.getElementById("start_year_select_career").addEventListener("change", function() {
