@@ -13,6 +13,7 @@
          $age = $_POST['age'];
          $birthday = $_POST['birthday'];
          $contact_no = $_POST['contact_no'];
+         $email = $_POST['email'];
          $jobseeker_address = $_POST['address'];
      
          // Create a prepared statement with placeholders
@@ -25,6 +26,7 @@
                    age = ?,
                    birthday = ?,
                    contact_no = ?,
+                   email = ?,
                    jobseeker_address = ?
                    WHERE jobseeker_ID = ?";
      
@@ -35,7 +37,7 @@
              echo "Error: " . mysqli_error($conn);
          } else {
              // Bind parameters to the prepared statement
-             mysqli_stmt_bind_param($stmt, "sssssissss", $firstname, $middlename, $lastname, $sex, $civil_status, $age, $birthday, $contact_no, $jobseeker_address, $jobseeker_ID);
+             mysqli_stmt_bind_param($stmt, "sssssisssss", $firstname, $middlename, $lastname, $sex, $civil_status, $age, $birthday, $contact_no, $email, $jobseeker_address, $jobseeker_ID);
      
              // Execute the prepared statement
              if (mysqli_stmt_execute($stmt)) {

@@ -7,17 +7,31 @@ include "../database/conn.php";
 $jobseeker_ID = $_SESSION['jobseeker_ID'];
 
 // Create a prepared statement to select data
-$query = "SELECT *,
-          DATE_FORMAT(JL.date_added, '%Y-%m-%d') AS joblisting_date_added,
-          DATE_FORMAT(JL.date_added, '%M %d, %Y') AS joblisting_date_added_word,
-          DATE_FORMAT(JL.application_deadline, '%M %d, %Y') AS application_deadline_word,
-          JL.trash AS trashed
+$query = "SELECT
+               *,
+               DATE_FORMAT(JL.date_added, '%Y-%m-%d') AS joblisting_date_added,
+               DATE_FORMAT(JL.date_added, '%M %d, %Y') AS joblisting_date_added_word,
+               DATE_FORMAT(JL.application_deadline, '%M %d, %Y') AS application_deadline_word,
+               JL.trash AS trashed,
+               HN.note AS hired_note,
+               ITN.note AS interview_note,
+               DATE_FORMAT(HN.date_added, '%M %d, %Y %h:%i %p') AS hired_note_date_added,
+               DATE_FORMAT(ITN.date_added, '%M %d, %Y %h:%i %p') AS interview_note_date_added
           FROM JOB_APPLICATION_STATUS AS JAS 
           LEFT JOIN JOB_LISTING AS JL 
-          ON JAS.job_ID = JL.job_id 
+               ON JAS.job_ID = JL.job_id 
           LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI 
-          ON JAS.company_ID = ESI.company_ID
-          WHERE jobseeker_ID = ? AND JL.job_id IS NOT NULL
+               ON JAS.company_ID = ESI.company_ID
+          LEFT JOIN HIRED_NOTES AS HN
+               ON JAS.jobseeker_ID = HN.jobseeker_ID
+               AND JAS.company_ID = HN.company_ID
+               AND JAS.job_ID = HN.job_listing_ID
+          LEFT JOIN INTERVIEW_NOTES AS ITN
+               ON JAS.jobseeker_ID = ITN.jobseeker_ID
+               AND JAS.company_ID = ITN.company_ID
+               AND JAS.job_ID = ITN.job_listing_ID
+          WHERE JAS.jobseeker_ID = ? 
+          AND JL.job_id IS NOT NULL
           ORDER BY JAS.date_added DESC;
           ";
 
@@ -111,7 +125,7 @@ if ($stmt === false) {
                          "under-review" => array("date" => strtotime($row['under_review_date']), "label" => "Your application is under review by the employer.", "title" => "Under Review"),
                          "shortlisted" => array("date" => strtotime($row['shortlisted_date']), "label" => "Your application has been shortlisted for further consideration.", "title" => "Shortlisted"),
                          "interview-scheduled" => array("date" => strtotime($row['interview_date']), "label" => "An interview has been scheduled for your application.", "title" => "Interview Scheduled"),
-                         "rejected" => array("date" => strtotime($row['rejected_date']), "label" => "Unfortunately, your application has been rejected.", "title" => "Rejected"),
+                         "rejected" => array("date" => strtotime($row['rejected_date']), "label" => "Unfortunately, your application has been rejected.", "title" => "Not Suitable"),
                          "hired" => array("date" => strtotime($row['hired_date']), "label" => "Congratulations, you have been hired for the position.", "title" => "Hired"),
                          "withdrawn" => array("date" => strtotime($row['withdraw_job_date']), "label" => "You've withdrawn your application.", "title" => "Withdrawn")
                     );
@@ -134,6 +148,9 @@ if ($stmt === false) {
                     $dateLabel = lcfirst($label);
 
                     $trashStatus = ($row['trashed'] === 1) ? 'job-trashed' : '';
+                    $showHiredNote = (!empty($row['hired_note'])) ? 'd-block' : 'd-none';
+                    $showInterviewNote = (!empty($row['interview_note']) && empty($row['hired_note'])) ? 'd-block' : 'd-none';
+
 
                     // Output or display the HTML content for the most recent status
                     if ($class !== "") {
@@ -156,6 +173,8 @@ if ($stmt === false) {
                                                        <p class="status-info mb-0"><span class="fw-semibold">Company name: </span><span>' . $row['company_name'] . '</span></p>
                                                        <p class="status-info mb-0 ms-3"><span class="fw-semibold">Employment type: </span><span>' . $row['employment_type'] . '</span></p>
                                                        <p class="status-info mb-0 ms-3"><span class="fw-semibold">Date applied: </span><span>' . $dateAppliedRow . '</span></p>
+                                                       <p class="status-info mb-0 ms-3 d-none"><span class="badge text-bg-success">Employer included a note.</span></p>
+                                                       <p class="status-info mb-0 ms-3 d-none"><span class="badge text-bg-danger">Employer included a note.</span></p>
                                                   </div>
                                              </div>
                                         </div>';
@@ -179,6 +198,7 @@ if ($stmt === false) {
                     $jobBenefits = (!empty($jobBenefitsRow)) ? 'd-block' : 'd-none';
                     $workEnvironment = (($workEnvironmentRow === 1)) ? 'd-block' : 'd-none';
 
+
                     $modalHeadStatus = ($row['trashed'] === 1) ? '<div class="w-100 status-indicator '. $trashStatus .' mb-md-0 mb-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">Sorry, this job listing has been removed by the employer. It is no longer accepting job applications.</div>' : '<div class="w-100 status-indicator ' . $class . ' mb-md-0 mb-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">' . $title . ' - '. $dateLabel .'</div>';
 
                     echo '<!-- Modal -->
@@ -190,6 +210,16 @@ if ($stmt === false) {
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                    </div>
                                    <div class="modal-body">
+                                        <div class="mb-2 ' . $showHiredNote . '" style="border: 4px solid color(srgb 0.2306 0.53 0.333); padding: 10px; border-radius: 4px;">
+                                             <h6>Employer\'s note:</h6>
+                                             <p class="mb-0">' . $row['hired_note'] . '</p>
+                                             <p class="mb-0" style="text-align: end; font-family: Courier; color: rgb(168, 168, 168); font-size: 14px;">Posted: ' . $row['hired_note_date_added'] . '</p>
+                                        </div>
+                                        <div class="mb-2 ' . $showInterviewNote . '" style="border: 4px solid #d63384; padding: 10px; border-radius: 4px;">
+                                             <h6>Employer\'s note:</h6>
+                                             <p class="mb-0">' . $row['interview_note'] . '</p>
+                                             <p class="mb-0" style="text-align: end; font-family: Courier; color: rgb(168, 168, 168); font-size: 14px;">Posted: ' . $row['interview_note_date_added'] . '</p>
+                                        </div>
                                         <div class="application-info row mb-2 ms-1 me-1 mt-0">
                                              <div class="listing-details tab-pane">
                                                   <div>
@@ -336,4 +366,6 @@ if ($stmt === false) {
 
 mysqli_close($conn);
 ?>
+
+
 

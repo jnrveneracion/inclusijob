@@ -50,8 +50,8 @@
                                         <div class="col-10 col-xl-6 mb-lg-0 mb-3 p-0 ps-2" style="border-left: 2px solid rgb(196, 196, 196);">
                                              <h5 class="mb-0">' . $row['job_title'] . '</h5>
                                              <div class="d-block d-lg-flex">
-                                                  <p class="mb-0" style="font-size: 12px;"><span class="fw-bold">Date posted</span>: '. $row['joblisting_date_added_word'] .'</p>
-                                                  <p class="mb-0 ms-0 ms-lg-2" style="font-size: 12px;"><span class="fw-bold">Application deadline</span>: '. (!empty($row['application_deadline_word']) ? $row['application_deadline_word'] : 'no deadline set') .'</p>
+                                                  <p class="mb-0" style="font-size: 11.5px;"><span class="fw-bold">Date posted</span>:'. $row['joblisting_date_added_word'] .'</p>
+                                                  <p class="mb-0 ms-0 ms-lg-2" style="font-size: 11.5px;"><span class="fw-bold">Application deadline</span>: '. (!empty($row['application_deadline_word']) ? $row['application_deadline_word'] : 'no deadline set') .'</p>
                                                   <p class="d-none">'. $row['job_description'] .' - '. $row['qualifications'] .' - '. $row['job_location'] .' - '. $row['employment_type'] .' - '. $row['benefits'] .'</p>
                                              </div>
                                         </div>

@@ -4,45 +4,57 @@ include "../database/conn.php";
 
 $job_listing_ID = $_GET['j'];
 
-$query = "SELECT
-          JAS.company_ID AS compID,
-          JSSI.jobseeker_ID AS JSI,
-          JSSI.firstname AS fName,
-          JSSI.middlename AS mName,
-          JSSI.lastname AS lName,
-          JSEI.institution_name AS institution,
-          JSEI.school_degree AS degree,
-          JSEI.field_of_study AS field,
-          JSCH.job_title AS prevJob,
-          JSCH.company_name AS company,
-          (
-          SELECT MAX(graduation_year - start_year) AS longest_education_duration
-          FROM JOB_SEEKER_EDUCATION_INFO
-          WHERE jobseeker_ID = JSSI.jobseeker_ID
-          ) AS longest_education_duration,
-          (
-          SELECT MAX(end_year - start_year) AS longest_career_duration
-          FROM JOB_SEEKER_CAREER_HISTORY
-          WHERE jobseeker_ID = JSSI.jobseeker_ID
-          ) AS longest_career_duration
+$query = "WITH LongestEducation AS (
+               SELECT
+               JSEI.jobseeker_ID,
+               MAX(JSEI.graduation_year - JSEI.start_year) AS longest_education_duration
+               FROM JOB_SEEKER_EDUCATION_INFO AS JSEI
+               GROUP BY JSEI.jobseeker_ID
+          ),
+          LongestCareer AS (
+               SELECT
+               JSCH.jobseeker_ID,
+               MAX(JSCH.end_year - JSCH.start_year) AS longest_career_duration
+               FROM JOB_SEEKER_CAREER_HISTORY AS JSCH
+               GROUP BY JSCH.jobseeker_ID
+          )
+
+          SELECT
+               JAS.company_ID AS compID,
+               JSSI.jobseeker_ID AS JSI,
+               JSSI.firstname AS fName,
+               JSSI.middlename AS mName,
+               JSSI.lastname AS lName,
+               JSEI.institution_name AS institution,
+               JSEI.school_degree AS degree,
+               JSEI.field_of_study AS field,
+               JSCH.job_title AS prevJob,
+               JSCH.company_name AS company,
+               LC.longest_career_duration
           FROM JOB_LISTING AS JL
-          LEFT JOIN JOB_APPLICATION_STATUS AS JAS
-          ON JL.job_id = JAS.job_ID
-          AND JAS.applied = 1 
-          AND JAS.under_review = 1 
-          AND (JAS.shortlisted = 1 OR JAS.shortlisted IS NULL) 
-          AND (JAS.interview = 1 OR JAS.interview IS NULL)
-          AND JAS.rejected = 1 
-          AND JAS.hired IS NULL 
-          AND JAS.withdraw_job IS NULL 
-          LEFT JOIN JOB_SEEKER_SIGNUP_INFO AS JSSI
-          ON JAS.jobseeker_ID = JSSI.jobseeker_ID
+          JOIN JOB_APPLICATION_STATUS AS JAS
+               ON JL.job_id = JAS.job_ID
+               AND JAS.applied = 1 
+               AND JAS.under_review = 1 
+               AND (JAS.shortlisted = 1 OR JAS.shortlisted IS NULL) 
+               AND (JAS.interview = 1 OR JAS.interview IS NULL)
+               AND JAS.rejected = 1 
+               AND JAS.hired IS NULL 
+               AND JAS.withdraw_job IS NULL 
+          JOIN JOB_SEEKER_SIGNUP_INFO AS JSSI
+               ON JAS.jobseeker_ID = JSSI.jobseeker_ID
+          JOIN LongestEducation AS LE
+               ON JSSI.jobseeker_ID = LE.jobseeker_ID
           LEFT JOIN JOB_SEEKER_EDUCATION_INFO AS JSEI
-          ON JAS.jobseeker_ID = JSEI.jobseeker_ID
-          RIGHT JOIN EMPLOYER_SIGNUP_INFO AS ESI
-          ON JL.employer_id = ESI.company_ID
+               ON JSEI.jobseeker_ID = LE.jobseeker_ID
+               AND LE.longest_education_duration = JSEI.graduation_year - JSEI.start_year
+          JOIN EMPLOYER_SIGNUP_INFO AS ESI
+               ON JL.employer_id = ESI.company_ID
+          JOIN LongestCareer AS LC
+               ON JSSI.jobseeker_ID = LC.jobseeker_ID
           LEFT JOIN JOB_SEEKER_CAREER_HISTORY AS JSCH
-          ON JSSI.jobseeker_ID = JSCH.jobseeker_ID
+               ON JSEI.jobseeker_ID = JSCH.jobseeker_ID
+               AND LC.longest_career_duration = JSCH.end_year - JSCH.start_year   
           WHERE JL.job_id = ?
           GROUP BY JSSI.jobseeker_ID;";
 

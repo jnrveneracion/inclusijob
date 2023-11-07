@@ -213,6 +213,7 @@
                               <p class="info-section"><span class="info-label">Age: </span><span class="info-data"><?= "$age" ?></span></p>
                               <p class="info-section"><span class="info-label">Birthday: </span><span class="info-data"><?= "$birthday" ?></span></p>
                               <p class="info-section"><span class="info-label">Contact no.: </span><span class="info-data">+63 <?= "$contact_no" ?></span></p>
+                              <p class="info-section"><span class="info-label">Email: </span><span class="info-data"><?= "$email" ?></span></p>
                               <p class="info-section"><span class="info-label">Address: </span><span class="info-data"><?= "$jobseeker_address" ?></span></p>
                               <div class="d-flex justify-content-end">
                                    <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-personal-info" aria-controls="offcanvasExample">Edit</button>
@@ -259,22 +260,16 @@
                     </div>
                </div>
                <div id="login-details-section">
-                    <p class="fs-5 head-text mt-4">Login Details</p>
+                    <p class="fs-5 head-text mt-4">Login</p>
                     <div class="info-body row">
-                         <div class="col-12 col-md-4 d-flex align-items-center">
-                              <p class="info-section mb-0"><span class="info-label">Email: </span><span class="info-data"><?= "$email" ?></span></p>
-                         </div>
-                         <div class="col-12 col-md-4 d-flex align-items-center">
-                              <p class="info-section mb-0"><span class="info-label">Password: </span><input disabled style="border: none; background-color: transparent;" class="info-data" type="password" value="<?= "$jobseeker_password" ?>"></input></p>      
-                         </div>
-                         <div class="col-12 col-md-4">
+                         <div class="col-12 d-flex align-items-center justify-content-between">
+                              <p class="info-section mb-0"><span class="info-label">Password: </span><input disabled style="border: none; background-color: transparent;" class="info-data" type="password" value="this is just a sample"></input></p>      
                               <div class="d-flex justify-content-end">
-                                   <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-login" aria-controls="offcanvasExample">Edit</button>
+                                   <button id="btn-outline-b" class="open-password-modal btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-login" aria-controls="offcanvasExample">Edit</button>
                               </div>
                          </div>
                     </div>
                </div>
-               
           </div>
      </div>
 
@@ -287,6 +282,22 @@
      <?php require "data-list.php"; ?>
      <script src="../js/remove-url-session.js"></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+     <!-- show update password modal -->
+     <script>
+          $(document).ready(function() {
+               // Check if the session variable 'show_login_modal' is set to true
+               <?php if (isset($_SESSION['show_login_modal']) && $_SESSION['show_login_modal'] === true) { ?>
+                    setTimeout(function() {
+                         $('.open-password-modal').click();
+                    }, 900); // 1000 milliseconds = 1 second
+               <?php } ?>
+          });
+          <?php unset($_SESSION['show_login_modal']); ?>
+          <?php unset($_SESSION['pass_message']); ?>
+     </script>
+
+     <!-- image -->
      <script>
           document.getElementById('image-upload').addEventListener('change', function() {
                var selectedImage = document.getElementById('selected-image');
@@ -316,7 +327,6 @@
           document.getElementById('image-upload').click();
           });
      </script>
-
 
      <script>
           $(function(){
@@ -384,7 +394,6 @@
                offcanvas.show();
           }
      </script>
-
 
      <!-- update career history modal -->
      <script>
@@ -578,7 +587,6 @@
      </script>
      <!-- still in role career -->
 
-
      <script>
           // Example starter JavaScript for disabling form submissions if there are invalid fields
           (() => {
@@ -627,27 +635,6 @@
           birthdayInput.addEventListener('change', calculateAge);
      </script>
      <!-- automatic age computation -->
-
-<!-- update password modal -->
-<script>
-    var changePasswordCheckbox = document.getElementById("btn-check-2-outlined");
-    var passwordSection = document.getElementById("password-section");
-
-    var reqCurrentPass = document.querySelector('input[name="confirm_current_password"]');
-    var reqNewPass = document.querySelector('input[name="new_password"]');
-
-    changePasswordCheckbox.addEventListener("change", function () {
-        passwordSection.classList.toggle("d-none", !changePasswordCheckbox.checked);
-        if (!changePasswordCheckbox.checked) {
-            reqCurrentPass.removeAttribute('required');
-            reqNewPass.removeAttribute('required');
-        } else {
-            reqCurrentPass.setAttribute('required', 'required');
-            reqNewPass.setAttribute('required', 'required');
-        }
-    });
-</script>
-<!-- -->
 
 </body>
 </html>

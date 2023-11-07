@@ -32,7 +32,6 @@
      </div>
 </div>
 
-
 <!-- personal Information -->
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-personal-info" aria-labelledby="offcanvasExampleLabel">
      <div class="offcanvas-header">
@@ -113,6 +112,11 @@
                                         <span class="input-group-text">+63</span>
                                         <input type="text" class="form-control" aria-label="contact_no" id="contact_no" name="contact_no" aria-describedby="basic-addon1" value="<?= "$contact_no" ?>" required oninput="if(this.value.length === 1 && this.value[0] === '0') this.value = ''; this.value = this.value.replace(/\D/g, '').substring(0, 10)">
                                         <div class="invalid-feedback">Please enter your contact number.</div>
+                                   </div>
+                                   <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Email:</span>
+                                        <input type="text" class="form-control" aria-label="email" name="email" aria-describedby="basic-addon1" value="<?= "$email" ?>" required>
+                                        <div class="invalid-feedback">Please enter your email.</div>
                                    </div>
                                    <div class="input-group mb-3">
                                         <span class="input-group-text d-flex align-items-start"><span class="req-indicator">*</span>Address:</span>
@@ -234,7 +238,7 @@
                                    </div>
                                    <div class="input-group mb-3 d-grid">
                                         <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">Course Highlights:</span>
-                                        <textarea class="form-control" name="course_highlights" style="height: 250px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"><?= "$course_highlights" ?></textarea>
+                                        <textarea class="form-control" name="course_highlights" style="height: 250px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"></textarea>
                                    </div>
                               </div>
                          </div>
@@ -436,7 +440,7 @@
                                    </div>
                                    <div class="input-group mb-3 d-grid">
                                         <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">Description: <span class="recom-indicator">(recommended)</span></span>
-                                        <textarea class="form-control" placeholder="Summarise your responsibilities, skills and achievements." name="career_history_description" style="height: 250px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"><?= "$course_highlights" ?></textarea>
+                                        <textarea class="form-control" placeholder="Summarise your responsibilities, skills and achievements." name="career_history_description" style="height: 250px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"></textarea>
                                    </div>
                               </div>
                          </div>
@@ -548,43 +552,35 @@
      </div>
 </div>
 
-<!-- update career history -->
+<!-- update login -->
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-login" aria-labelledby="offcanvasExampleLabel">
      <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Edit Login Details</h5>
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Update Password</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
      </div>
-     <div class="offcanvas-body">
+     <div class="offcanvas-body pt-0">
           <div>
-               <form action="<?php echo htmlspecialchars('../function/update-login-details.php'); ?>"  method="post" class="needs-validation" novalidate style="max-width: 800px !important;">
+               <form action="<?php echo htmlspecialchars('../function/change-password.php'); ?>"  method="post" class="needs-validation" novalidate style="max-width: 800px !important;">
                     <div id="job-seeker-signup-a" class="form-section">
                          <div class="">
                               <div>
-                                   <input type="hidden" name="jobseeker_id" value="<?= "$jobseeker_ID" ?>" id="jobseeker-id">
+                                   <?php if (isset($_SESSION['show_login_modal']) && $_SESSION['show_login_modal'] === true) { ?>
+                                        <p class="alert alert-danger" role="alert" style="font-size: 13px;"><?= $_SESSION['pass_message'] ?></p>
+                                   <?php } ?>
                                    <div class="input-group mb-3 d-grid">
-                                        <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Email:</span>
-                                        <input list="job-titles" type="text" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" name="email" aria-label="job_title" aria-describedby="basic-addon1" value="<?= "$email" ?>" required>
-                                        <div class="invalid-feedback">Please add email.</div>
-                                   </div>
-                                   <div class="input-group mb-3 d-grid d-none">
                                         <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Old Password:</span>
-                                        <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="" disabled value="<?= "$jobseeker_password" ?>"> 
+                                        <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="old_password" id="old_password" required> 
+                                        <div class="invalid-feedback">Please enter your old password.</div>
                                    </div>
-                                   <div class=" mb-3">
-                                        <input type="checkbox" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
-                                        <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Change Password</label><br>
+                                   <div class="input-group mb-3 d-grid">
+                                        <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>New Password:</span>
+                                        <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="new_password" id="new_password" required>
+                                        <div class="invalid-feedback">Please enter your new password.</div>
                                    </div>
-                                   <div class="d-none" id="password-section">
-                                        <div class="input-group mb-3 d-grid">
-                                             <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Confirm Old Password:</span>
-                                             <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="confirm_current_password" id="confirm_current_password">
-                                             <div class="invalid-feedback">Please enter your old password.</div>
-                                        </div>
-                                        <div class="input-group mb-3 d-grid">
-                                             <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>New Password:</span>
-                                             <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="new_password" id="new_password">
-                                             <div class="invalid-feedback">Please enter your new password.</div>
-                                        </div>
+                                   <div class="input-group mb-3 d-grid">
+                                        <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Confirm New Password:</span>
+                                        <input type="password" class="form-control" style="width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="company-name" name="confirm_password" id="confirm_password" required>
+                                        <div class="invalid-feedback">Please confirm your new password.</div>
                                    </div>
                               </div>
                          </div>

@@ -199,7 +199,7 @@
           const generatedJobSeekerID = generateJobSeekerID();
           const currentYear = new Date().getFullYear();
           EmployerIDInput.value = generatedJobSeekerID;
-          EmployerIDInput.setAttribute('value', currentYear + "-EMPLOYER-" + generatedJobSeekerID);
+          EmployerIDInput.setAttribute('value', generatedJobSeekerID);
      </script>
 
 </body>

@@ -122,11 +122,11 @@
                                              <div class="col-7 d-flex align-items-center">
                                                   <div>
                                                        <h1 class="m-0">' . $row['job_title'] . '</h1>
-                                                       <h3 class="m-0">' . $row['company_name'] . '</h3>
+                                                       <a class="preview-profile-link" href="preview-company-profile.php?c=' . $row['company_ID'] . '"><h3 class="m-0">' . $row['company_name'] . '</h3></a>
                                                   </div>
                                              </div>
                                              <div class="col-4 d-flex justify-content-end align-items-center">
-                                                  <button type="button" class="fw-bold" id="apply-btn">Apply now</button>
+                                                  <button job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['company_ID'] .'" type="button" class="fw-bold apply-now" id="apply-btn">Apply now</button>
                                              </div>
                                              <div class="col-1 d-flex justify-content-start align-items-center">
                                                   <svg class="unsave-job second-svg d-block" onclick="toggleUnSave('. $itemCount .')" id="unsave-job-'. $itemCount .'" job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['employer_id'] .'" xmlns="http://www.w3.org/2000/svg" height="2.5em" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg>

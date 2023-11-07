@@ -1,24 +1,3 @@
-<?php 
-     // Logout logic
-     if (isset($_POST['logout'])) {
-          // Unset and destroy session variables
-          session_unset();
-          session_destroy();
-
-          // Redirect to login.php
-          header("Location: job-seeker-login.php");
-          exit();
-     }
-     if (isset($_POST['logout-company'])) {
-          // Unset and destroy session variables
-          session_unset();
-          session_destroy();
-
-          // Redirect to login.php
-          header("Location: employer-login.php");
-          exit();
-     }
-?>
 <style>
      .logout-btn {
           border: 2px solid color(srgb 0.1254 0.5138 0.965 / 0.44);
@@ -46,10 +25,10 @@
                <div class="changeable-font-size text-primary fs-5 d-flex align-items-center mb-0" style="margin-bottom: -5px !important;">Good day<?php
                     if (isset($_SESSION['jobseeker_ID'])) {
                          echo ", $firstname!";
-                         echo "<form method='POST' action=''><button class='logout-btn' type='submit' name='logout' id='log-out-btn' value='Logout'>Logout</button></form>";
+                         echo "<form method='POST' action='../function/logout-jobseeker.php'><button class='logout-btn' type='submit' name='logout' id='log-out-btn' value='Logout'>Logout</button></form>";
                     } elseif (isset($_SESSION['company_ID'])) {
                          echo ", $company_name!";
-                         echo "<form method='POST' action=''><button class='logout-btn' type='submit' name='logout-company' id='log-out-btn' value='Logout-Company'>Logout</button></form>";
+                         echo "<form method='POST' action='../function/logout-employer.php'><button class='logout-btn' type='submit' name='logout-company' id='log-out-btn' value='Logout-Company'>Logout</button></form>";
                     } else {
                          echo "!";
                     }
