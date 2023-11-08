@@ -37,9 +37,21 @@ $query = "WITH LongestEducation AS (
                     SELECT GROUP_CONCAT(note SEPARATOR '; ') AS interview_notes
                     FROM INTERVIEW_NOTES
                     WHERE jobseeker_ID = JSSI.jobseeker_ID
-               ) AS interview_notes
+               ) AS interview_notes,
+               (
+                    SELECT 
+                         DATE_FORMAT(date_added, '%M %e, %Y %h:%i %p') AS interview_note_date_added
+                    FROM INTERVIEW_NOTES
+                    WHERE jobseeker_ID = JSSI.jobseeker_ID
+               ) AS interview_note_date_added,
+               (
+                    SELECT 
+                         DATE_FORMAT(date_updated, '%M %e, %Y %h:%i %p') AS interview_note_date_updated
+                    FROM INTERVIEW_NOTES
+                    WHERE jobseeker_ID = JSSI.jobseeker_ID
+               ) AS interview_note_date_updated
           FROM JOB_LISTING AS JL
-          JOIN JOB_APPLICATION_STATUS AS JAS
+          LEFT JOIN JOB_APPLICATION_STATUS AS JAS
                ON JL.job_id = JAS.job_ID
                AND JAS.applied = 1
                AND JAS.under_review = 1
@@ -48,16 +60,16 @@ $query = "WITH LongestEducation AS (
                AND JAS.rejected IS NULL
                AND JAS.hired IS NULL
                AND JAS.withdraw_job IS NULL
-          JOIN JOB_SEEKER_SIGNUP_INFO AS JSSI
+          LEFT JOIN JOB_SEEKER_SIGNUP_INFO AS JSSI
                ON JAS.jobseeker_ID = JSSI.jobseeker_ID
-          JOIN LongestEducation AS LE
+          LEFT JOIN LongestEducation AS LE
                ON JSSI.jobseeker_ID = LE.jobseeker_ID
           LEFT JOIN JOB_SEEKER_EDUCATION_INFO AS JSEI
                ON JSEI.jobseeker_ID = LE.jobseeker_ID
                AND LE.longest_education_duration = JSEI.graduation_year - JSEI.start_year
-          JOIN EMPLOYER_SIGNUP_INFO AS ESI
+          LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI
                ON JL.employer_id = ESI.company_ID
-          JOIN LongestCareer AS LC
+          LEFT JOIN LongestCareer AS LC
                ON JSSI.jobseeker_ID = LC.jobseeker_ID
           LEFT JOIN JOB_SEEKER_CAREER_HISTORY AS JSCH
                ON JSEI.jobseeker_ID = JSCH.jobseeker_ID
@@ -83,6 +95,8 @@ if ($stmt === false) {
                     $showNoData = !empty($row['fName']) ? '' : '<div class="d-flex justify-content-center mt-2"><div>0 interview candidates</div></div>';
                     $showPrevCareer = !empty($row['company']) ? '' . $row['company'] . ' (' . $row['longest_career_duration'] . ' yrs)' : '-';
 
+                    $dateNote = (!empty($row['interview_note_date_updated']) && !empty($row['interview_note_date_added'])) ? ''. $row['interview_note_date_updated'] .'' : '' . $row['interview_note_date_added'] . '';
+
                     echo $showNoData;
                     echo '<div class="' . $showList . ' justify-content-between align-items-center bg-light candidate-section">
                               <div class="">
@@ -97,7 +111,7 @@ if ($stmt === false) {
                                    </div>
                               </div>
                               <div class="d-flex justify-content-end align-items-center">
-                                   <button type="button" interview-notes="' . $row['interview_notes'] . '" job-seeker-fullname="' . $row['fName'] . ' ' . $row['mName'] . ' ' . $row['lName'] . '" job-listing-id="' . $job_listing_ID . '" job-seeker-id="' . $row['JSI'] . '" company-id="' . $row['compID'] . '" data-bs-toggle="modal" data-bs-target="#add-note" class="btn-job-listing update d-flex align-items-center"  aria-controls="offcanvasExample" onclick="openAddInterviewNote(this)">Interview Note</button>
+                                   <button type="button" interview-date-note="' . $dateNote . '" hired-date-note="' . $row['hired_note_date_added'] . '" interview-notes="' . $row['interview_notes'] . '" job-seeker-fullname="' . $row['fName'] . ' ' . $row['mName'] . ' ' . $row['lName'] . '" job-listing-id="' . $job_listing_ID . '" job-seeker-id="' . $row['JSI'] . '" company-id="' . $row['compID'] . '" data-bs-toggle="modal" data-bs-target="#add-note" class="btn-job-listing update d-flex align-items-center"  aria-controls="offcanvasExample" onclick="openAddInterviewNote(this)">Interview Note</button>
                                    <div class="btn-group">
                                         <button type="button" class="btn-job-listing view d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
                                         Move to <svg style="fill: white;" class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>

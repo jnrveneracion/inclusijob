@@ -35,9 +35,21 @@ $query = "WITH LongestEducation AS (
                     SELECT GROUP_CONCAT(note SEPARATOR '; ') AS hired_notes
                     FROM HIRED_NOTES
                     WHERE jobseeker_ID = JSSI.jobseeker_ID
-               ) AS hired_notes
+               ) AS hired_notes,
+               (
+                    SELECT 
+                         DATE_FORMAT(date_added, '%M %e, %Y %h:%i %p') AS hired_note_date_added
+                    FROM HIRED_NOTES
+                    WHERE jobseeker_ID = JSSI.jobseeker_ID
+               ) AS hired_note_date_added,
+               (
+                    SELECT 
+                         DATE_FORMAT(date_updated, '%M %e, %Y %h:%i %p') AS hired_note_date_updated
+                    FROM HIRED_NOTES
+                    WHERE jobseeker_ID = JSSI.jobseeker_ID
+               ) AS hired_note_date_updated
           FROM JOB_LISTING AS JL
-          JOIN JOB_APPLICATION_STATUS AS JAS
+          LEFT JOIN JOB_APPLICATION_STATUS AS JAS
                ON JL.job_id = JAS.job_ID
                AND JAS.applied = 1
                AND JAS.under_review = 1
@@ -46,16 +58,16 @@ $query = "WITH LongestEducation AS (
                AND JAS.rejected IS NULL 
                AND JAS.hired = 1 
                AND JAS.withdraw_job IS NULL
-          JOIN JOB_SEEKER_SIGNUP_INFO AS JSSI
+          LEFT JOIN JOB_SEEKER_SIGNUP_INFO AS JSSI
                ON JAS.jobseeker_ID = JSSI.jobseeker_ID
-          JOIN LongestEducation AS LE
+          LEFT JOIN LongestEducation AS LE
                ON JSSI.jobseeker_ID = LE.jobseeker_ID
           LEFT JOIN JOB_SEEKER_EDUCATION_INFO AS JSEI
                ON JSEI.jobseeker_ID = LE.jobseeker_ID
                AND LE.longest_education_duration = JSEI.graduation_year - JSEI.start_year
-          JOIN EMPLOYER_SIGNUP_INFO AS ESI
+          LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI
                ON JL.employer_id = ESI.company_ID
-          JOIN LongestCareer AS LC
+          LEFT JOIN LongestCareer AS LC
                ON JSSI.jobseeker_ID = LC.jobseeker_ID
           LEFT JOIN JOB_SEEKER_CAREER_HISTORY AS JSCH
                ON JSEI.jobseeker_ID = JSCH.jobseeker_ID
@@ -80,7 +92,7 @@ if ($stmt === false) {
                     $showList = !empty($row['fName']) ? 'd-flex' : 'd-none';
                     $showNoData = !empty($row['fName']) ? '' : '<div class="d-flex justify-content-center mt-2"><div>0 interview candidates</div></div>';
                     $showPrevCareer = !empty($row['company']) ? '' . $row['company'] . ' (' . $row['longest_career_duration'] . ' yrs)' : '-';
-
+                    $dateNote = (!empty($row['hired_note_date_updated']) && !empty($row['hired_note_date_added'])) ? ''. $row['hired_note_date_updated'] .'' : '' . $row['hired_note_date_added'] . '';
                     echo $showNoData;
                     echo '<div class="' . $showList . ' justify-content-between align-items-center bg-light candidate-section">
                               <div>
@@ -95,7 +107,7 @@ if ($stmt === false) {
                                    </div>
                               </div>
                               <div class="d-flex justify-content-end align-items-center">
-                                   <button type="button" hired-notes="' . $row['hired_notes'] . '" job-seeker-fullname="' . $row['fName'] . ' ' . $row['mName'] . ' ' . $row['lName'] . '" job-listing-id="' . $job_listing_ID . '" job-seeker-id="' . $row['JSI'] . '" company-id="' . $row['compID'] . '" data-bs-toggle="modal" data-bs-target="#add-hired-note" class="btn-job-listing update d-flex align-items-center"  aria-controls="offcanvasExample" onclick="openAddHiredNote(this)">Hired Note</button>
+                                   <button type="button" hired-date-note="' . $dateNote . '" hired-notes="' . $row['hired_notes'] . '" job-seeker-fullname="' . $row['fName'] . ' ' . $row['mName'] . ' ' . $row['lName'] . '" job-listing-id="' . $job_listing_ID . '" job-seeker-id="' . $row['JSI'] . '" company-id="' . $row['compID'] . '" data-bs-toggle="modal" data-bs-target="#add-hired-note" class="btn-job-listing update d-flex align-items-center"  aria-controls="offcanvasExample" onclick="openAddHiredNote(this)">Hired Note</button>
                                    <a href="" class="btn-job-listing view-jobseeker d-flex align-items-center">View Profile<svg class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill:#ffffff"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg></a>
                               </div>
                          </div>';

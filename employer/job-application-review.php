@@ -282,7 +282,7 @@
 
 
      <div class="modal fade" id="add-note" tabindex="-1" aria-labelledby="add-note-label" aria-hidden="true">
-          <div class="modal-dialog modal-md modal-dialog-centered">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
                <div class="modal-content">
                     <div class="modal-header">
                          <h5 class="modal-title" id="add-note-label">Interview Note</h5>
@@ -294,14 +294,48 @@
                               <input type="hidden" name="job_seeker_id">
                               <input type="hidden" name="company_id">
                               <input type="hidden" name="name">
-                              <div class="input-group mb-3">
-                                   <span class="input-group-text" id="basic-addon1"><span class="req-indicator"></span>To:</span>
-                                   <span id="job-seeker-name" class="form-control job-seeker-name" aria-describedby="basic-addon1"></span>
+                              <div class="row">
+                                   <div class="input-group mb-3  col-lg-6 col-12">
+                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator"></span>To:</span>
+                                        <span id="job-seeker-name" class="form-control job-seeker-name" aria-describedby="basic-addon1"></span>
+                                   </div>
+                                   <div class="input-group mb-3  col-lg-6 col-12">
+                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator"></span>Date posted:</span>
+                                        <span id="interview-date-note" class="form-control" aria-describedby="basic-addon1"></span>
+                                   </div>
                               </div>
                               <div class="input-group mb-3 d-grid">
-                                   <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">Interview note:</span>
-                                   <textarea class="form-control" name="interview_note" style="height: 200px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"><?= "$jobseeker_objectives" ?></textarea>
-                                   <div class="invalid-feedback">Please enter your job objectives.</div>
+                                   <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;"><span class="req-indicator">*</span>Interview note:</span>
+                                   <textarea class="form-control" name="interview_note" id="interview_note" style="height: 300px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea" required></textarea>
+                                   <div class="invalid-feedback">Please enter your note for employer.</div>
+                              </div>
+                              <div class="accordion mb-3" id="accordionExample">
+                                   <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                  Interview Note Guidelines
+                                             </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                             <div class="accordion-body">
+                                                  <h3>Interview Note Guidelines:</h3>
+                                                  <ol>
+                                                       <li><strong>Date and Time:</strong> Specify the date and time of the interview to establish a timeline.</li>
+                                                       <li><strong>Location:</strong> Mention the location where the interview took place or whether it was conducted remotely.</li>
+                                                       <li><strong>Interviewer's Name:</strong> Provide the name of the interviewer or interview panel members.</li>
+                                                       <li><strong>Job Title:</strong> Mention the job title for which the candidate was interviewed.</li>
+                                                       <li><strong>Interview Format:</strong> Describe whether it was a phone, video, or in-person interview.</li>
+                                                       <li><strong>Candidate Information:</strong> Include the candidate's name and any relevant background information.</li>
+                                                       <li><strong>Questions and Answers:</strong> Summarize key questions asked and the candidate's responses.</li>
+                                                       <li><strong>Strengths and Weaknesses:</strong> Note the candidate's strengths and areas for improvement.</li>
+                                                       <li><strong>Overall Impression:</strong> Share your overall impression of the candidate's performance during the interview.</li>
+                                                       <li><strong>Recommendation:</strong> Indicate whether you recommend the candidate for further consideration.</li>
+                                                       <li><strong>Additional Comments:</strong> Include any additional observations or comments.</li>
+                                                  </ol>
+                                                  <p>Please ensure that your interview note is clear, concise, and provides valuable insights into the candidate's suitability for the position. Your feedback plays a crucial role in the selection process.</p>
+                                             </div>
+                                        </div>
+                                   </div>
                               </div>
                               <div class="mt-0 mb-1 ms-1 me-0 d-flex justify-content-end">
                                    <button id="prev-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
@@ -314,10 +348,10 @@
      </div>
 
      <div class="modal fade" id="add-hired-note" tabindex="-1" aria-labelledby="add-note-label" aria-hidden="true">
-          <div class="modal-dialog modal-md modal-dialog-centered">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
                <div class="modal-content">
                     <div class="modal-header">
-                         <h5 class="modal-title" id="add-note-label">Hired Note</h5>
+                         <h5 class="modal-title" id="add-note-label">Hiring Confirmation Note</h5>
                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -326,14 +360,49 @@
                               <input type="hidden" name="job_seeker_id">
                               <input type="hidden" name="company_id">
                               <input type="hidden" name="name">
-                              <div class="input-group mb-3">
-                                   <span class="input-group-text" id="basic-addon1"><span class="req-indicator"></span>To:</span>
-                                   <span id="job-seeker-name" class="form-control" aria-describedby="basic-addon1"></span>
+                              <div class="row">
+                                   <div class="input-group mb-3  col-lg-6 col-12">
+                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator"></span>To:</span>
+                                        <span id="job-seeker-name" class="form-control job-seeker-name" aria-describedby="basic-addon1"></span>
+                                   </div>
+                                   <div class="input-group mb-3  col-lg-6 col-12">
+                                        <span class="input-group-text" id="basic-addon1"><span class="req-indicator"></span>Date posted:</span>
+                                        <span id="hired-date-note" class="form-control" aria-describedby="basic-addon1"></span>
+                                   </div>
                               </div>
                               <div class="input-group mb-3 d-grid">
-                                   <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">Interview note:</span>
-                                   <textarea class="form-control" name="hired_note" style="height: 200px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"><?= "$jobseeker_objectives" ?></textarea>
-                                   <div class="invalid-feedback">Please enter your job objectives.</div>
+                                   <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">Hiring Confirmation Note:</span>
+                                   <textarea class="form-control" name="hired_note" id="hired_note" style="height: 300px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea" required></textarea>
+                                   <div class="invalid-feedback">Please enter your note for job seeker.</div>
+                              </div>
+                              <div class="accordion mb-3" id="accordionExample">
+                                   <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                  Hiring Confirmation Note Guidelines
+                                             </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                             <div class="accordion-body">
+                                                  <h3>Hiring Confirmation Note Guidelines:</h3>
+                                                  <ol>
+                                                       <li><strong>Date and Time:</strong> Specify the date and time of the hiring confirmation to establish a timeline.</li>
+                                                       <li><strong>Location:</strong> Mention the location where the hiring confirmation took place or whether it was conducted remotely.</li>
+                                                       <li><strong>Employer's Name:</strong> Provide the name of the employer or HR representative responsible for the hiring decision.</li>
+                                                       <li><strong>Job Title:</strong> Mention the job title for which the candidate is being hired.</li>
+                                                       <li><strong>Offer Details:</strong> Include details about the job offer, such as salary, benefits, and other relevant information.</li>
+                                                       <li><strong>Candidate Information:</strong> Include the candidate's name and any relevant background information.</li>
+                                                       <li><strong>Terms and Conditions:</strong> Summarize the terms and conditions of employment, including any agreements or contracts.</li>
+                                                       <li><strong>Confirmation:</strong> Confirm the candidate's acceptance of the job offer and any additional steps required for onboarding.</li>
+                                                       <li><strong>Next Steps:</strong> Outline the next steps in the hiring process, such as completing paperwork, training, or orientation.</li>
+                                                       <li><strong>Contact Information:</strong> Provide contact information for the HR department or a designated contact person for the candidate's questions and concerns.</li>
+                                                       <li><strong>Additional Comments:</strong> Include any additional information or special instructions related to the hiring process.</li>
+                                                  </ol>
+                                                  
+                                                  <p>Please ensure that your hiring confirmation note is clear, comprehensive, and provides all necessary details for the newly hired employee. Effective communication at this stage is crucial for a smooth onboarding process.</p>
+                                             </div>
+                                        </div>
+                                   </div>
                               </div>
                               <div class="mt-0 mb-1 ms-1 me-0 d-flex justify-content-end">
                                    <button id="prev-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
@@ -355,6 +424,28 @@
      <?php include "../common/footer-inside-folder.php"; ?>
      <?php include "../common/message-session.php"; ?>
      <?php //include "../common/remove-url-session.php"; ?>
+
+     <script>
+          // Example starter JavaScript for disabling form submissions if there are invalid fields
+          (() => {
+          'use strict'
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          const forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.from(forms).forEach(form => {
+          form.addEventListener('submit', event => {
+               if (!form.checkValidity()) {
+               event.preventDefault()
+               event.stopPropagation()
+               }
+
+               form.classList.add('was-validated')
+          }, false)
+          })
+          })()
+     </script>
 
      <script>
           document.addEventListener("DOMContentLoaded", function () {
@@ -441,13 +532,16 @@
                var jobseekerid = button.getAttribute('job-seeker-id');
                var companyid = button.getAttribute('company-id');
                var notes = button.getAttribute('interview-notes');
+               var interviewdatenote = button.getAttribute('interview-date-note');
 
+               specificModal.querySelector('#interview-date-note').innerHTML = interviewdatenote;
                specificModal.querySelector('#job-seeker-name').innerHTML = jobseekerfullname;
                specificModal.querySelector('input[name="name"]').value = jobseekerfullname;
                specificModal.querySelector('input[name="job_listing_id"]').value = joblistingid;
                specificModal.querySelector('input[name="job_seeker_id"]').value = jobseekerid;
                specificModal.querySelector('input[name="company_id"]').value = companyid;
                specificModal.querySelector('textarea[name="interview_note"]').value = notes;
+               
 
                // Open the specific modal
                var offcanvas = bootstrap.Offcanvas(specificModal);
@@ -464,13 +558,16 @@
                var jobseekerid = button.getAttribute('job-seeker-id');
                var companyid = button.getAttribute('company-id');
                var notes = button.getAttribute('hired-notes');
+               var hireddatenote = button.getAttribute('hired-date-note');
 
+               specificModal.querySelector('#hired-date-note').innerHTML = hireddatenote;
                specificModal.querySelector('#job-seeker-name').innerHTML = jobseekerfullname;
                specificModal.querySelector('input[name="name"]').value = jobseekerfullname;
                specificModal.querySelector('input[name="job_listing_id"]').value = joblistingid;
                specificModal.querySelector('input[name="job_seeker_id"]').value = jobseekerid;
                specificModal.querySelector('input[name="company_id"]').value = companyid;
                specificModal.querySelector('textarea[name="hired_note"]').value = notes;
+
 
                // Open the specific modal
                var offcanvas = bootstrap.Offcanvas(specificModal);

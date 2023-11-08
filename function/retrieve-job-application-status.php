@@ -149,7 +149,20 @@ if ($stmt === false) {
 
                     $trashStatus = ($row['trashed'] === 1) ? 'job-trashed' : '';
                     $showHiredNote = (!empty($row['hired_note'])) ? 'd-block' : 'd-none';
-                    $showInterviewNote = (!empty($row['interview_note']) && empty($row['hired_note'])) ? 'd-block' : 'd-none';
+                    // $showInterviewNote = (!empty($row['interview_note']) && empty($row['hired_note'])) ? 'd-block' : 'd-none';
+                    $showInterviewNoteIndicator = (!empty($row['interview_note']) && $hiredRow !== 1) ? '<p class="status-info mb-0 ms-3"><span class="badge text-bg-danger">Employer included a note.</span></p>' : '';
+                    $showHiredNoteIndicator = (!empty($row['interview_note']) && !empty($row['hired_note']) && $hiredRow === 1) ? '<p class="status-info mb-0 ms-3"><span class="badge text-bg-success">Employer included a note.</span></p>' : '';
+                    $showInterviewNote = (!empty($row['interview_note']) && $hiredRow !== 1) ? '<div class="mb-2" style="border: 4px solid #d63384; padding: 10px; border-radius: 4px;">
+                    <h6>Employer\'s note:</h6>
+                    <pre class="mb-0">' . $row['interview_note'] . '</pre>
+                    <p class="mb-0" style="text-align: end; font-family: Courier; color: rgb(168, 168, 168); font-size: 14px;">Posted: ' . $row['interview_note_date_added'] . '</p>
+                    </div>' : '';
+                    $showHiredNote = (!empty($row['interview_note']) && !empty($row['hired_note']) && $hiredRow === 1) ? '<div class="mb-2" style="border: 4px solid color(srgb 0.2306 0.53 0.333); padding: 10px; border-radius: 4px;">
+                    <h6>Employer\'s note:</h6>
+                    <pre class="mb-0">' . $row['hired_note'] . '</pre>
+                    <p class="mb-0" style="text-align: end; font-family: Courier; color: rgb(168, 168, 168); font-size: 14px;">Posted: ' . $row['hired_note_date_added'] . '</p>
+                    </div>' : '';
+
 
 
                     // Output or display the HTML content for the most recent status
@@ -173,8 +186,7 @@ if ($stmt === false) {
                                                        <p class="status-info mb-0"><span class="fw-semibold">Company name: </span><span>' . $row['company_name'] . '</span></p>
                                                        <p class="status-info mb-0 ms-3"><span class="fw-semibold">Employment type: </span><span>' . $row['employment_type'] . '</span></p>
                                                        <p class="status-info mb-0 ms-3"><span class="fw-semibold">Date applied: </span><span>' . $dateAppliedRow . '</span></p>
-                                                       <p class="status-info mb-0 ms-3 d-none"><span class="badge text-bg-success">Employer included a note.</span></p>
-                                                       <p class="status-info mb-0 ms-3 d-none"><span class="badge text-bg-danger">Employer included a note.</span></p>
+                                                       ' . $showInterviewNoteIndicator . '' . $showHiredNoteIndicator . '
                                                   </div>
                                              </div>
                                         </div>';
@@ -196,7 +208,7 @@ if ($stmt === false) {
 
                     $applicationDeadline = (!empty($applicationDeadlineRow)) ? 'd-block' : 'd-none';
                     $jobBenefits = (!empty($jobBenefitsRow)) ? 'd-block' : 'd-none';
-                    $workEnvironment = (($workEnvironmentRow === 1)) ? 'd-block' : 'd-none';
+                    $workEnvironmentIndicator = (($workEnvironmentRow === 1)) ? 'd-block' : 'd-none';
 
 
                     $modalHeadStatus = ($row['trashed'] === 1) ? '<div class="w-100 status-indicator '. $trashStatus .' mb-md-0 mb-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">Sorry, this job listing has been removed by the employer. It is no longer accepting job applications.</div>' : '<div class="w-100 status-indicator ' . $class . ' mb-md-0 mb-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">' . $title . ' - '. $dateLabel .'</div>';
@@ -210,16 +222,7 @@ if ($stmt === false) {
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                    </div>
                                    <div class="modal-body">
-                                        <div class="mb-2 ' . $showHiredNote . '" style="border: 4px solid color(srgb 0.2306 0.53 0.333); padding: 10px; border-radius: 4px;">
-                                             <h6>Employer\'s note:</h6>
-                                             <p class="mb-0">' . $row['hired_note'] . '</p>
-                                             <p class="mb-0" style="text-align: end; font-family: Courier; color: rgb(168, 168, 168); font-size: 14px;">Posted: ' . $row['hired_note_date_added'] . '</p>
-                                        </div>
-                                        <div class="mb-2 ' . $showInterviewNote . '" style="border: 4px solid #d63384; padding: 10px; border-radius: 4px;">
-                                             <h6>Employer\'s note:</h6>
-                                             <p class="mb-0">' . $row['interview_note'] . '</p>
-                                             <p class="mb-0" style="text-align: end; font-family: Courier; color: rgb(168, 168, 168); font-size: 14px;">Posted: ' . $row['interview_note_date_added'] . '</p>
-                                        </div>
+                                        ' . $showInterviewNote . '' . $showHiredNote . '
                                         <div class="application-info row mb-2 ms-1 me-1 mt-0">
                                              <div class="listing-details tab-pane">
                                                   <div>

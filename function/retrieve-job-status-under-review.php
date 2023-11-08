@@ -32,7 +32,7 @@ $query = "WITH LongestEducation AS (
                JSCH.company_name AS company,
                LC.longest_career_duration
           FROM JOB_LISTING AS JL
-          JOIN JOB_APPLICATION_STATUS AS JAS
+          LEFT JOIN JOB_APPLICATION_STATUS AS JAS
                ON JL.job_id = JAS.job_ID
                AND JAS.applied = 1
                AND JAS.under_review = 1
@@ -41,16 +41,16 @@ $query = "WITH LongestEducation AS (
                AND JAS.rejected IS NULL
                AND JAS.hired IS NULL
                AND JAS.withdraw_job IS NULL
-          JOIN JOB_SEEKER_SIGNUP_INFO AS JSSI
+          LEFT JOIN JOB_SEEKER_SIGNUP_INFO AS JSSI
                ON JAS.jobseeker_ID = JSSI.jobseeker_ID
-          JOIN LongestEducation AS LE
+          LEFT JOIN LongestEducation AS LE
                ON JSSI.jobseeker_ID = LE.jobseeker_ID
           LEFT JOIN JOB_SEEKER_EDUCATION_INFO AS JSEI
                ON JSEI.jobseeker_ID = LE.jobseeker_ID
                AND LE.longest_education_duration = JSEI.graduation_year - JSEI.start_year
-          JOIN EMPLOYER_SIGNUP_INFO AS ESI
+          LEFT JOIN EMPLOYER_SIGNUP_INFO AS ESI
                ON JL.employer_id = ESI.company_ID
-          JOIN LongestCareer AS LC
+          LEFT JOIN LongestCareer AS LC
                ON JSSI.jobseeker_ID = LC.jobseeker_ID
           LEFT JOIN JOB_SEEKER_CAREER_HISTORY AS JSCH
                ON JSEI.jobseeker_ID = JSCH.jobseeker_ID

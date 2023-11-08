@@ -14,7 +14,7 @@
           echo "Error: " . mysqli_error($conn);
      } else {
           // Bind the jobseeker_ID parameter
-          mysqli_stmt_bind_param($stmt, "i", $jobseeker_ID);
+          mysqli_stmt_bind_param($stmt, "s", $jobseeker_ID);
 
           // Execute the prepared statement
           if (mysqli_stmt_execute($stmt)) {
