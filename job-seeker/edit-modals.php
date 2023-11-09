@@ -12,6 +12,9 @@
                               <div>
                                    <input type="hidden" name="jobseeker_id" value="<?= "$jobseeker_ID" ?>" id="jobseeker-id">
                                    <div class="" id="view-uploaded-image">
+                                        <div class="alert alert-light" role="alert">
+                                             Please upload a square or 1x1 formal or professional picture of yourself. A well-composed and professional image will help create a positive impression and enhance your profile. 
+                                        </div>
                                         <input type="file" id="image-upload" name="image" accept=".png, .jpg" style="display: none;" required>
                                         <div class="circle-section d-flex justify-content-center">
                                              <label for="image-upload" class="circle-image" style="width: 250px !important; height: 250px !important; border: 5px solid color(srgb 0.1277 0.5183 0.9668);">
@@ -137,7 +140,7 @@
 </div>
 
 <!-- objectives -->
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-objectives" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas w-auto offcanvas-end" data-bs-scroll="true" tabindex="-1" id="edit-objectives" aria-labelledby="offcanvasExampleLabel">
      <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasExampleLabel">Edit Personal Summary</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -151,8 +154,11 @@
                                    <input type="hidden" name="jobseeker_id" value="<?= "$jobseeker_ID" ?>" id="jobseeker-id">
                                    <div class="input-group mb-3 d-grid">
                                         <span class="input-group-text" id="basic-addon1" style="border-radius: 5px 5px 0px 0px;">Personal Summary:</span>
-                                        <textarea class="form-control" name="jobseeker_objectives" style="height: 500px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"><?= "$jobseeker_objectives" ?></textarea>
+                                        <textarea class="form-control" name="jobseeker_objectives" style="height: 400px; width: 100%; border-radius: 0px 0px 5px 5px; margin: 0px;" aria-label="With textarea"><?= "$jobseeker_objectives" ?></textarea>
                                         <div class="invalid-feedback">Please enter your job objectives.</div>
+                                   </div>
+                                   <div class="alert alert-light" role="alert">
+                                        At <strong>InclusiJob</strong>, we believe in the power of <strong>diversity</strong> and <strong>inclusivity</strong>. We want you to know that adding details about your disability is completely optional. Our platform is designed with you in mind, and we encourage you not to hesitate when it comes to sharing your unique experiences. InclusiJob is a place where your individuality is celebrated, and we're here to support you in your job search journey. Feel free to include your story in your 'Personal Summary'. We're here to help you connect with employers who appreciate your unique strengths.
                                    </div>
                               </div>
                          </div>

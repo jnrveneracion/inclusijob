@@ -150,14 +150,14 @@ if ($stmt === false) {
                     $trashStatus = ($row['trashed'] === 1) ? 'job-trashed' : '';
                     $showHiredNote = (!empty($row['hired_note'])) ? 'd-block' : 'd-none';
                     // $showInterviewNote = (!empty($row['interview_note']) && empty($row['hired_note'])) ? 'd-block' : 'd-none';
-                    $showInterviewNoteIndicator = (!empty($row['interview_note']) && $hiredRow !== 1) ? '<p class="status-info mb-0 ms-3"><span class="badge text-bg-danger">Employer included a note.</span></p>' : '';
-                    $showHiredNoteIndicator = (!empty($row['interview_note']) && !empty($row['hired_note']) && $hiredRow === 1) ? '<p class="status-info mb-0 ms-3"><span class="badge text-bg-success">Employer included a note.</span></p>' : '';
-                    $showInterviewNote = (!empty($row['interview_note']) && $hiredRow !== 1) ? '<div class="mb-2" style="border: 4px solid #d63384; padding: 10px; border-radius: 4px;">
+                    $showInterviewNoteIndicator = (!empty($row['interview_note']) && $hiredRow !== 1  && $rejectedRow !== 1) ? '<p class="status-info mb-0 ms-3"><span class="badge text-bg-danger">Employer included a note.</span></p>' : '';
+                    $showHiredNoteIndicator = (!empty($row['interview_note']) && !empty($row['hired_note']) && $hiredRow === 1  && $rejectedRow !== 1) ? '<p class="status-info mb-0 ms-3"><span class="badge text-bg-success">Employer included a note.</span></p>' : '';
+                    $showInterviewNote = (!empty($row['interview_note']) && $hiredRow !== 1 && $rejectedRow !== 1) ? '<div class="mb-2" style="border: 4px solid #d63384; padding: 10px; border-radius: 4px;">
                     <h6>Employer\'s note:</h6>
                     <pre class="mb-0">' . $row['interview_note'] . '</pre>
                     <p class="mb-0" style="text-align: end; font-family: Courier; color: rgb(168, 168, 168); font-size: 14px;">Posted: ' . $row['interview_note_date_added'] . '</p>
                     </div>' : '';
-                    $showHiredNote = (!empty($row['interview_note']) && !empty($row['hired_note']) && $hiredRow === 1) ? '<div class="mb-2" style="border: 4px solid color(srgb 0.2306 0.53 0.333); padding: 10px; border-radius: 4px;">
+                    $showHiredNote = (!empty($row['interview_note']) && !empty($row['hired_note']) && $hiredRow === 1  && $rejectedRow !== 1) ? '<div class="mb-2" style="border: 4px solid color(srgb 0.2306 0.53 0.333); padding: 10px; border-radius: 4px;">
                     <h6>Employer\'s note:</h6>
                     <pre class="mb-0">' . $row['hired_note'] . '</pre>
                     <p class="mb-0" style="text-align: end; font-family: Courier; color: rgb(168, 168, 168); font-size: 14px;">Posted: ' . $row['hired_note_date_added'] . '</p>

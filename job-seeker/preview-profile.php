@@ -15,6 +15,7 @@
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
      <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="stylesheet" href="../css/index-style.css">
      <link rel="stylesheet" href="../css/signup-style.css">
      <style>
@@ -178,9 +179,13 @@
                          </label>
                          </div>
                     </div>
-                    <div class="col-7 col-lg-9 d-flex align-items-center">
+                    <div class="col-7 col-lg-9 d-flex align-items-center position-relative pb-lg-0 pb-5">
                          <div>
                               <div class="fs-2"><?= "$firstname $middlename $lastname" ?></div>
+                              <div class="">
+                                   <svg style="fill: white; opacity: 1;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="15" height="15"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"/></svg></svg>
+                                   +63<?= "$contact_no" ?>
+                              </div>
                               <div class="">
                                    <svg style="fill: white; opacity: 1;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve" focusable="false" fill="currentColor" width="16" height="16" class="_1uznlpf0 _1uvwke522 _1m9vd2q56 _1m9vd2q5e _1n6dj3h0 _1n6dj3h2 _1n6dj3h3 _1n6dj3h4" aria-hidden="true"><path d="M12 1C7.6 1 4 4.6 4 9c0 4.1 6.5 12.6 7.2 13.6.2.2.5.4.8.4s.6-.1.8-.4c.7-1 7.2-9.5 7.2-13.6 0-4.4-3.6-8-8-8zm0 19.3c-2.2-3-6-8.8-6-11.3 0-3.3 2.7-6 6-6s6 2.7 6 6c0 2.5-3.8 8.3-6 11.3z"></path><path d="M12 5c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm0 4c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"></path></svg>
                                    <?= "$jobseeker_address" ?>
@@ -190,8 +195,8 @@
                                    <a href="mailto:<?= "$email" ?>" class="text-white"><?= "$email" ?></a>
                               </div>
                               <div>
-                                   <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="please complete your details to use this feature">
-                                        <button id="btn-outline-a" type="button" disabled>View Resume</button>
+                                   <span class="d-inline-block position-absolute" style="right: 0; top: 76%;">
+                                        <button id="btn-outline-a" type="button" onclick="window.location = 'preview-resume.php'">View Resume</button>
                                    </span>
                               </div>
                          </div>
@@ -226,7 +231,7 @@
                     <p class="fs-5 head-text mt-4">Personal Summary</p>
                     <div class="info-body me-lg-0 me-0 ms-lg-0 ms-0 row">
                          <div class="col-12">
-                              <p class="info-section"><span class="info-data"><?= isset($jobseeker_objectives) ? $jobseeker_objectives : 'click edit' ?></span></p>
+                              <p class="info-section"><span class="info-data"><?= isset($jobseeker_objectives) ? $jobseeker_objectives : 'click edit to add personal summary.' ?></span></p>
                               <div class="d-flex justify-content-end">
                                    <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-objectives" aria-controls="offcanvasExample">Edit</button>
                               </div>
