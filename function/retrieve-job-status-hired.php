@@ -108,7 +108,7 @@ if ($stmt === false) {
                               </div>
                               <div class="d-flex justify-content-end align-items-center">
                                    <button type="button" hired-date-note="' . $dateNote . '" hired-notes="' . $row['hired_notes'] . '" job-seeker-fullname="' . $row['fName'] . ' ' . $row['mName'] . ' ' . $row['lName'] . '" job-listing-id="' . $job_listing_ID . '" job-seeker-id="' . $row['JSI'] . '" company-id="' . $row['compID'] . '" data-bs-toggle="modal" data-bs-target="#add-hired-note" class="btn-job-listing update d-flex align-items-center"  aria-controls="offcanvasExample" onclick="openAddHiredNote(this)">Hired Note</button>
-                                   <a href="" class="btn-job-listing view-jobseeker d-flex align-items-center">View Profile<svg class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill:#ffffff"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg></a>
+                                   <a href="preview-resume.php?jobseeker=' . $row['JSI'] . '&j=' . $job_listing_ID . '" class="btn-job-listing view-jobseeker d-flex align-items-center">View Resume<svg class="ms-1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style="fill:#ffffff"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg></a>
                               </div>
                          </div>';
                }

@@ -4,7 +4,11 @@
      include "../database/conn.php";
 
      // Retrieve user data based on jobseeker_ID
-     $jobseeker_ID = $_SESSION['jobseeker_ID'];
+     if (isset($_SESSION["jobseeker_ID"])) {
+          $jobseeker_ID = $_SESSION['jobseeker_ID'];
+     } elseif (isset($_GET['jobseeker'])) {
+          $jobseeker_ID = $_GET['jobseeker'];
+     }
 
      // Create a prepared statement to select data
      $query = "SELECT * FROM JOB_SEEKER_EDUCATION_INFO WHERE jobseeker_ID = ? ORDER BY start_year ASC;";
