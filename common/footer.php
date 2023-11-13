@@ -1,4 +1,4 @@
-<div class="footer-top-section row">
+<div class="footer-top-section row" translate="no">
      <div class="col-12 col-lg-2">
           <div class="footer-links m-3 text-center">
                <img src="images/square-logo.png" width="150" alt="">
@@ -39,12 +39,14 @@
      <div class="footer-bottom-section text-center bg-primary text-white rounded-2 p-1">BSIT 3-2 CURIOSO | LAT | MOZOL |
           VENERACION 2023</div>
 </div>
+<div id="google_translate_element"></div>
 
 <script>
      function redirectToJobSeekerPage() {
           window.location.href = 'job-seeker/job-seeker-login.php';
      }
 </script>
+
 
 <!-- Font size adjuster script -->
 <script src="js/font-adjust.js"></script>

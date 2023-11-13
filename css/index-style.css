@@ -1,3 +1,10 @@
+#google_translate_element {
+     display: inline-block; /* Set the container to inline-block to prevent it from affecting the layout */
+     margin: 0; /* Remove any margins */
+     padding: 0; /* Remove any padding */
+     vertical-align: middle; /* Adjust the vertical alignment if needed */
+   }
+
 a {
      text-decoration: none;
      font-family: "Avenir Next";

@@ -1,6 +1,7 @@
 <?php
      session_start();
      include "../session-check/employer-not-set.php";
+     include "../function/retrieve-employer-signup.php";  
      include "../function/retrieve-job-seeker-signup.php";
      include "../function/retrieve-job-seeker-image.php";
      include "../function/retrieve-job-listing-review-application.php";  
@@ -110,7 +111,7 @@
      </style>
 </head>
 <body class="container-xxl">
-     <?php require "../common/head-inside-folder.php"; ?>
+     <?php include "../common/head-inside-folder.php"; ?>
      <div class="breadcrumbs">
           <div class="page-indicator d-flex justify-content-center justify-content-lg-start">
                <a href="home.php" class="no-decor-link"><h6 class="page-indicator-txt">Employer</h6></a> 
