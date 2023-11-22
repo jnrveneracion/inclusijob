@@ -257,19 +257,7 @@
                                              <?php include "../function/retrieve-job-status-rejected.php"; ?>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="withdrawn" role="tabpanel" aria-labelledby="withdrawn-tab">
-                                             <div class="d-flex justify-content-between align-items-center bg-light candidate-section">
-                                                  <div>
-                                                       <h4 class="mb-0">Janrie veneracion</h4>
-                                                       <div>
-                                                            <span class="head-txt">Most recent job</span>
-                                                            <span class="sub-txt">4 years</span>
-                                                       </div>
-                                                       <div>
-                                                            <span class="head-txt">Most recent Education</span>
-                                                            <span class="sub-txt">Field of study</span>
-                                                       </div>
-                                                  </div>
-                                             </div>
+                                             <?php include "../function/retrieve-job-status-withdrawn.php"; ?>
                                         </div>
                                    </div>
                               </div>   

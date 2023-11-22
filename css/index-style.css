@@ -10,6 +10,10 @@ a {
      font-family: "Avenir Next";
 }
 
+.plain-link-a {
+     color: white;
+}
+
 .menu-section a {
      text-decoration: none;
      color: #2184F7;
@@ -45,18 +49,19 @@ a {
 }
 
 #home-button-bottom-span {
-     margin-top: 200px;
      position: absolute;
-     display: flex;
-     align-items: center;
+     left: 50%;
+     transform: translate(-50%, 0);
      font-size: 15px;
+     bottom: -56px;
 }
 
 #home-button-bottom-span-b {
-     margin-top: 150px;
      position: absolute;
-     display: flex;
-     align-items: center;
+     left: 50%;
+     transform: translate(-50%, 0);
+     font-size: 15px;
+     bottom: -34px;
      font-size: 15px;
      color: #2184F7;
      font-family: "Avenir Next";
@@ -73,6 +78,7 @@ a {
      border-radius: 5px;
      padding: 10px 30px;
      margin: 10px 30px;
+     min-width: 300px;
 }
 
  .home-button:hover {
@@ -192,7 +198,7 @@ a {
      color: #175dae;
 }
 
-.animate-count {
+/* .animate-count {
      font-size: 24px;
      font-weight: bold;
      text-align: center;
@@ -214,5 +220,5 @@ a {
           transform: scale(1.5);
           opacity: 1;
      }
-}
+} */
  

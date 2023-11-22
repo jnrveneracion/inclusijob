@@ -15,6 +15,7 @@ $query = "SELECT
                JL.trash AS trashed,
                HN.note AS hired_note,
                ITN.note AS interview_note,
+               JAS.company_ID as company_ID,
                DATE_FORMAT(HN.date_added, '%M %d, %Y %h:%i %p') AS hired_note_date_added,
                DATE_FORMAT(ITN.date_added, '%M %d, %Y %h:%i %p') AS interview_note_date_added
           FROM JOB_APPLICATION_STATUS AS JAS 
@@ -30,6 +31,10 @@ $query = "SELECT
                ON JAS.jobseeker_ID = ITN.jobseeker_ID
                AND JAS.company_ID = ITN.company_ID
                AND JAS.job_ID = ITN.job_listing_ID
+          LEFT JOIN JOB_SEEKER_WORK_REVIEW AS JSWR
+          	ON JAS.jobseeker_ID = JSWR.jobseeker_ID
+               AND JAS.company_ID = JSWR.company_ID
+               AND JAS.job_ID = JSWR.job_ID
           WHERE JAS.jobseeker_ID = ? 
           AND JL.job_id IS NOT NULL
           ORDER BY JAS.date_added DESC;
@@ -212,7 +217,10 @@ if ($stmt === false) {
 
 
                     $modalHeadStatus = ($row['trashed'] === 1) ? '<div class="w-100 status-indicator '. $trashStatus .' mb-md-0 mb-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">Sorry, this job listing has been removed by the employer. It is no longer accepting job applications.</div>' : '<div class="w-100 status-indicator ' . $class . ' mb-md-0 mb-2 d-flex justify-content-center" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateLabel .'">' . $title . ' - '. $dateLabel .'</div>';
-
+                    $writeReviewDisplay = ($row['hired'] === 1 && empty($row['work_review_ID'])) ? 'd-block' : 'd-none';
+                    $doneReviewDisplay = ($row['hired'] === 1 && !empty($row['work_review_ID'])) ? 'd-block' : 'd-none';
+                    $withdrawDisplay = ($row['hired'] !== 1 && $row['rejected'] !== 1 && $row['withdraw_job'] !== 1) ? 'd-block' : 'd-none';
+                    
                     echo '<!-- Modal -->
                     <div class="modal fade" id="'. $countModal .'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                          <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -227,9 +235,14 @@ if ($stmt === false) {
                                              <div class="listing-details tab-pane">
                                                   <div>
                                                        <div class="row head-section">
-                                                            <div class="col-7 d-flex align-items-center">
+                                                            <div class="col-12 col-lg-12 d-flex align-items-center">
                                                                  <div>
-                                                                      <h1 class="m-0">' . $row['job_title'] . '</h1>
+                                                                      <div class="d-flex">
+                                                                           <h1 class="m-0">' . $row['job_title'] . '</h1>
+                                                                           <button id="btn-solid" class="btn btn-primary ' . $writeReviewDisplay . '" type="button" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" company-name="' . $row['company_name'] . '" job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="' . $row['company_ID'] . '">Write a review</button>
+                                                                           <button id="btn-solid" class="btn btn-primary ' . $doneReviewDisplay . '" type="button" style="background-color: color(srgb 0.2328 0.5323 0.3334); color: white; pointer-events: none;">Review submitted</button>
+                                                                           <button id="withdraw-btn" class="withdraw-now btn btn-primary ' . $withdrawDisplay  . '" type="button"  job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="' . $row['company_ID'] . '">Withdraw Application</button>
+                                                                      </div>
                                                                       <a class="preview-profile-link" target="_blank" href="preview-company-profile.php?c=' . $row['company_ID'] . '"><h3 class="m-0">' . $row['company_name'] . '</h3></a>
                                                                  </div>
                                                             </div>
@@ -333,7 +346,7 @@ if ($stmt === false) {
                                                                            <div date-updated="'. $row['interview_date'] .'" class="'. $dateInterviewModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateInterviewRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center interview-scheduled " style="width: fit-content;">Interview Scheduled'. $clockSVG .'</p></div>
                                                                            <div date-updated="'. $row['rejected_date'] .'" class="'. $dateRejectedModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateRejectedRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center rejected " style="width: fit-content;">Rejected'. $clockSVG .'</p></div>
                                                                            <div date-updated="'. $row['hired_date'] .'" class="'. $dateHiredModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateHiredRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center hired" style="width: fit-content;">Hired'. $clockSVG .'</p></div>
-                                                                           <div date-updated="'. $row['withdraw_date'] .'" class="'. $dateWithdrawJobModal .' align-items-center"><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateWithdrawJobRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center withdrawn " style="width: fit-content;">Withdrawn'. $clockSVG .'</div>
+                                                                           <div date-updated="'. $row['withdraw_date'] .'" class="'. $dateWithdrawJobModal .' align-items-center"><span> '. $nextSVG .' </span><p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="'. $dateWithdrawJobRow .'" class="col-auto m-1 d-flex status-indicator mb-0 align-items-center withdrawn " style="width: fit-content;">Withdrawn'. $clockSVG .'</div>
                                                                       </div>
                                                                  </div>
                                                             </div>

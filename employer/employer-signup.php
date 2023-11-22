@@ -139,7 +139,7 @@
                               </div>
                          </div>
                          <div class="mt-0 mb-3 ms-1 me-0 d-flex justify-content-end">
-                              <button id="prev-button" type="button" class="button m-1" onclick="window.location = 'job-seeker-login.php'">Cancel</button>
+                              <button id="prev-button" type="button" class="button m-1" onclick="window.location = 'employer-login.php'">Cancel</button>
                               <button id="submit-button" class="button m-1" type="submit">Sign up</button>
                          </div>
                     </form>

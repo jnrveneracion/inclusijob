@@ -241,7 +241,6 @@
           });
      </script>
 
-     <!-- apply job -->
      <script>
           $(document).ready(function() {
           // Add a click event handler to the SVG with the id "save-job"

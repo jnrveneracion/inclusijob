@@ -36,7 +36,17 @@ $queries = [
                     AND JAS.withdraw_job IS NULL 
           RIGHT JOIN EMPLOYER_SIGNUP_INFO AS ESI 
                ON JL.employer_id = ESI.company_ID WHERE JL.job_id = ?;',
-     'SELECT COUNT(JAS.application_status_ID) AS withdraw_status_count FROM JOB_LISTING AS JL LEFT JOIN JOB_APPLICATION_STATUS AS JAS ON JL.job_id = JAS.job_ID AND JAS.applied = 1 AND (JAS.under_review = 1 OR JAS.under_review IS NULL) AND (JAS.shortlisted = 1 OR JAS.shortlisted IS NULL) AND (JAS.interview = 1 OR JAS.interview IS NULL) AND JAS.rejected IS NULL AND JAS.hired = 1 AND JAS.withdraw_job = 1 RIGHT JOIN EMPLOYER_SIGNUP_INFO AS ESI ON JL.employer_id = ESI.company_ID WHERE JL.job_id = ?;'
+     'SELECT COUNT(JAS.application_status_ID) AS withdraw_status_count 
+          FROM JOB_LISTING AS JL LEFT JOIN JOB_APPLICATION_STATUS AS JAS 
+               ON JL.job_id = JAS.job_ID 
+               AND JAS.applied = 1 
+               AND (JAS.under_review = 1 OR JAS.under_review IS NULL) 
+               AND (JAS.shortlisted = 1 OR JAS.shortlisted IS NULL) 
+               AND (JAS.interview = 1 OR JAS.interview IS NULL)
+               AND JAS.rejected IS NULL AND JAS.hired IS NULL 
+               AND JAS.withdraw_job = 1 
+          RIGHT JOIN EMPLOYER_SIGNUP_INFO AS ESI 
+               ON JL.employer_id = ESI.company_ID WHERE JL.job_id = ?;'
 ];
 
 // Initialize variables to store counts

@@ -47,7 +47,7 @@ if ($company_ID !== null) {
                     $company_facebook = $row['company_facebook'];
                     $company_linkedin = $row['company_linkedin'];
                     $company_twitter = $row['company_twitter'];
-                    $email = $row['email'];
+                    $company_email = $row['email'];
                     $password = $row['employer_password'];
                }
           } else {

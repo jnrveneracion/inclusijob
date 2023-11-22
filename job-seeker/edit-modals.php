@@ -235,9 +235,11 @@
                                         <select class="form-select" aria-label="graduation_year" name="graduation_year" aria-describedby="start-year-label" id="graduation_year_select_update">
                                              <option value="">Graduation Year</option>
                                              <?php
-                                                  $currentYear = date("Y");
-                                                  for ($year = $currentYear; $year >= 1950; $year--) {
-                                                       echo "<option value='$year'>$year</option>";
+                                             $currentYear = date("Y");
+                                                  $futureYear = $currentYear + 5;
+
+                                                  for ($year = $currentYear; $year <= $futureYear; $year++) {
+                                                  echo "<option value='$year'>$year</option>";
                                                   }
                                              ?>
                                         </select>
@@ -308,8 +310,10 @@
                                              <option value="">Graduation Year</option>
                                              <?php
                                                   $currentYear = date("Y");
-                                                  for ($year = $currentYear; $year >= 1950; $year--) {
-                                                       echo "<option value='$year'>$year</option>";
+                                                  $futureYear = $currentYear + 5;
+
+                                                  for ($year = $currentYear; $year <= $futureYear; $year++) {
+                                                  echo "<option value='$year'>$year</option>";
                                                   }
                                              ?>
                                         </select>
@@ -422,7 +426,7 @@
                                                   );
 
                                                   foreach ($months as $index => $month) {
-                                                       echo "<option value='" . ($index + 1) . "'>$month</option>";
+                                                       echo "<option value='" . $month . "'>$month</option>";
                                                   }
                                              ?>
                                         </select>
