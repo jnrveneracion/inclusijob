@@ -2,7 +2,7 @@
 session_start();
 
 include "../database/conn.php";
-$company_ID = $_GET['c'];
+$company_ID = $_SESSION['company_ID'];
 
 // Create a prepared statement to check if company_ID exists
 $checkQuery = "SELECT COUNT(*) AS review_count FROM JOB_SEEKER_WORK_REVIEW WHERE company_ID = ?";

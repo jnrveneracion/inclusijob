@@ -82,7 +82,7 @@
           <span class="d-none speakable-text">select user account</span>
           <div class="row w-100 d-flex justify-content-center position-relative">
                <div class="col-12 col-md-auto d-flex justify-content-center justify-content-lg-end">
-                    <button class="home-button speakable-text" id="employee" title="Naghahanap ng trabaho" translate="no" onclick="window.location = 'job-seeker/job-seeker-login.php'">Job seeker</button>
+                    <button class="home-button speakable-text" id="employee" title="Naghahanap ng trabaho" translate="no" onclick="window.location = 'job-seeker/job-seeker-login.php'">Job Seeker</button>
                </div>
                <div class="col-12 col-md-auto d-flex align-items-center justify-content-center">
                     <span class="home-span speakable-text">or</span>
