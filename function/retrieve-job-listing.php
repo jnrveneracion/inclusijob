@@ -72,18 +72,25 @@
                     $savedStatusRow = $row['saved_status'];
                     $saved_status = (($savedStatusRow === 1)) ? 'd-block' : 'd-none';
                     $unsaved_status = (($savedStatusRow === 0)) ? 'd-block' : 'd-none';
+                    $companyID = $row['company_ID'];
+                    $companyIDNoHyphen = str_replace('-', '', $companyID);
 
                     echo '
                     <a class="job-listing-item '. $class . '" data-toggle="list" href="#item'. $itemCount .'" role="tab" date-posted="' . $row['joblisting_date_added'] . '">
                          <div>
-                              <div class="row head-section">
-                                   <div class="col-10 d-flex align-items-center">
+                              <div class="row head-section position-relative">
+                                   <div class="col-12 d-flex align-items-center">
                                         <div>
                                              <h4 class="m-0">' . $row['job_title'] . '</h4>
-                                             <h5 class="m-0">' . $row['company_name'] . '</h5>
+                                             <div class="align-items-center">
+                                                  <h5 class="m-0">' . $row['company_name'] . '</h5>
+                                                  <div class="d-flex">
+                                                       <span class="' . $companyIDNoHyphen . 'reviews" style="display: flex;"></span>
+                                                  </div>
+                                             </div>
                                         </div>
                                    </div>
-                                   <div class="col-2 d-flex justify-content-center align-items-start mt-1">
+                                   <div class="position-absolute d-flex justify-content-end align-items-start mt-1">
                                         <div class="svg-container">
                                              <svg class="save-job first-svg '. $unsaved_status .'" onclick="toggleSave('. $itemCount .')" id="save-job-'. $itemCount .'" id="job-'. $itemCount .'" job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['company_ID'] .'" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"/></svg>
                                              <svg class="unsave-job second-svg '. $saved_status .'" onclick="toggleUnSave('. $itemCount .')" id="unsave-job-'. $itemCount .'" job-listing-id="'. $row['job_id'] .'" job-seeker-id="'. $_SESSION['jobseeker_ID'] .'" employer-id="'. $row['company_ID'] .'" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg>
@@ -149,6 +156,8 @@
                     $savedStatusRow = $row['saved_status'];
                     $saved_status = (($savedStatusRow === 1)) ? 'd-block' : 'd-none';
                     $unsaved_status = (($savedStatusRow === 0)) ? 'd-block' : 'd-none';
+                    $companyID2 = $row['company_ID'];
+                    $companyIDNoHyphen2 = str_replace('-', '', $companyID2);
 
                     echo '
                          <div class="listing-details tab-pane fade '. $class .'" id="item'. $itemCount2 .'" role="tabpanel">
@@ -158,6 +167,9 @@
                                              <div>
                                                   <h1 class="m-0">' . $row['job_title'] . '</h1>
                                                   <a class="preview-profile-link" href="preview-company-profile.php?c=' . $row['company_ID'] . '"><h3 class="m-0">' . $row['company_name'] . '</h3></a>
+                                                  <div class="d-flex">
+                                                       <span class="' . $row['company_ID'] . 'reviews2" style="display: flex;"></span>
+                                                  </div>
                                              </div>
                                         </div>
                                         <div class="col-4 d-flex justify-content-end align-items-center">

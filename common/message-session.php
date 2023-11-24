@@ -22,12 +22,13 @@
 if (isset($_GET['message'])) {
      $successMessage = $_GET['message'];
 
-     echo '<div id="custom-toast" class="custom-toast">';
+     echo '<div id="custom-toast" class="custom-toast" style="max-width: 500px; width: fit-content;">';
      echo '<div class="custom-toast-body" id="custom-toast-message">' . htmlspecialchars($successMessage) . '</div>';
      echo '</div>';
 
 }
 ?>
+
 
 <script>
      // Function to show a custom toast message

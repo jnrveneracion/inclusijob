@@ -143,7 +143,35 @@
                text-decoration: underline;
           }
 
+          .bordered-reviews svg path {
+               stroke: color(srgb 0.4 0.3744 0.014);
+               stroke-width: 15;
+          }
      </style>
+     <script>
+ function applyStarColor(selector) {
+  const fillStarDivs = document.querySelectorAll(selector);
+
+  fillStarDivs.forEach(fillStarDiv => {
+    const stars = fillStarDiv.querySelectorAll('svg');
+
+    stars.forEach((star, index) => {
+      // Get the rating from the count-star attribute
+      const rating = parseFloat(star.parentElement.getAttribute('count-star'));
+
+      if (index < Math.floor(rating)) {
+        star.style.fill = "#fff567"; // Whole star color
+      } else if (index === Math.floor(rating) && rating % 1 !== 0) {
+        const decimalPart = rating % 1;
+        const gradientColor = `rgba(255, 245, 103, ${decimalPart})`; // Gradient color based on decimal part
+        star.style.fill = gradientColor;
+      } else {
+        star.style.fill = "rgba(214, 214, 214, 0.53)"; // Inactive star color
+      }
+    });
+  });
+}
+     </script>
 </head>
 <body class="container-xxl">
      <?php require "../common/head-inside-folder.php"; ?>
@@ -174,7 +202,7 @@
                               <div class="col-2 col-lg-1 me-5 d-flex align-items-center">
                                    <label class="select-no-style" for="filter-job-type"><span id="number-of-jobs-results"></label>
                               </div>
-                              <div class="col-10 col-lg-8 ms-3 d-flex align-items-center d-none">
+                              <div class="col-10 col-lg-8 ms-3 d-flex align-items-center">
                                    <div class="">
                                         <label class="select-no-style-head " for="filter-job-type">Job type:</label>
                                         <select class="select-no-style" id="filter-job-type"> 
@@ -221,7 +249,7 @@
           </div>
      </div>
 
-
+     <?php include "../function/retrieve-employer-check-total-reviews-for-job-search.php" ?>
      <?php require "../common/footer-inside-folder.php"; ?>
      <?php require "../common/message-session.php"; ?>
      <script src="../js/remove-url-session.js"></script>

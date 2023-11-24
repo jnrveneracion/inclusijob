@@ -48,7 +48,7 @@
                               <button id="smaller-font" title="smaller font">A -</button>
                               <button id="larger-font" title="smaller font">A +</button>
                               <button id="speak-texts" title="speak texts">Read Screen</button>
-                              <!-- <button id="high contrast" title="high contrast">High contrast</button> -->
+                              <button id="high contrast" title="high contrast">High contrast</button>
                          </div>
                     </div>
                </div>

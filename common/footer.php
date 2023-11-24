@@ -36,10 +36,19 @@
                <a href="#" class="col-6 d-flex justify-content-start"><img src="images/box.png" width="40" alt="" class=" m-1"></a>
           </div>
      </div>
-     <div class="footer-bottom-section text-center bg-primary text-white rounded-2 p-1">BSIT 3-2 CURIOSO | LAT | MOZOL |
-          VENERACION 2023</div>
+     <div class="footer-bottom-section text-center bg-primary text-white rounded-2 p-1">© <span id="current-year"></span> InclusiJob. All rights reserved.
+     <p class="mb-0" style="font-size: 9px; letter-spacing: 3px;">BSIT 4-2 CURIOSO | LAT | MOZOL | VENERACION</p>
+     </div> 
 </div>
 <div id="google_translate_element"></div>
+
+<script>
+    // Get the current year
+    var currentYear = new Date().getFullYear();
+
+    // Set the current year in the span element
+    document.getElementById('current-year').innerText = currentYear;
+</script>
 
 <script>
      function redirectToJobSeekerPage() {

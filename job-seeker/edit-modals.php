@@ -401,7 +401,7 @@
                                                   );
 
                                                   foreach ($months as $index => $month) {
-                                                       echo "<option value='" . ($index + 1) . "'>$month</option>";
+                                                       echo "<option value='" . $month . "'>$month</option>";
                                                   }
                                              ?>
                                         </select>
