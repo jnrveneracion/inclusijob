@@ -24,5 +24,23 @@
       <h1>Spanish Content</h1>
       <p>Este es un párrafo de ejemplo que será traducido.</p>
       <p translate="yes">Este es otro párrafo que será traducido.</p>
+
+      <span id="abc-1">Content from ID abc-1</span>
+      <span class="abc-1">Content from Class abc-1</span>
+    
+      <script>
+        // Get the element with ID abc-1
+        var idElement = document.getElementById('abc-1');
+    
+        // Get the element with class abc-1
+        var classElement = document.querySelector('.abc-1');
+    
+        // Check if both elements exist
+        if (idElement && classElement) {
+          // Update the HTML content of the element with class abc-1
+          classElement.innerHTML = idElement.innerHTML;
+        }
+      </script>
   </body>
 </html>
+
