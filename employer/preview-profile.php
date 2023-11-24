@@ -14,7 +14,6 @@
      <title>InclusiJob | Preview Profile</title>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
      <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
-     <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
      <link rel="stylesheet" href="../css/index-style.css">
      <link rel="stylesheet" href="../css/signup-style.css">
@@ -192,7 +191,7 @@
                bottom: -8px;
                right: -17px;
                border-radius: 100%;
-               border: 3px solid;
+               border: 3px solid color(srgb 0.1498 0.5312 0.9672);
                padding: 10px 13px;
           }
 
@@ -444,7 +443,7 @@
                               <div class="col-12 col-lg-6 row">
                                    <div class="col-6 justify-content-center d-flex">
                                         <div>
-                                             <div class="s-progress s-progress__circular fc-blue-400 position-relative" style="--s-progress-value: <?= $percentageSalaryReviewSVGValue ?>; width: 100px; height: 100px; margin: 0 auto;">
+                                             <div class="position-relative" style="width: 100px; height: 100px; margin: 0 auto; fill: white; stroke: color(srgb 0.1303 0.5184 0.9668); stroke-width: 2px;">
                                                   <svg style="width: 100px;" class="s-progress-bar" role="progressbar" viewbox="0 0 32 32" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
                                                        <circle cx="16" cy="16" r="14" ></circle>
                                                        <circle cx="16" cy="16" r="14"></circle>
@@ -456,14 +455,14 @@
                                                        <?= $percentageSalaryReviewSVG ?>%
                                                   </span>
                                              </div>
-                                             <div class="mt-3 ms-2 me-2 text-center fs-5">
+                                             <div class="mt-3 ms-2 me-2 text-center fs-6">
                                                   <span><strong><?= $percentageSalaryReviewSVG ?>%</strong> rate salary as <?= $averageSalaryReview ?>.</span>
                                              </div>
                                         </div>
                                    </div>
                                    <div class="col-6">
                                         <div>
-                                             <div class="s-progress s-progress__circular fc-blue-400 position-relative" style="--s-progress-value: <?= $percentageRecommendReviewValue ?>; width: 100px; height: 100px; margin: 0 auto;">
+                                             <div class="position-relative" style="width: 100px; height: 100px; margin: 0 auto; fill: white; stroke: color(srgb 0.1303 0.5184 0.9668); stroke-width: 2px;">
                                                   <svg style="width: 100px;" class="s-progress-bar" role="progressbar" viewbox="0 0 32 32" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
                                                        <circle cx="16" cy="16" r="14" ></circle>
                                                        <circle cx="16" cy="16" r="14"></circle>
@@ -475,7 +474,7 @@
                                                        <?= $percentageRecommendReview ?>%
                                                   </span>
                                              </div>
-                                             <div class="mt-3 ms-2 me-2 text-center fs-5">
+                                             <div class="mt-3 ms-2 me-2 text-center fs-6">
                                                   <span><strong><?= $percentageRecommendReview ?>%</strong> employees <?= $averageRecommendReview ?> this employer to friends.</span>
                                              </div>
                                         </div>
@@ -575,7 +574,7 @@
                                         </div>
                                         <div class="input-group mb-3">
                                              <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Email:</span>
-                                             <input type="text" class="form-control" aria-label="contact_persons_contact_no" id="contact_persons_contact_no" name="email" aria-describedby="basic-addon1" value="<?= "$email" ?>">
+                                             <input type="text" class="form-control" aria-label="contact_persons_contact_no" id="contact_persons_contact_no" name="email" aria-describedby="basic-addon1" value="<?= "$company_email" ?>">
                                              <div class="invalid-feedback">Please enter company email.</div>
                                         </div>
                                         <p class="form-head-txt">Links</p>

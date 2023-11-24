@@ -71,7 +71,7 @@ if ($stmt === false) {
                                         </p>
                                    </div>
                                    <div class="tooltip-container">
-                                        <button class="remove-btn-style" type="button" data-bs-toggle="tooltip" data-tooltip-target="12">
+                                        <button class="remove-btn-style p-0" type="button" data-bs-toggle="tooltip" data-tooltip-target="12">
                                              <svg xmlns="http://www.w3.org/2000/svg" class="ms-2" height="1.5em" viewBox="0 0 512 512" style="fill:#2184f7; height: 20px;">
                                                   <!-- Font Awesome icon path -->
                                                   <path d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM135 241c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l87 87 87-87c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 345c-9.4 9.4-24.6 9.4-33.9 0L135 241z"/>
@@ -190,13 +190,13 @@ if ($stmt === false) {
                                         </script>
                                    </div>
                               </div>
-                              <h3>' . $row['job_title'] . '</h3>
+                              <h3 class="mb-0 pt-1 pb-1">' . $row['job_title'] . '</h3>
                               <div style="min-height: 150px; height: 150px; overflow: scroll;">
+                                   <p class="mb-2" style="font-weight: 577; letter-spacing: .5px;">' . $row['experience'] . '</p>
                                    <h6>The good things</h6>
-                                   <p>' . $row['good_things'] . '</p>
+                                   <p class="mb-1">' . $row['good_things'] . '</p>
                                    <h6>The challenges</h6>
-                                   <p>' . $row['challenges'] . '</p>
-                                   <p class="mt-2">' . $row['experience'] . '</p>
+                                   <p class="mb-1">' . $row['challenges'] . '</p>
                               </div>
                          </div>
                     </div>
