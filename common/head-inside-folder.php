@@ -29,6 +29,9 @@
                     } elseif (isset($_SESSION['company_ID'])) {
                          echo ", $company_name!";
                          echo "<form method='POST' action='../function/logout-employer.php'><button class='logout-btn' type='submit' name='logout-company' id='log-out-btn' value='Logout-Company'>Logout</button></form>";
+                    } elseif (isset($_SESSION['admin_ID'])) {
+                         echo ", Admin!";
+                         echo "<form method='POST' action='../function/logout-admin.php'><button class='logout-btn' type='submit' name='logout-admin' id='log-out-btn' value='Logout-Admin'>Logout</button></form>";
                     } else {
                          echo "!";
                     }

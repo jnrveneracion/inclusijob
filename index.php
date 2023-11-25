@@ -23,44 +23,8 @@
      <link rel="stylesheet" href="css/index-style.css">
      <?php include "function/accessibility-translate.php" ?>
      <style>
-          .job-listing-graph-head {
-               background-color: color(srgb 0.9729 0.9766 0.9799);
-               /* background-color: rgba(230, 230, 230, 0.23); */
-               padding: 4px 15px;
-               border-radius: 5px;
-               color: black;
-               border: 2px solid color(srgb 0.1303 0.5184 0.9668);
-          }
-
           .analytics-label {
-               padding: 4px 15px;
-               border-radius: 5px;
-               color: black;
-               width: fit-content;
-               /* background-color: rgba(230, 230, 230, 0.34); */
-               border: 2px solid color(srgb 0.1303 0.5184 0.9668);
-          }
-
-          .total-value {
-               font-size: 90px;
-               color: color(srgb 0.1303 0.5184 0.9668);
-          }
-
-          .fit-content {
-               width: fit-content;
-          }
-
-          .bg-light {
-               box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-          }
-
-          .list {
-               font-size: 18px; 
-               color: black; 
-               /* border-bottom: 3px solid color(srgb 0.1303 0.5184 0.9668); */
-               /* text-align: center; */
-               width: fit-content;
-               letter-spacing: 1.5px;
+               font-size: 20px !important;
           }
      </style>
 </head>
@@ -86,7 +50,7 @@
                </div>
                <div class="col-12 col-md-auto d-flex align-items-center justify-content-center">
                     <span class="home-span speakable-text">or</span>
-                    <span id="home-button-bottom-span-b" class="home-span changeable-font-size">Login as Admin</span>
+                    <span id="home-button-bottom-span-b" class="home-span changeable-font-size" onclick="window.location = 'admin-login.php'">Login as Admin</span>
                     <span id="home-button-bottom-span" class="home-span changeable-font-size">How to use?</span>
                </div>
                <div class="col-12 col-md-auto d-flex justify-content-center justify-content-lg-start position-relative">

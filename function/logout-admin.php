@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (isset($_POST['logout-company'])) {
+if (isset($_POST['logout-admin'])) {
     // Database connection
     $conn = mysqli_connect("localhost", "root", "", "inclusijob_db");
 
@@ -23,7 +23,7 @@ if (isset($_POST['logout-company'])) {
     session_destroy();
 
     // Redirect to login.php
-    header("Location: ../employer/employer-login.php");
+    header("Location: ../admin-login.php");
     exit();
 }
 ?>

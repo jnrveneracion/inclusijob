@@ -28,7 +28,7 @@ if (mysqli_num_rows($result) > 0) {
      mysqli_close($conn);
 
      // Display the chart using Chart.js
-     echo "<div style='padding: 20px;'>";
+     echo "<div style='padding: 20px;' id='line-chart'>";
      echo "<canvas id='job-listing-chart'></canvas>";
      echo "<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>";
      echo "<script>";
