@@ -1,7 +1,7 @@
 <?php
      session_start();
      include "../session-check/admin-not-set.php";
-     // include "../function/retrieve-employer-signup.php";  
+     include "../function/retrieve-admin-total.php";  
 ?>
 
 <!DOCTYPE html>
@@ -46,8 +46,8 @@
                background-color: color(srgb 0.1277 0.5183 0.9668);
           }
 
-          #search-btn:hover, #apply-btn:hover {
-               filter: brightness(.9);
+          #search-btn:hover, #apply-btn:hover, .chart-btns:hover {
+               filter: brightness(.9) !important;
           }
 
           .search-input {
@@ -167,50 +167,141 @@
                font-size: 13px;
                color: gray;
           }
+
+          .w-100.btn.btn-primary.rounded-1.m-2 {
+               letter-spacing: 1px;
+               border: 2px solid color(srgb 0.3969 0.6045 0.945);
+               background-color: transparent;
+               color: color(srgb 0.1461 0.3959 0.8068);
+          }
+
+          .totals-div {
+               padding: 20px;
+               height: 200px;
+               display: flex;
+               align-items: center;
+               border-radius: 7px;
+               width: 227px;
+               margin: 20px;
+               background: linear-gradient(206deg, rgba(33, 132, 247, 0.61), rgba(1, 30, 72, 0.71)), url("../images/bg-1.jpg") center center no-repeat;
+               background-size: cover;
+               box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+               color: white;
+          }
+
+          #password:hover {
+               cursor: pointer;
+          }
      </style>
 </head>
 <body class="container-xxl">
      <?php include "../common/head-inside-folder.php"; ?>
      <div class="breadcrumbs">
-          <div class="page-indicator d-flex justify-content-center justify-content-lg-start">
+          <div class="ms-3 ms-lg-5 page-indicator d-flex justify-content-lg-start">
                <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active">Admin Dashboard</h6></a> 
           </div>
      </div>
-     <div class="d-flex justify-content-center mt-1 w-100">
-          <div class="w-100">
-               <div class="d-flex">
-                    <div class="div-border align-items-center align-items-end w-100"  style="min-height: 600px;">
+     <div class="d-flex justify-content-center mt-1 w-100 row ms-0 me-0">
+          <div class="col-12 col-lg-10">
+               <div class="div-border row pt-3 pb-3" style="min-height: auto;">
+                    <div class="col-12 row">
+                         <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                              <div class="totals-div">
+                                   <div class="text-center">
+                                       <h1><?= $total_jobseeker ?></h1>
+                                       <h6>Total Number of Job Seeker</h6> 
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                              <div class="totals-div">
+                                   <div class="text-center">
+                                        <h1><?= $total_employer ?></h1>
+                                       <h6>Total Number of Employer</h6> 
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                              <div class="totals-div">
+                                   <div class="text-center">
+                                        <h1><?= $total_joblisting ?></h1>
+                                       <h6>Total Number of Job Posting</h6> 
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center row">
+                         <div class=" col-12 col-lg-4">
+                              <button type="button" class="chart-btns w-100 btn btn-primary rounded-1 m-2" data-toggle="modal" data-target="#totalApplicantsModal">
+                                   Total Applicants by Job Title
+                              </button>
+                         </div>
+                         <div class=" col-12 col-lg-4">
+                              <button type="button" class="chart-btns w-100 btn btn-primary rounded-1 m-2" data-toggle="modal" data-target="#applicationstatusModal">
+                                   Total Job Application by Status
+                              </button>
+                         </div>
+                         <div class=" col-12 col-lg-4">
+                              <button type="button" class="chart-btns w-100 btn btn-primary rounded-1 m-2" data-toggle="modal" data-target="#trashedStatusModal">
+                                   Company Listing Status
+                              </button>
+                         </div>
+                    </div>
+               </div>
+               <div class="d-flex align-items-start justify-content-center">
+                    <div class="div-border align-items-center justify-content-center w-100"  style="min-height: 600px;">
                          <div class="mt-2">
                               <div class="mt-2 p-0">
                                    <ul class="nav nav-tabs" id="applicantTabs" role="tablist">
                                         <li class="nav-item">
-                                             <a class="nav-link active" id="unprocessed-tab" data-toggle="tab" href="#unprocessed" role="tab" aria-controls="unprocessed" aria-selected="false">Password Reset Request</a>
+                                             <a class="nav-link active" id="unprocessed-tab" data-toggle="tab" href="#unprocessed" role="tab" aria-controls="unprocessed" aria-selected="false">Job Seeker Password Reset</a>
                                         </li>
                                         <li class="nav-item">
-                                             <a class="nav-link" id="under-review-tab" data-toggle="tab" href="#under-review" role="tab" aria-controls="under-review" aria-selected="false">Account Deletion Request</a>
+                                             <a class="nav-link" id="under-review-tab" data-toggle="tab" href="#under-review" role="tab" aria-controls="under-review" aria-selected="false">Employer Password Reset</a>
                                         </li>
                                         <li class="nav-item">
-                                             <a class="nav-link" id="shortlisted-tab" data-toggle="tab" href="#shortlisted" role="tab" aria-controls="shortlisted" aria-selected="false">Manage Job Posting</a>
+                                             <a class="nav-link" id="shortlisted-tab" data-toggle="tab" href="#shortlisted" role="tab" aria-controls="shortlisted" aria-selected="false">Job Seeker Account Deletion</a>
                                         </li>
                                         <li class="nav-item">
-                                             <a class="nav-link" id="interview-tab" data-toggle="tab" href="#interview" role="tab" aria-controls="interview" aria-selected="false">dfsdf</a>
-                                        </li>
-                                        <li class="nav-item">
-                                             <a class="nav-link" id="hired-tab" data-toggle="tab" href="#hired" role="tab" aria-controls="hired" aria-selected="false">Hired</a>
-                                        </li>
-                                        <li class="nav-item">
-                                             <a class="nav-link" id="not-suitable-tab" data-toggle="tab" href="#not-suitable" role="tab" aria-controls="not-suitable" aria-selected="false">Not Suitable</a>
-                                        </li>
-                                        <li class="nav-item">
-                                             <a class="nav-link" id="withdrawn-tab" data-toggle="tab" href="#withdrawn" role="tab" aria-controls="withdrawn" aria-selected="false">Withdrawn</a>
+                                             <a class="nav-link" id="interview-tab" data-toggle="tab" href="#interview" role="tab" aria-controls="interview" aria-selected="false">Employer Account Deletion</a>
                                         </li>
                                    </ul>
                                    <div class="tab-content" id="applicantTabsContent">
                                         <div class="tab-pane fade active show fadeInUp" id="unprocessed" role="tabpanel" aria-labelledby="unprocessed-tab">
-                                             j
+                                             <div class="container mt-4" style="min-width: 300px; max-width: auto; overflow: scroll;">
+                                                  <table class="table table-bordered" style="font-size: 13px; text-align: center; vertical-align: middle;">
+                                                       <thead>
+                                                            <tr>
+                                                                 <th>Request ID</th>
+                                                                 <th>User Email</th>
+                                                                 <th>Date Requested</th>
+                                                                 <th>Action</th>
+                                                                 <th>Recovery Password</th>
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody>
+                                                            <?php include "../function/retrieve-job-seeker-pass-reset.php" ?>
+                                                       </tbody>
+                                                  </table>
+                                             </div>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="under-review" role="tabpanel" aria-labelledby="under-review-tab">
-                                             ja
+                                             <div class="container mt-4" style="min-width: 300px; max-width: auto; overflow: scroll;">
+                                                  <table class="table table-bordered" style="font-size: 13px; text-align: center; vertical-align: middle;">
+                                                       <thead>
+                                                            <tr>
+                                                                 <th>Request ID</th>
+                                                                 <th>User Email</th>
+                                                                 <th>Date Requested</th>
+                                                                 <th>Action</th>
+                                                                 <th>Recovery Password</th>
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody>
+                                                            <?php include "../function/retrieve-employer-pass-reset.php" ?>
+                                                       </tbody>
+                                                  </table>
+                                             </div>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="shortlisted" role="tabpanel" aria-labelledby="shortlisted-tab">
                                              jdtofrench
@@ -218,18 +309,57 @@
                                         <div class="tab-pane fade fadeInUp" id="interview" role="tabpanel" aria-labelledby="interview-tab">
                                              jad
                                         </div>
-                                        <div class="tab-pane fade fadeInUp" id="hired" role="tabpanel" aria-labelledby="hired-tab">
-                                             jddf
-                                        </div>
-                                        <div class="tab-pane fade fadeInUp" id="not-suitable" role="tabpanel" aria-labelledby="not-suitable-tab">
-                                             jasa
-                                        </div>
-                                        <div class="tab-pane fade fadeInUp" id="withdrawn" role="tabpanel" aria-labelledby="withdrawn-tab">
-                                             jsa
-                                        </div>
                                    </div>
                               </div>   
                          </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <!-- Modal -->
+     <div class="modal fade" id="trashedStatusModal" tabindex="-1" role="dialog" aria-labelledby="trashedStatusModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+               <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" id="trashedStatusModalLabel">Company Listing Status</h5>
+                    </div>
+                    <div class="modal-body">
+                         <?php include "../charts/trashed-status-chart.php" ?>
+                    </div>
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <!-- Modal -->
+     <div class="modal fade" id="totalApplicantsModal" tabindex="-1" role="dialog" aria-labelledby="trashedStatusModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+               <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" id="trashedStatusModalLabel">Total Applicants by Job Title</h5>
+                    </div>
+                    <div class="modal-body">
+                         <?php include "../charts/hiring-percentage-chart.php" ?>
+                    </div>
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <!-- Modal -->
+     <div class="modal fade" id="applicationstatusModal" tabindex="-1" role="dialog" aria-labelledby="trashedStatusModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+               <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" id="trashedStatusModalLabel">Total Job Application by Status</h5>
+                    </div>
+                    <div class="modal-body">
+                         <?php include "../charts/job-applicants-chart.php" ?>
+                    </div>
+                    <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                </div>
           </div>
@@ -241,9 +371,101 @@
      <?php include "../common/footer-inside-folder.php"; ?>
      <?php include "../common/message-session.php"; ?>
      <?php include "../common/remove-url-session.php"; ?>
-     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+          $(document).ready(function() {
+               // Add event listener to the "Update Password" buttons
+               $('.btn-update-password').click(function() {
+                    var request_password_id = $(this).data('request-password-id');
+                    var jobseeker_ID = $(this).data('job-seeker-id'); // Update the attribute name here
+                    var updatePassword = confirm("Are you sure you want to update the password?");
+
+                    if (updatePassword) {
+                         // Perform AJAX request to update the password
+                         $.post('../function/set-recovery-password.php', { updatePassword: true, request_password_id: request_password_id, jobseeker_ID: jobseeker_ID }, function(response) {
+                              alert(response); // Display the response from the server
+                              location.reload(); // Reload the page after updating the password
+                         });
+                    }
+               });
+          });
+     </script>
+         <script>
+          $(document).ready(function() {
+               // Add event listener to the "Update Password" buttons
+               $('.btn-update-password-employer').click(function() {
+                    var request_password_id = $(this).data('request-password-id');
+                    var company_ID = $(this).data('employer-id'); // Update the attribute name here
+                    var updatePassword = confirm("Are you sure you want to update the password?");
+
+                    alert(company_ID);
+                    if (updatePassword) {
+                         // Perform AJAX request to update the password
+                         $.post('../function/set-recovery-password-employer.php', { updatePassword: true, request_password_id: request_password_id, company_ID: company_ID }, function(response) {
+                              alert(response); // Display the response from the server
+                              location.reload(); // Reload the page after updating the password
+                         });
+                    }
+               });
+          });
+     </script>
+<script>
+     // Add event listeners for hover effect
+     var passwordCells = document.querySelectorAll('.password-cell');
+     passwordCells.forEach(function(cell) {
+          cell.addEventListener('click', togglePassword);
+     });
+
+     var copyButtons = document.querySelectorAll('.btn-copy-password');
+     copyButtons.forEach(function(button) {
+          button.addEventListener('click', copyToClipboard);
+     });
+     
+     var svgCopy = '<svg style="top: 31%; right: 12px;" class="position-absolute btn-copy-password" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z"/></svg>';
+
+     function togglePassword(event) {
+          var passwordCell = event.target;
+          var password = passwordCell.dataset.password;
+          passwordCell.textContent = passwordCell.textContent === password ? strRepeat('*', password.length) : password;
+     }
+
+     function strRepeat(str, num) {
+          return new Array(num + 1).join(str);
+     }
+
+     function copyToClipboard(event) {
+    var button = event.target;
+    var parentElement = button.parentElement;
+    console.log("Parent Element:", parentElement);
+
+    var passwordCell = parentElement.querySelector('.password-cell');
+    console.log("Password Cell:", passwordCell);
+
+    if (passwordCell) {
+        var password = passwordCell.dataset.password;
+
+        // Create a temporary text area to copy the text
+        var textArea = document.createElement("textarea");
+        textArea.value = password;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("Copy");
+        document.body.removeChild(textArea);
+
+        // Provide feedback to the user (you can customize this part)
+        alert("Password copied to clipboard!");
+    } else {
+        alert("Error: Password cell not found");
+    }
+}
+
+
+</script>
+
 
      <script>
           // Example starter JavaScript for disabling form submissions if there are invalid fields

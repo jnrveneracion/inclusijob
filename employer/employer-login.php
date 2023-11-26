@@ -271,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         </p>
                                         <input placeholder="email" class="login-input" type="email" name="email" id="username" required>
                                         <input placeholder="password" class="login-input" type="password" name="password" id="password" required>
-                                        <a href="job-seeker-signup.php" class="text-center login-footer" style="font-size: 13px; text-decoration: none; font-weight: 500; letter-spacing: 1px;"><span class="">Forgot password?</span></a>
+                                        <a href="../request-reset-password-employer.php" class="text-center login-footer" style="font-size: 13px; text-decoration: none; font-weight: 500; letter-spacing: 1px;"><span class="">Forgot password?</span></a>
                                         <button type="submit" class="login-btn">LOGIN</button>
                                    </form>
                                    <hr>

@@ -155,28 +155,28 @@
           
      </style>
      <script>
- function applyStarColor(selector) {
-  const fillStarDivs = document.querySelectorAll(selector);
+     function applyStarColor(selector) {
+          const fillStarDivs = document.querySelectorAll(selector);
 
-  fillStarDivs.forEach(fillStarDiv => {
-    const stars = fillStarDiv.querySelectorAll('svg');
+          fillStarDivs.forEach(fillStarDiv => {
+          const stars = fillStarDiv.querySelectorAll('svg');
 
-    stars.forEach((star, index) => {
-      // Get the rating from the count-star attribute
-      const rating = parseFloat(star.parentElement.getAttribute('count-star'));
+          stars.forEach((star, index) => {
+               // Get the rating from the count-star attribute
+               const rating = parseFloat(star.parentElement.getAttribute('count-star'));
 
-      if (index < Math.floor(rating)) {
-        star.style.fill = "#fff567"; // Whole star color
-      } else if (index === Math.floor(rating) && rating % 1 !== 0) {
-        const decimalPart = rating % 1;
-        const gradientColor = `rgba(255, 245, 103, ${decimalPart})`; // Gradient color based on decimal part
-        star.style.fill = gradientColor;
-      } else {
-        star.style.fill = "rgba(214, 214, 214, 0.53)"; // Inactive star color
-      }
-    });
-  });
-}
+               if (index < Math.floor(rating)) {
+               star.style.fill = "#fff567"; // Whole star color
+               } else if (index === Math.floor(rating) && rating % 1 !== 0) {
+               const decimalPart = rating % 1;
+               const gradientColor = `rgba(255, 245, 103, ${decimalPart})`; // Gradient color based on decimal part
+               star.style.fill = gradientColor;
+               } else {
+               star.style.fill = "rgba(214, 214, 214, 0.53)"; // Inactive star color
+               }
+          });
+          });
+     }
      </script>
 </head>
 <body class="container-xxl">
