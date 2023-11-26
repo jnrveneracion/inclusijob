@@ -149,34 +149,40 @@
           }
 
           .sort-by:hover {
+               color: color(srgb 0.5097 0.5098 0.5098);
+          }
+
+          .sort-by {
+               float: right; 
+               font-size: 13px; 
                color: white !important;
                background-color: color(srgb 0.1277 0.5183 0.9668) !important;
           }
           
      </style>
      <script>
- function applyStarColor(selector) {
-  const fillStarDivs = document.querySelectorAll(selector);
+          function applyStarColor(selector) {
+               const fillStarDivs = document.querySelectorAll(selector);
 
-  fillStarDivs.forEach(fillStarDiv => {
-    const stars = fillStarDiv.querySelectorAll('svg');
+               fillStarDivs.forEach(fillStarDiv => {
+               const stars = fillStarDiv.querySelectorAll('svg');
 
-    stars.forEach((star, index) => {
-      // Get the rating from the count-star attribute
-      const rating = parseFloat(star.parentElement.getAttribute('count-star'));
+               stars.forEach((star, index) => {
+                    // Get the rating from the count-star attribute
+                    const rating = parseFloat(star.parentElement.getAttribute('count-star'));
 
-      if (index < Math.floor(rating)) {
-        star.style.fill = "#fff567"; // Whole star color
-      } else if (index === Math.floor(rating) && rating % 1 !== 0) {
-        const decimalPart = rating % 1;
-        const gradientColor = `rgba(255, 245, 103, ${decimalPart})`; // Gradient color based on decimal part
-        star.style.fill = gradientColor;
-      } else {
-        star.style.fill = "rgba(214, 214, 214, 0.53)"; // Inactive star color
-      }
-    });
-  });
-}
+                    if (index < Math.floor(rating)) {
+                    star.style.fill = "#fff567"; // Whole star color
+                    } else if (index === Math.floor(rating) && rating % 1 !== 0) {
+                    const decimalPart = rating % 1;
+                    const gradientColor = `rgba(255, 245, 103, ${decimalPart})`; // Gradient color based on decimal part
+                    star.style.fill = gradientColor;
+                    } else {
+                    star.style.fill = "rgba(214, 214, 214, 0.53)"; // Inactive star color
+                    }
+               });
+               });
+          }
      </script>
 </head>
 <body class="container-xxl">
@@ -230,8 +236,8 @@
                                              <option value="14">Last 14 days</option>
                                              <option value="30">Last 30 days</option>
                                         </select>
-                                        <span onclick="window.location = 'recommended-jobs.php'" type="button" class="sort-by badge border border-secondary fw-normal" style="float: right; font-size: 13px; color: color(srgb 0.5097 0.5098 0.5098);"> 
-                                        Sort by Recommendation
+                                        <span onclick="window.location = 'job-search.php'" type="button" class="sort-by badge border border-secondary fw-normal"> 
+                                        Sorted by Recommendation
                                         </span>
                                    </div>
                               </div>
@@ -245,7 +251,7 @@
                          <!-- First Column (List) -->
                          <div class="col-lg-4 ps-1 pe-1" style="padding-top: 10px;" id="first-column">
                               <div class="list-group fadeInUp" id="item-list" role="tablist">
-                                   <?php include "../function/retrieve-job-listing.php" ?>
+                                   <?php include "../function/retrieve-job-listing-recommended.php" ?>
                               <!-- </div> -->
                          <!-- </div> -->
 

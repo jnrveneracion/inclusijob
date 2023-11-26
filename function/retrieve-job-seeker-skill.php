@@ -38,10 +38,6 @@ if ($stmt === false) {
           echo "Error: " . mysqli_error($conn);
      }
 
-     ?>
-
-     <?php
-
      // Close the prepared statement
      mysqli_stmt_close($stmt);
 }
