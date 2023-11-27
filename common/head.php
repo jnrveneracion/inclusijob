@@ -5,6 +5,15 @@
      }
 ?>
 
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+     new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,tl,ceb,ilo,hil,war', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  }
+</script>
+<div id="google_translate_element" class="d-none"></div>
+
+
 <div class="top-menu row">
      <div class="logo-section col-12 col-lg-6 text-center text-lg-start">
           <a href="#"><img src="images/inclusijob-head-logo.png" width="500" alt="" srcset="" id="head-logo"></a>
@@ -27,10 +36,16 @@
                               <button id="smaller-font" title="smaller font">A -</button>
                               <button id="larger-font" title="smaller font">A +</button>
                               <button id="speak-texts" title="speak texts">Read Screen</button>
-                              <button id="translate" title="translate">Translate</button>
+                              <button id="translate" title="translate" onclick="toggleTranslate()">Translate</button>
                          </div>
                     </div>
                </div>
           </div>
      </div>
 </div>
+<script>
+    function toggleTranslate() {
+        var translateDiv = document.getElementById("google_translate_element");
+        translateDiv.classList.toggle("d-none");
+    }
+</script>

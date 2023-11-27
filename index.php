@@ -49,8 +49,8 @@
                     <button class="home-button speakable-text" id="employee" title="Naghahanap ng trabaho" translate="no" onclick="window.location = 'job-seeker/job-seeker-login.php'">Job Seeker</button>
                </div>
                <div class="col-12 col-md-auto d-flex align-items-center justify-content-center">
-                    <span class="home-span speakable-text">or</span>
-                    <span id="home-button-bottom-span-b" class="home-span changeable-font-size" onclick="window.location = 'admin-login.php'">Login as Admin</span>
+                    <span class="home-span speakable-text" translate="no">or</span>
+                    <span id="home-button-bottom-span-b" class="home-span changeable-font-size" onclick="window.location = 'admin-login.php'" translate="no">Login as Admin</span>
                     <span id="home-button-bottom-span" class="home-span changeable-font-size">How to use?</span>
                </div>
                <div class="col-12 col-md-auto d-flex justify-content-center justify-content-lg-start position-relative">

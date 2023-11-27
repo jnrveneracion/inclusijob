@@ -136,6 +136,15 @@
                                              <div class="invalid-feedback">Please enter a password.</div>
                                         </div>
                                    </div>
+                                   <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
+                                        <label class="form-check-label" for="invalidCheck3">
+                                        I hereby confirm that I read and agree with the <a href="../privacy-policy-and-terms.php" class="text-underline">Privacy Policy and Terms</a>.
+                                        </label>
+                                        <div id="invalidCheck3Feedback" class="invalid-feedback">
+                                        You must agree before submitting.
+                                        </div>
+                                   </div>
                               </div>
                          </div>
                          <div class="mt-0 mb-3 ms-1 me-0 d-flex justify-content-end">
