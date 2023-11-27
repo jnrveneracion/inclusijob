@@ -252,15 +252,15 @@
                     <div class="div-border align-items-center justify-content-center w-100"  style="min-height: 600px;">
                          <div class="mt-2">
                               <div class="mt-2 p-0">
-                                   <ul class="nav nav-tabs" id="applicantTabs" role="tablist">
+                                   <ul class="nav nav-tabs d-flex justify-content-center" id="applicantTabs" role="tablist">
                                         <li class="nav-item">
                                              <a class="nav-link active" id="unprocessed-tab" data-toggle="tab" href="#unprocessed" role="tab" aria-controls="unprocessed" aria-selected="false">Job Seeker Password Reset</a>
                                         </li>
                                         <li class="nav-item">
-                                             <a class="nav-link" id="under-review-tab" data-toggle="tab" href="#under-review" role="tab" aria-controls="under-review" aria-selected="false">Employer Password Reset</a>
+                                             <a class="nav-link" id="shortlisted-tab" data-toggle="tab" href="#shortlisted" role="tab" aria-controls="shortlisted" aria-selected="false">Job Seeker Account Deletion</a>
                                         </li>
                                         <li class="nav-item">
-                                             <a class="nav-link" id="shortlisted-tab" data-toggle="tab" href="#shortlisted" role="tab" aria-controls="shortlisted" aria-selected="false">Job Seeker Account Deletion</a>
+                                             <a class="nav-link" id="under-review-tab" data-toggle="tab" href="#under-review" role="tab" aria-controls="under-review" aria-selected="false">Employer Password Reset</a>
                                         </li>
                                         <li class="nav-item">
                                              <a class="nav-link" id="interview-tab" data-toggle="tab" href="#interview" role="tab" aria-controls="interview" aria-selected="false">Employer Account Deletion</a>
@@ -304,10 +304,38 @@
                                              </div>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="shortlisted" role="tabpanel" aria-labelledby="shortlisted-tab">
-                                             jdtofrench
+                                             <div class="container mt-4" style="min-width: 300px; max-width: auto; overflow: scroll;">
+                                                  <table class="table table-bordered" style="font-size: 13px; text-align: center; vertical-align: middle;">
+                                                       <thead>
+                                                            <tr>
+                                                                 <th>Request ID</th>
+                                                                 <th>User Email</th>
+                                                                 <th>Date Requested</th>
+                                                                 <th>Action</th>
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody>
+                                                            <?php include "../function/retrieve-job-seeker-account-del.php" ?>
+                                                       </tbody>
+                                                  </table>
+                                             </div>
                                         </div>
                                         <div class="tab-pane fade fadeInUp" id="interview" role="tabpanel" aria-labelledby="interview-tab">
-                                             jad
+                                             <div class="container mt-4" style="min-width: 300px; max-width: auto; overflow: scroll;">
+                                                  <table class="table table-bordered" style="font-size: 13px; text-align: center; vertical-align: middle;">
+                                                       <thead>
+                                                            <tr>
+                                                                 <th>Request ID</th>
+                                                                 <th>User Email</th>
+                                                                 <th>Date Requested</th>
+                                                                 <th>Action</th>
+                                                            </tr>
+                                                       </thead>
+                                                       <tbody>
+                                                            <?php include "../function/retrieve-employer-account-del.php" ?>
+                                                       </tbody>
+                                                  </table>
+                                             </div>
                                         </div>
                                    </div>
                               </div>   
@@ -316,6 +344,7 @@
                </div>
           </div>
      </div>
+
      <!-- Modal -->
      <div class="modal fade" id="trashedStatusModal" tabindex="-1" role="dialog" aria-labelledby="trashedStatusModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
@@ -394,7 +423,7 @@
                });
           });
      </script>
-         <script>
+     <script>
           $(document).ready(function() {
                // Add event listener to the "Update Password" buttons
                $('.btn-update-password-employer').click(function() {
@@ -406,6 +435,42 @@
                     if (updatePassword) {
                          // Perform AJAX request to update the password
                          $.post('../function/set-recovery-password-employer.php', { updatePassword: true, request_password_id: request_password_id, company_ID: company_ID }, function(response) {
+                              alert(response); // Display the response from the server
+                              location.reload(); // Reload the page after updating the password
+                         });
+                    }
+               });
+          });
+     </script>
+     <script>
+          $(document).ready(function() {
+               // Add event listener to the "Update Password" buttons
+               $('.btn-delete-company-data').click(function() {
+                    var request_deletion_id = $(this).data('request-deletion-id');
+                    var company_ID = $(this).data('employer-id'); // Update the attribute name here
+                    var deleteUser = confirm("Are you sure you want to delete the data of this user?");
+
+                    if (deleteUser) {
+                         // Perform AJAX request to update the password
+                         $.post('../function/delete-employer-data.php', { deleteUser: true, request_deletion_id: request_deletion_id, company_ID: company_ID }, function(response) {
+                              alert(response); // Display the response from the server
+                              location.reload(); // Reload the page after updating the password
+                         });
+                    }
+               });
+          });
+     </script>
+     <script>
+          $(document).ready(function() {
+               // Add event listener to the "Update Password" buttons
+               $('.btn-delete-job-seeker-data').click(function() {
+                    var request_deletion_id = $(this).data('request-deletion-id');
+                    var jobseeker_ID = $(this).data('job-seeker-id'); // Update the attribute name here
+                    var deleteUser = confirm("Are you sure you want to delete the data of this user?");
+
+                    if (deleteUser) {
+                         // Perform AJAX request to update the password
+                         $.post('../function/delete-job-seeker-data.php', { deleteUser: true, request_deletion_id: request_deletion_id, jobseeker_ID: jobseeker_ID }, function(response) {
                               alert(response); // Display the response from the server
                               location.reload(); // Reload the page after updating the password
                          });
@@ -438,30 +503,30 @@
      }
 
      function copyToClipboard(event) {
-    var button = event.target;
-    var parentElement = button.parentElement;
-    console.log("Parent Element:", parentElement);
+          var button = event.target;
+          var parentElement = button.parentElement;
+          console.log("Parent Element:", parentElement);
 
-    var passwordCell = parentElement.querySelector('.password-cell');
-    console.log("Password Cell:", passwordCell);
+          var passwordCell = parentElement.querySelector('.password-cell');
+          console.log("Password Cell:", passwordCell);
 
-    if (passwordCell) {
-        var password = passwordCell.dataset.password;
+          if (passwordCell) {
+               var password = passwordCell.dataset.password;
 
-        // Create a temporary text area to copy the text
-        var textArea = document.createElement("textarea");
-        textArea.value = password;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand("Copy");
-        document.body.removeChild(textArea);
+               // Create a temporary text area to copy the text
+               var textArea = document.createElement("textarea");
+               textArea.value = password;
+               document.body.appendChild(textArea);
+               textArea.select();
+               document.execCommand("Copy");
+               document.body.removeChild(textArea);
 
-        // Provide feedback to the user (you can customize this part)
-        alert("Password copied to clipboard!");
-    } else {
-        alert("Error: Password cell not found");
-    }
-}
+               // Provide feedback to the user (you can customize this part)
+               alert("Password copied to clipboard!");
+          } else {
+               alert("Error: Password cell not found");
+          }
+     }
 
 
 </script>
@@ -489,7 +554,7 @@
           })()
      </script>
 
-     <script>
+<script>
           document.addEventListener("DOMContentLoaded", function () {
                const navTabs = document.querySelectorAll(".nav-link");
                const tabContents = document.querySelectorAll(".tab-pane");
@@ -528,6 +593,32 @@
 
                // Initial activation from URL
                activateTabFromUrl();
+
+               // Add click event listeners to the tabs
+               navTabs.forEach((tab) => {
+                    tab.addEventListener("click", function (event) {
+                    event.preventDefault();
+
+                    const tabId = tab.getAttribute("href").substring(1);
+                    const jobId = document.getElementById('job-id').value;
+
+                    updateUrl(tabId+"&j="+jobId+getmessage);
+
+                    // Activate the clicked tab and deactivate others
+                    navTabs.forEach((t) => {
+                         t.classList.remove("active");
+                    });
+                    tabContents.forEach((content) => {
+                         content.classList.remove("show", "active");
+                    });
+
+                    tab.classList.add("active");
+                    const content = document.getElementById(tabId);
+                    if (content) {
+                         content.classList.add("show", "active");
+                    }
+                    });
+               });
 
                // Handle browser back/forward navigation
                window.addEventListener("popstate", function (event) {

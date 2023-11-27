@@ -103,6 +103,15 @@
                margin: 5px 0px;
           }
 
+          #btn-outline-c {
+               background-color: rgba(226, 25, 25, 0.95);
+               color: rgb(255, 255, 255);
+               border: 2px solid rgb(143, 0, 0);
+               border-radius: 10px;
+               padding: 5px 40px;
+               margin: 5px 0px;
+          }
+
           #btn-solid {
                background-color: rgb(122, 122, 122);
                color: white;
@@ -117,7 +126,7 @@
                border: 2px solid black;
           }
 
-          #btn-outline-a:hover, #btn-solid:hover {
+          #btn-outline-a:hover, #btn-solid:hover, #btn-outline-c:hover {
                filter: brightness(.9);
           }
 
@@ -268,10 +277,15 @@
                <div id="login-details-section">
                     <p class="fs-5 head-text mt-4">Login</p>
                     <div class="info-body row">
-                         <div class="col-12 d-flex align-items-center justify-content-between">
-                              <p class="info-section mb-0"><span class="info-label">Password: </span><input disabled style="border: none; background-color: transparent;" class="info-data" type="password" value="this is just a sample"></input></p>      
-                              <div class="d-flex justify-content-end">
-                                   <button id="btn-outline-b" class="open-password-modal btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-login" aria-controls="offcanvasExample">Edit</button>
+                         <div class="col-12 d-flex align-items-center justify-content-between row">
+                              <p class="info-section mb-0 col-12 col-lg-6"><span class="info-label">Password: </span><input disabled style="border: none; background-color: transparent;" class="info-data" type="password" value="this is just a sample"></input></p>      
+                              <div class="d-flex col-12 col-lg-6 justify-content-end">
+                                   <div class="d-flex justify-content-end">
+                                        <button id="btn-outline-b" class="open-password-modal btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-login" aria-controls="offcanvasExample">Edit</button>
+                                   </div>
+                                   <div class="d-flex justify-content-end ms-4 p-0">
+                                        <button type="button" id="btn-outline-c" class="btn btn-warning btn-request-deletion" data-job-seeker-id="<?= $jobseeker_ID ?>" data-job-seeker-email="<?= $email ?>">Account Deletion Request</button>
+                                   </div>
                               </div>
                          </div>
                     </div>
@@ -288,6 +302,25 @@
      <?php require "data-list.php"; ?>
      <script src="../js/remove-url-session.js"></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+     <script>
+     $(document).ready(function() {
+          // Add event listener to the "Request Deletion" buttons
+          $('.btn-request-deletion').click(function() {
+               var jobseeker_ID = $(this).data('job-seeker-id');
+               var jobseeker_email = $(this).data('job-seeker-email');
+               var confirmDeletion = confirm("Are you sure you want to request account deletion? This can't be undone.");
+
+               if (confirmDeletion) {
+                    // Perform AJAX request to request account deletion
+                    $.post('../function/save-job-seeker-account-deletion-request.php', { requestDeletion: true, jobseeker_ID: jobseeker_ID,  jobseeker_email: jobseeker_email}, function(response) {
+                         alert(response); // Display the response from the server
+                         location.reload(); // Reload the page after processing the request
+                    });
+               }
+          });
+     });
+     </script>
 
      <!-- show update password modal -->
      <script>
