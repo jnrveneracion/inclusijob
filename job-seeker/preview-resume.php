@@ -96,7 +96,7 @@
                background-color: color(srgb 0.1277 0.5183 0.9668);
           }
 
-          .export-btn:hover {
+          .export-btn:hover, .import-btn:hover {
                filter: brightness(.9);
           }
 
@@ -121,12 +121,17 @@
           </div>
      </div>
 
-     <div class="mb-2 row">
-     <div class="col-12 col-lg-10 mt-4 mt-lg-0 d-flex justify-content-end">
-          <button id="print" class="export-btn me-3">Print</button>
+     <div class="mb-2 row position-relative">
+          <div class="col-12 col-lg-10 mt-4 mt-lg-0 d-flex justify-content-end">
+               <button id="print" class="export-btn me-3">Print</button>
+          </div>
+       
      </div>
-     </div>
-     <div class="d-flex justify-content-center align-items-start mt-3 mb-3">
+
+     <div class="d-flex justify-content-center align-items-start mt-3 mb-3 position-relative">
+          <div class="text-center position-absolute" style="top: -16px;">
+               <span style="color: gray; font-size: 11px;">The content within this generated resume has been derived from the information you provided in the preview profile.</span>
+          </div>
           <div class="w-75 overflow-scroll mt-1 mb-1 pt-2 pb-5">
                <div id="resume-div" class="bg-white">
                     <div class="resume-head d-flex justify-content-start align-items-center">

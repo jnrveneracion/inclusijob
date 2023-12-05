@@ -4,6 +4,7 @@
      include "../function/retrieve-job-seeker-signup.php";
      include "../function/retrieve-job-seeker-image.php";
      include "../function/update-job-seeker-infos.php";
+     include "../function/retrieve-job-seeker-resume-file.php";
 ?>
 
 <!DOCTYPE html>
@@ -188,8 +189,8 @@
                          </label>
                          </div>
                     </div>
-                    <div class="col-7 col-lg-9 d-flex align-items-center position-relative pb-lg-0 pb-5">
-                         <div>
+                    <div class="col-7 col-lg-9 d-flex align-items-center position-relative pb-lg-0">
+                         <div class="w-100">
                               <div class="fs-2"><?= "$firstname $middlename $lastname" ?></div>
                               <div class="">
                                    <svg style="fill: white; opacity: 1;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="15" height="15"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"/></svg></svg>
@@ -203,11 +204,13 @@
                                    <svg style="fill: white; opacity: 1;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve" focusable="false" fill="currentColor" width="16" height="16" class="_1uznlpf0 _1uvwke522 _1m9vd2q56 _1m9vd2q5e _1n6dj3h0 _1n6dj3h2 _1n6dj3h3 _1n6dj3h4" aria-hidden="true"><path d="M22 6.8C21.9 5.2 20.6 4 19 4H5C3.4 4 2.1 5.2 2 6.8V17c0 1.7 1.3 3 3 3h14c1.7 0 3-1.3 3-3V6.8zM5 6h14c.4 0 .7.2.9.5L12 11.8 4.1 6.5c.2-.3.5-.5.9-.5zm14 12H5c-.6 0-1-.4-1-1V8.9l7.4 5c.2.1.4.2.6.2s.4-.1.6-.2l7.4-5V17c0 .6-.4 1-1 1z"></path></svg>
                                    <a href="mailto:<?= "$email" ?>" class="text-white"><?= "$email" ?></a>
                               </div>
-                              <div>
-                                   <span class="d-inline-block position-absolute" style="right: 0; top: 76%;">
-                                        <button id="btn-outline-a" type="button" onclick="window.location = 'preview-resume.php'">View Resume</button>
+                              <div class="w-100 text-start text-lg-end">
+                                   <span class="d-inline-block" style="right: 0; top: 76%;">
+                                        <button id="btn-outline-a" class="me-2 <?= $uploadResumeTrue ?>" type="button" data-toggle="modal" data-target="#uploadModal">Upload Your Resume</button>
+                                        <button id="btn-outline-a" class="text-start <?= $uploadResumeTrue ?>" type="button" onclick="window.location = 'preview-resume.php'">View Generated Resume</button>
                                    </span>
                               </div>
+                              
                          </div>
                     </div>
                </div>
@@ -236,42 +239,58 @@
                          </div>
                     </div>
                </div>
-               <div id="objectives-section">
-                    <p class="fs-5 head-text mt-4">Personal Summary</p>
+               <div id="resume-section" class="<?= $showResumeTrue ?>">
+                    <p class="fs-5 head-text mt-4">Uploaded Resume</p>
                     <div class="info-body me-lg-0 me-0 ms-lg-0 ms-0 row">
                          <div class="col-12">
-                              <p class="info-section"><span class="info-data"><?= isset($jobseeker_objectives) ? $jobseeker_objectives : 'click edit to add personal summary.' ?></span></p>
+                              <div>
+                                   <?= $uploadedResume ?>
+                              </div>
                               <div class="d-flex justify-content-end">
-                                   <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-objectives" aria-controls="offcanvasExample">Edit</button>
+                                   <button id="btn-outline-b" class="btn btn-primary btn-delete-resume" type="button">Delete</button>
                               </div>
                          </div>
                     </div>
                </div>
-               <div id="education-section">
-                    <div class="d-flex justify-content-start align-items-center">
-                    <p class="fs-5 head-text mt-4">Education</p>
-                         <button id="btn-solid" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#add-education" aria-controls="offcanvasExample">Add</button>
+
+               <div class="<?= $uploadResumeTrue ?>">
+                    <div id="objectives-section">
+                         <p class="fs-5 head-text mt-4">Personal Summary</p>
+                         <div class="info-body me-lg-0 me-0 ms-lg-0 ms-0 row">
+                              <div class="col-12">
+                                   <p class="info-section"><span class="info-data"><?= isset($jobseeker_objectives) ? $jobseeker_objectives : 'click edit to add personal summary.' ?></span></p>
+                                   <div class="d-flex justify-content-end">
+                                        <button id="btn-outline-b" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#edit-objectives" aria-controls="offcanvasExample">Edit</button>
+                                   </div>
+                              </div>
+                         </div>
                     </div>
-                    <div class="row">
-                         <?php include "../function/retrieve-job-seeker-education.php" ?>
+                    <div id="education-section">
+                         <div class="d-flex justify-content-start align-items-center">
+                         <p class="fs-5 head-text mt-4">Education</p>
+                              <button id="btn-solid" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#add-education" aria-controls="offcanvasExample">Add</button>
+                         </div>
+                         <div class="row">
+                              <?php include "../function/retrieve-job-seeker-education.php" ?>
+                         </div>
                     </div>
-               </div>
-               <div id="skills-section">
-                    <div class="d-flex justify-content-start align-items-center">
-                    <p class="fs-5 head-text mt-4">Skills</p>
-                         <button id="btn-solid" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#add-skill" aria-controls="offcanvasExample">Add</button>
+                    <div id="skills-section">
+                         <div class="d-flex justify-content-start align-items-center">
+                         <p class="fs-5 head-text mt-4">Skills</p>
+                              <button id="btn-solid" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#add-skill" aria-controls="offcanvasExample">Add</button>
+                         </div>
+                         <div class="row">
+                              <?php include "../function/retrieve-job-seeker-skill.php" ?>
+                         </div>
                     </div>
-                    <div class="row">
-                         <?php include "../function/retrieve-job-seeker-skill.php" ?>
-                    </div>
-               </div>
-               <div id="career-history-section">
-                    <div class="d-flex justify-content-start align-items-center">
-                    <p class="fs-5 head-text mt-4">Career History</p>
-                         <button id="btn-solid" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#add-career" aria-controls="offcanvasExample">Add</button>
-                    </div>
-                    <div class="row">
-                         <?php include "../function/retrieve-job-seeker-career-history.php" ?>
+                    <div id="career-history-section">
+                         <div class="d-flex justify-content-start align-items-center">
+                         <p class="fs-5 head-text mt-4">Career History</p>
+                              <button id="btn-solid" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#add-career" aria-controls="offcanvasExample">Add</button>
+                         </div>
+                         <div class="row">
+                              <?php include "../function/retrieve-job-seeker-career-history.php" ?>
+                         </div>
                     </div>
                </div>
                <div id="login-details-section">
@@ -295,7 +314,37 @@
 
      <!-- offcanvas forms -->
      <?php include "edit-modals.php" ?>
-     <!--  -->
+
+     <!-- Upload Modal -->
+     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+               <div class="modal-content">
+                    <div class="modal-header">
+                         <h5 class="modal-title" id="uploadModalLabel">Upload Resume</h5>
+                    </div>
+                    <form id="uploadForm" method="post" action="../function/save-job-seeker-resume-file.php" enctype="multipart/form-data">
+                         <div class="modal-body">
+                              <input type="hidden" name="jobseeker_id" value="<?= $jobseeker_ID ?>">
+                              <div class="input-group mb-3">
+                                   <input type="file" class="form-control" id="resumeFile" name="file" accept=".pdf, .jpeg, .jpg" aria-describedby="inputGroupFileAddon" required>
+                              </div>
+                              <div class="alert alert-info" role="alert">
+                                   Please upload your resume in PDF or JPEG/JPG format. Once uploaded, your <strong>generated resume will be disabled</strong>, and the uploaded resume will be the version seen by employers when you apply for a job.
+                              </div>
+                         </div>
+                         <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Upload</button>
+                         </div>
+                    </form>
+               </div>
+          </div>
+     </div>
+
+     <!-- Include Bootstrap JS (Popper.js and jQuery are required dependencies) -->
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
      
      <?php require "../common/footer-inside-folder.php"; ?>
      <?php require "../common/message-session.php"; ?>
@@ -304,22 +353,39 @@
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
      <script>
-     $(document).ready(function() {
-          // Add event listener to the "Request Deletion" buttons
-          $('.btn-request-deletion').click(function() {
-               var jobseeker_ID = $(this).data('job-seeker-id');
-               var jobseeker_email = $(this).data('job-seeker-email');
-               var confirmDeletion = confirm("Are you sure you want to request account deletion? This can't be undone.");
+          $(document).ready(function() {
+               // Add event listener to the "Request Deletion" buttons
+               $('.btn-delete-resume').click(function() {
+                    var confirmDeletion = confirm("Are you sure you want to delete your uploaded resume? This can't be undone.");
 
-               if (confirmDeletion) {
-                    // Perform AJAX request to request account deletion
-                    $.post('../function/save-job-seeker-account-deletion-request.php', { requestDeletion: true, jobseeker_ID: jobseeker_ID,  jobseeker_email: jobseeker_email}, function(response) {
-                         alert(response); // Display the response from the server
-                         location.reload(); // Reload the page after processing the request
-                    });
-               }
+                    if (confirmDeletion) {
+                         // Perform AJAX request to request account deletion
+                         $.post('../function/delete-job-seeker-resume.php', { requestDeletion: true}, function(response) {
+                              alert(response); // Display the response from the server
+                              location.reload(); // Reload the page after processing the request
+                         });
+                    }
+               });
           });
-     });
+     </script>
+
+     <script>
+          $(document).ready(function() {
+               // Add event listener to the "Request Deletion" buttons
+               $('.btn-request-deletion').click(function() {
+                    var jobseeker_ID = $(this).data('job-seeker-id');
+                    var jobseeker_email = $(this).data('job-seeker-email');
+                    var confirmDeletion = confirm("Are you sure you want to request account deletion? This can't be undone.");
+
+                    if (confirmDeletion) {
+                         // Perform AJAX request to request account deletion
+                         $.post('../function/save-job-seeker-account-deletion-request.php', { requestDeletion: true, jobseeker_ID: jobseeker_ID,  jobseeker_email: jobseeker_email}, function(response) {
+                              alert(response); // Display the response from the server
+                              location.reload(); // Reload the page after processing the request
+                         });
+                    }
+               });
+          });
      </script>
 
      <!-- show update password modal -->

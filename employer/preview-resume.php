@@ -5,6 +5,7 @@
      include "../function/retrieve-job-seeker-signup.php";
      include "../function/retrieve-job-seeker-image.php";
      include "../function/retrieve-job-listing-review-application.php";  
+     include "../function/retrieve-job-seeker-resume-file-employer.php";
 ?>
 
 <!DOCTYPE html>
@@ -123,88 +124,90 @@
                <a href="#" class="no-decor-link"><h6 class="page-indicator-txt active"><?= "$lastname" ?> Preview Resume</h6></a> 
           </div>
      </div>
-
-     <div class="mb-2 mt-3 row">
-          <div class="col-12 col-lg-10 mt-4 mt-lg-0 d-flex justify-content-end">
-               <button id="print" class="export-btn me-3">Print</button>
+     
+     <div id="" class="">
+          <div class="mb-2 mt-3 row <?= $uploadResumeTrue ?>">
+               <div class="col-12 col-lg-10 mt-4 mt-lg-0 d-flex justify-content-end">
+                    <button id="print" class="export-btn me-3">Print</button>
+               </div>
           </div>
-     </div>
-     <div class="d-flex justify-content-center align-items-start mt-3 mb-3">
-          <div class="w-75 overflow-scroll mt-1 mb-1 pt-2 pb-5">
-               <div id="resume-div" class="bg-white">
-                    <div class="resume-head d-flex justify-content-start align-items-center">
-                         <label for="image-upload" class="circle-image me-3">
-                              <img id="profile-img" src="<?= isset($ProfileImageData) ? 'data:image/png;base64,' . $ProfileImageData : '../images/blank-profile.png' ?>" alt="Job Seeker Image">
-                         </label>
-                         <div>
-                              <div class="fs-3" style="letter-spacing: 1px;" id="resume-name"><?= "$firstname $middlename $lastname" ?></div>
-                              <hr class="m-0">
-                              <div class="resume-data">Contact no.: +63<?= "$contact_no" ?></div>
-                              <div class="resume-data">Email: <?= "$email" ?></div>
-                              <div class="resume-data">Address: <?= "$jobseeker_address" ?></div>
-                         </div>
-                    </div>
-                    <div class="resume-bdy row mt-4">
-                         <div class="col-3">
+          <div class="d-flex justify-content-center align-items-start mt-3 mb-3">
+               <div class="w-75 overflow-scroll mt-1 mb-1 pt-2 pb-5">
+                    <?= $uploadedResume ?>
+                    <div id="resume-div" class="bg-white <?= $uploadResumeTrue ?>">
+                         <div class="resume-head d-flex justify-content-start align-items-center">
+                              <label for="image-upload" class="circle-image me-3">
+                                   <img id="profile-img" src="<?= isset($ProfileImageData) ? 'data:image/png;base64,' . $ProfileImageData : '../images/blank-profile.png' ?>" alt="Job Seeker Image">
+                              </label>
                               <div>
-                                   <div class="resume-label">PERSONAL INFORMATION</div>
-                                   <div class="resume-info m-2 mt-1 ms-0 mb-1 d-flex align-items-center">
-                                        <div class="resume-data">
-                                             Age: <?= "$age" ?>
-                                        </div>
-                                   </div>
-                                   <div class="resume-info m-2 mt-1 ms-0 mb-1 d-flex align-items-center">
-                                        <div class="resume-data">
-                                             Birthday: <?= "$birthday" ?>
-                                        </div>
-                                   </div>
-                                   <div class="resume-info m-2 mt-1 ms-0 mb-1 d-flex align-items-center">
-                                        <div class="resume-data">
-                                             Sex: <?= "$sex" ?>
-                                        </div>
-                                   </div>
-                                   <div class="resume-info m-2 mt-0 ms-0 mb-1 d-flex align-items-center">
-                                        <div class="resume-data">
-                                             Civil status: <?= "$civil_status" ?>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div>
-                                   <div class="resume-label mt-4">SKILLS</div>
-                                   <div class="resume-info m-2 mt-0 ms-0 mb-1 d-flex align-items-center">
-                                        <div class="resume-data">
-                                             <ul style="margin-left: -13px;">
-                                                  <?php include "../function/retrieve-job-seeker-skill-resume.php" ?>
-                                             </ul>
-                                        </div>
-                                   </div>
+                                   <div class="fs-3" style="letter-spacing: 1px;" id="resume-name"><?= "$firstname $middlename $lastname" ?></div>
+                                   <hr class="m-0">
+                                   <div class="resume-data">Contact no.: +63<?= "$contact_no" ?></div>
+                                   <div class="resume-data">Email: <?= "$email" ?></div>
+                                   <div class="resume-data">Address: <?= "$jobseeker_address" ?></div>
                               </div>
                          </div>
-                         <div class="col-9">
-                              <div>
-                                   <div class="resume-label">PERSONAL SUMMARY</div>
-                                   <div class="resume-info m-2 mt-0 ms-0 mb-1 d-flex align-items-center">
-                                        <div class="resume-data">
-                                             <?= $jobseeker_objectives ?>
+                         <div class="resume-bdy row mt-4">
+                              <div class="col-3">
+                                   <div>
+                                        <div class="resume-label">PERSONAL INFORMATION</div>
+                                        <div class="resume-info m-2 mt-1 ms-0 mb-1 d-flex align-items-center">
+                                             <div class="resume-data">
+                                                  Age: <?= "$age" ?>
+                                             </div>
                                         </div>
-                                   </div>
-                                   <div class="resume-label mt-2">EDUCATIONAL BACKGROUND</div>
-                                   <div class="resume-info m-2 mt-0 ms-0 mb-1 d-flex align-items-center">
-                                        <div>
-                                             <?php include "../function/retrieve-job-seeker-education-resume.php" ?>
+                                        <div class="resume-info m-2 mt-1 ms-0 mb-1 d-flex align-items-center">
+                                             <div class="resume-data">
+                                                  Birthday: <?= "$birthday" ?>
+                                             </div>
+                                        </div>
+                                        <div class="resume-info m-2 mt-1 ms-0 mb-1 d-flex align-items-center">
+                                             <div class="resume-data">
+                                                  Sex: <?= "$sex" ?>
+                                             </div>
+                                        </div>
+                                        <div class="resume-info m-2 mt-0 ms-0 mb-1 d-flex align-items-center">
+                                             <div class="resume-data">
+                                                  Civil status: <?= "$civil_status" ?>
+                                             </div>
                                         </div>
                                    </div>
                                    <div>
-                                   <div class="resume-label mt-2">CAREER HISTORY</div>
-                                   <div class="resume-info m-2 mt-0 ms-0 mb-1">
-                                             <?php include "../function/retrieve-job-seeker-career-history-resume.php" ?>
+                                        <div class="resume-label mt-4">SKILLS</div>
+                                        <div class="resume-info m-2 mt-0 ms-0 mb-1 d-flex align-items-center">
+                                             <div class="resume-data">
+                                                  <ul style="margin-left: -13px;">
+                                                       <?php include "../function/retrieve-job-seeker-skill-resume.php" ?>
+                                                  </ul>
+                                             </div>
+                                        </div>
                                    </div>
+                              </div>
+                              <div class="col-9">
+                                   <div>
+                                        <div class="resume-label">PERSONAL SUMMARY</div>
+                                        <div class="resume-info m-2 mt-0 ms-0 mb-1 d-flex align-items-center">
+                                             <div class="resume-data">
+                                                  <?= $jobseeker_objectives ?>
+                                             </div>
+                                        </div>
+                                        <div class="resume-label mt-2">EDUCATIONAL BACKGROUND</div>
+                                        <div class="resume-info m-2 mt-0 ms-0 mb-1 d-flex align-items-center">
+                                             <div>
+                                                  <?php include "../function/retrieve-job-seeker-education-resume.php" ?>
+                                             </div>
+                                        </div>
+                                        <div>
+                                        <div class="resume-label mt-2">CAREER HISTORY</div>
+                                        <div class="resume-info m-2 mt-0 ms-0 mb-1">
+                                                  <?php include "../function/retrieve-job-seeker-career-history-resume.php" ?>
+                                        </div>
+                                        </div>
                                    </div>
                               </div>
                          </div>
                     </div>
                </div>
-          </div>
           </div>
      </div>
 

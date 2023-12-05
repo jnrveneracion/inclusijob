@@ -7,7 +7,7 @@
           color: gray !important;
      }
 
-     svg {
+     .footer-links svg {
           fill: color(srgb 0.0618 0.4255 0.9648);
      }
 </style>
