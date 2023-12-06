@@ -488,4 +488,5 @@
     <option value="Tarlac City">
     <option value="Tayabas">
     <option value="Valenzuela">
+     <?php include "../function/retrieve-job-listing-locations.php" ?>
 </datalist>

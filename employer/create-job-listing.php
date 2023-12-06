@@ -58,7 +58,7 @@
                               <div class="col-lg-6 col-12">
                                    <div>
                                         <div class="input-group mb-3">
-                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Location:</span>
+                                             <span class="input-group-text" id="basic-addon1"><span class="req-indicator">*</span>Location (City):</span>
                                              <input type="text" class="form-control" aria-label="location" name="location" list="locations" required>
                                              <div class="invalid-feedback">Please enter job location.</div>
                                         </div>
