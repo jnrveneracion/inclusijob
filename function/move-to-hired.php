@@ -1,10 +1,13 @@
 <?php
+
 // Include your database connection or configuration
 include "../database/conn.php";
 
 // Check if this is a POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      // Retrieve the data from the POST request
+     $js_contact_no = $_POST['js_contact_no'];
+     $js_email = $_POST['js_email'];
      $tab = $_POST['tab'];
      $jobSeekerName = $_POST['jobSeekerName'];
      $jobListingId = $_POST['jobListingId'];
@@ -33,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                // Bind the parameters and execute the second query
                $stmt2->bind_param("ssssiss", $jobSeekerId, $job_title, $company_name, $start_month, $start_year, $still_in_role, $job_description);
                if ($stmt2->execute()) {
+                    include "email-hired-job-seeker.php";
+
                     // Redirect to the desired page after successful update
                     header("Location: ../employer/job-application-review.php?tab=" . $tab . "&j=" . $jobListingId . "&message=You%20have%20successfully%20moved%20" . $jobSeekerName . "%20to%20hired");
                     exit();

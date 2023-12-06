@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Send SMS using Twilio
         $twilioSid = 'ACc4ce56b6345ac73c2f6e9b18ff14dc43';
-        $twilioToken = '1ba6ce0622b390296f960c60a75fd347';
+        $twilioToken = 'd98181fe46198a92e166ebe6f8ab1b1c';
         $twilioNumber = '+15153932108';
         $visitorNumber = '+639451398458'; // Format the number with the country code
 

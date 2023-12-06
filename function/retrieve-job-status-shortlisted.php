@@ -27,6 +27,8 @@ $query = "WITH LongestEducation AS (
                JSSI.firstname AS fName,
                JSSI.middlename AS mName,
                JSSI.lastname AS lName,
+               JSSI.contact_no AS js_contact_no,
+               JSSI.email AS js_email,
                JSEI.institution_name AS institution,
                JSEI.school_degree AS degree,
                JSEI.field_of_study AS field,
@@ -120,6 +122,8 @@ if ($stmt === false) {
                                              <li>
                                                   <form id="move-under-review-form" action="../function/move-to-hired.php" method="POST">
                                                        <input type="hidden" name="tab" value="shortlisted"> 
+                                                       <input type="hidden" name="js_contact_no" value="' . $row['js_contact_no'] . '">
+                                                       <input type="hidden" name="js_email" value="' . $row['js_email'] . '">
                                                        <input type="hidden" name="jobSeekerName" value="' . $row['fName'] . '">
                                                        <input type="hidden" name="employerId" value="' . $row['compID'] . '">
                                                        <input type="hidden" name="jobSeekerId" value="' . $row['JSI'] . '">
