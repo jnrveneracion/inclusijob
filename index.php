@@ -50,8 +50,9 @@
                </div>
                <div class="col-12 col-md-auto d-flex align-items-center justify-content-center">
                     <span class="home-span speakable-text" translate="no">or</span>
-                    <span id="home-button-bottom-span-b" class="home-span changeable-font-size" onclick="window.location = 'admin-login.php'" translate="no">Login as Admin</span>
-                    <span id="home-button-bottom-span" class="home-span changeable-font-size">How to use?</span>
+                    <span id="home-button-bottom-span-b" class="home-span changeable-font-size" onclick="window.location = 'admin-login.php'" translate="no" type="button">Login as Admin</span>
+                    <span id="home-button-bottom-span" class="home-span changeable-font-size" onclick="window.open('manual/manual.pdf', '_blank')" type="button">How to use?</span>
+
                </div>
                <div class="col-12 col-md-auto d-flex justify-content-center justify-content-lg-start position-relative">
                     <button class="home-button speakable-text" id="employer" title="Empleyador" translate="yes" onclick="window.location = 'employer/employer-login.php'">Employer</button>   
