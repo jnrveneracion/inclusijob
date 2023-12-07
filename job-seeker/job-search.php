@@ -230,6 +230,11 @@
                                              <option value="14">Last 14 days</option>
                                              <option value="30">Last 30 days</option>
                                         </select>
+                                        <label class="select-no-style-head " for="filter-location">Job Location:</label>
+                                        <select class="select-no-style" id="filter-location">
+                                             <option value="">Select location</option>
+                                             <?php include"../function/retrieve-job-listing-locations-for-search.php" ?>
+                                        </select>
                                         <span onclick="window.location = 'recommended-jobs.php'" type="button" class="sort-by badge border border-secondary fw-normal" style="float: right; font-size: 13px; color: color(srgb 0.5097 0.5098 0.5098);"> 
                                         Sort by Recommendation
                                         </span>
@@ -420,80 +425,152 @@
 
      <script>
           const selectElement = document.getElementById('filter-job-type');
+          const selectElementLocation = document.getElementById('filter-location');
           const jobListingItems = document.querySelectorAll('.job-listing-item');
           const searchInput = document.getElementById('search-input');
           const searchbtn = document.getElementById('search-btn');
           const selectElementDate = document.getElementById('filter-listed-date');
-          countItemsPerColumn();
-          
-          selectElement.addEventListener('change', function() {
-          const selectedValue = selectElement.value;
-               jobListingItems.forEach(item => {
-                    if (selectedValue === "" || item.textContent.toLowerCase().includes(selectedValue.toLowerCase())) {
-                         item.style.display = "block";
-                         item.classList.add('fadeInUp');
-                    } else {
-                         item.style.display = "none";
-                    }
-               });
 
-               addActiveClassToFirstVisibleItem();
-               countItemsPerColumn();
-          });
-
-          searchbtn.addEventListener('click', function() {
-               const inputValue = searchInput.value.toLowerCase();
-
-               jobListingItems.forEach(item => {
-                    const itemText = item.textContent.toLowerCase();
-                    if (inputValue === "" || itemText.includes(inputValue)) {
-                         item.style.display = "block";
-                         item.classList.add('fadeInUp');
-                    } else {
-                         item.style.display = "none";
-                    }
-               });
-               addActiveClassToFirstVisibleItem();
-               countItemsPerColumn();
-          });
-
-          // Add an event listener for the "Enter" key
-          searchInput.addEventListener('keypress', function(event) {
-               if (event.key === 'Enter') {
-                    const inputValue = searchInput.value.toLowerCase();
-
-                    jobListingItems.forEach(item => {
-                         const itemText = item.textContent.toLowerCase();
-                         if (inputValue === "" || itemText.includes(inputValue)) {
-                              item.style.display = "block";
-                              item.classList.add('fadeInUp');
-                         } else {
-                              item.style.display = "none";
-                         }
-                    });
-                    addActiveClassToFirstVisibleItem();
-                    countItemsPerColumn();
+          function filterJobListings(filterFunction) {
+          jobListingItems.forEach(item => {
+               const itemText = item.textContent.toLowerCase();
+               const filterValue = filterFunction();
+               
+               if (filterValue === "" || itemText.includes(filterValue.toLowerCase())) {
+                    item.style.display = "block";
+                    item.classList.add('fadeInUp');
+               } else {
+                    item.style.display = "none";
                }
           });
-  
-          selectElementDate.addEventListener('change', function() {
-               const selectedValue = selectElementDate.value; // Remove parseInt, as values are strings
-               const currentDate = new Date();
 
-               jobListingItems.forEach(item => {
-                    const itemDate = new Date(item.getAttribute('date-posted'));
-                    const daysDifference = Math.ceil((currentDate - itemDate) / (1000 * 60 * 60 * 24));
+          addActiveClassToFirstVisibleItem();
+          countItemsPerColumn();
+          }
 
-                    if (selectedValue === "Anytime" || (selectedValue === "0" && daysDifference === 0) || (selectedValue === "3" && daysDifference <= 3) || (selectedValue === "7" && daysDifference <= 7) || (selectedValue === "14" && daysDifference <= 14) || (selectedValue === "30" && daysDifference <= 30)) {
-                         item.style.display = "block";
-                         item.classList.add('fadeInUp');
-                    } else {
-                         item.style.display = "none";
-                    }
-               });
-               addActiveClassToFirstVisibleItem();
-               countItemsPerColumn();
+          selectElement.addEventListener('change', function () {
+          filterJobListings(() => selectElement.value);
           });
+
+          selectElementLocation.addEventListener('change', function () {
+          filterJobListings(() => selectElementLocation.value);
+          });
+
+          searchbtn.addEventListener('click', function () {
+          filterJobListings(() => searchInput.value);
+          });
+
+          searchInput.addEventListener('keypress', function (event) {
+          if (event.key === 'Enter') {
+               filterJobListings(() => searchInput.value);
+          }
+          });
+
+          selectElementDate.addEventListener('change', function () {
+          filterJobListings(() => {
+               const selectedValue = selectElementDate.value;
+               const currentDate = new Date();
+               const itemDate = new Date(item.getAttribute('date-posted'));
+               const daysDifference = Math.ceil((currentDate - itemDate) / (1000 * 60 * 60 * 24));
+
+               return (selectedValue === "Anytime" || (selectedValue === "0" && daysDifference === 0) || (selectedValue === "3" && daysDifference <= 3) || (selectedValue === "7" && daysDifference <= 7) || (selectedValue === "14" && daysDifference <= 14) || (selectedValue === "30" && daysDifference <= 30))
+                    ? itemText
+                    : "";
+          });
+          });
+
+          // const selectElement = document.getElementById('filter-job-type');
+          // const selectElementLocation = document.getElementById('filter-location');
+          // const jobListingItems = document.querySelectorAll('.job-listing-item');
+          // const searchInput = document.getElementById('search-input');
+          // const searchbtn = document.getElementById('search-btn');
+          // const selectElementDate = document.getElementById('filter-listed-date');
+          // countItemsPerColumn();
+          
+          // selectElement.addEventListener('change', function() {
+          // const selectedValue = selectElement.value;
+          //      jobListingItems.forEach(item => {
+          //           if (selectedValue === "" || item.textContent.toLowerCase().includes(selectedValue.toLowerCase())) {
+          //                item.style.display = "block";
+          //                item.classList.add('fadeInUp');
+          //           } else {
+          //                item.style.display = "none";
+          //           }
+          //      });
+
+          //      addActiveClassToFirstVisibleItem();
+          //      countItemsPerColumn();
+          // });
+
+                    
+          // selectElementLocation.addEventListener('change', function() {
+          // const selectedValue = selectElementLocation.value;
+          //      jobListingItems.forEach(item => {
+          //           if (selectedValue === "" || item.textContent.toLowerCase().includes(selectedValue.toLowerCase())) {
+          //                item.style.display = "block";
+          //                item.classList.add('fadeInUp');
+          //           } else {
+          //                item.style.display = "none";
+          //           }
+          //      });
+
+          //      addActiveClassToFirstVisibleItem();
+          //      countItemsPerColumn();
+          // });
+
+          // searchbtn.addEventListener('click', function() {
+          //      const inputValue = searchInput.value.toLowerCase();
+
+          //      jobListingItems.forEach(item => {
+          //           const itemText = item.textContent.toLowerCase();
+          //           if (inputValue === "" || itemText.includes(inputValue)) {
+          //                item.style.display = "block";
+          //                item.classList.add('fadeInUp');
+          //           } else {
+          //                item.style.display = "none";
+          //           }
+          //      });
+          //      addActiveClassToFirstVisibleItem();
+          //      countItemsPerColumn();
+          // });
+
+          // // Add an event listener for the "Enter" key
+          // searchInput.addEventListener('keypress', function(event) {
+          //      if (event.key === 'Enter') {
+          //           const inputValue = searchInput.value.toLowerCase();
+
+          //           jobListingItems.forEach(item => {
+          //                const itemText = item.textContent.toLowerCase();
+          //                if (inputValue === "" || itemText.includes(inputValue)) {
+          //                     item.style.display = "block";
+          //                     item.classList.add('fadeInUp');
+          //                } else {
+          //                     item.style.display = "none";
+          //                }
+          //           });
+          //           addActiveClassToFirstVisibleItem();
+          //           countItemsPerColumn();
+          //      }
+          // });
+  
+          // selectElementDate.addEventListener('change', function() {
+          //      const selectedValue = selectElementDate.value; // Remove parseInt, as values are strings
+          //      const currentDate = new Date();
+
+          //      jobListingItems.forEach(item => {
+          //           const itemDate = new Date(item.getAttribute('date-posted'));
+          //           const daysDifference = Math.ceil((currentDate - itemDate) / (1000 * 60 * 60 * 24));
+
+          //           if (selectedValue === "Anytime" || (selectedValue === "0" && daysDifference === 0) || (selectedValue === "3" && daysDifference <= 3) || (selectedValue === "7" && daysDifference <= 7) || (selectedValue === "14" && daysDifference <= 14) || (selectedValue === "30" && daysDifference <= 30)) {
+          //                item.style.display = "block";
+          //                item.classList.add('fadeInUp');
+          //           } else {
+          //                item.style.display = "none";
+          //           }
+          //      });
+          //      addActiveClassToFirstVisibleItem();
+          //      countItemsPerColumn();
+          // });
 
 
           function addActiveClassToFirstVisibleItem() {
