@@ -16,7 +16,7 @@
 
 <div class="top-menu row">
      <div class="logo-section col-12 col-lg-6 text-center text-lg-start">
-          <a href="#"><img src="images/inclusijob-head-logo.png" width="500" alt="" srcset="" id="head-logo"></a>
+          <a href="#" class="d-flex justify-content-center"><img src="images/inclusijob-head-logo.png" width="90%" alt="" srcset="" id="head-logo"></a>
      </div>
      <div class="menu-section col-12 col-lg-6 d-flex justify-content-center align-items-center justify-content-lg-end">
           <div class="w-75">
